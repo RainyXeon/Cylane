@@ -1,5 +1,7 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const Discord = require('discord.js');
+const { Connectors } = require("shoukaku");
+const { Kazagumo, KazagumoTrack } = require("kazagumo");
 
 class MainClient extends Client {
      constructor() {
@@ -24,10 +26,19 @@ class MainClient extends Client {
     process.on('unhandledRejection', error => console.log(error));
     process.on('uncaughtException', error => console.log(error));
 
+    this.manager = new Kazagumo({
+        defaultSearchEngine: "youtube", 
+        // MAKE SURE YOU HAVE THIS
+        send: (guildId, payload) => {
+            const guild = client.guilds.cache.get(guildId);
+            if (guild) guild.shard.send(payload);
+        }
+    }, new Connectors.DiscordJS(this), this.config.NODES);
+
 	  const client = this;
 
     ["slash"].forEach(x => client[x] = new Collection());
-    ["loadCommand", "loadEvent", "loadDatabase" ].forEach(x => require(`./handlers/${x}`)(client));
+    ["loadCommand", "loadEvent", "loadDatabase", "loadNodeEvents", "loadPlayer"].forEach(x => require(`./handlers/${x}`)(client));
 
 	}
 		connect() {

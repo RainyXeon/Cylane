@@ -23,10 +23,25 @@ module.exports = {
     SPOTIFY_SECRET: process.env.SPOTIFY_SECRET,
 
     NODES: [
-      { 
-        host: process.env.NODE_HOST || "localhost",
-        port: parseInt(process.env.NODE_PORT || "5555"),
-        password: process.env.NODE_PASSWORD || "123456",
-      } 
+      {
+        url: process.env.NODE_URL || 'lavalink-coders.ml:80',
+        name: process.env.NODE_NAME || 'Main',
+        auth: process.env.NODE_AUTH || 'coders',
+        secure: parseBoolean(process.env.NODE_SECURE || 'false'),
+      },
     ],
+}
+
+
+function parseBoolean(value){
+  if (typeof(value) === 'string'){
+      value = value.trim().toLowerCase();
+  }
+  switch(value){
+      case true:
+      case "true":
+          return true;
+      default:
+          return false;
+  }
 }
