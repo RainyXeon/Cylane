@@ -22,6 +22,8 @@ module.exports = {
     SPOTIFY_ID: process.env.SPOTIFY_ID,
     SPOTIFY_SECRET: process.env.SPOTIFY_SECRET,
 
+    DEFAULT: ["yorushika", "yoasobi", "tuyu"],
+
     NODES: [
       {
         url: process.env.NODE_URL || 'lavalink-coders.ml:80',
