@@ -1,10 +1,8 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const ms = require('pretty-ms');
-const GConfig = require("../../plugins/guildConfig.js")
 
 module.exports = {
     name: "play",
-    description: "Play a song from any types.",
+    description: "Play a song from any types",
     options: [
         {
             name: "search",

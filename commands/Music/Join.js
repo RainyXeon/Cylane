@@ -1,6 +1,4 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const ms = require('pretty-ms');
-const GConfig = require("../../plugins/guildConfig.js")
 
 module.exports = {
     name: "join",
@@ -22,7 +20,7 @@ module.exports = {
             deaf: true,
           });
         const embed = new EmbedBuilder()
-          .setDescription(`\`🔊\` | **Joined:** \`${channel.name}\`!`)
+          .setDescription(`\`🔊\` | **Joined:** \`${channel.name}\``)
           .setColor(client.color)
 
         msg.edit({ content: " ", embeds: [embed] });

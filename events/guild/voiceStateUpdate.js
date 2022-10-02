@@ -33,7 +33,7 @@ module.exports = async (client, oldState, newState) => {
 				const newPlayer = client.manager?.players.get(newState.guild.id)
 				newPlayer ? player.destroy() : oldState.guild.members.me.voice.channel.leave();
 				const TimeoutEmbed = new EmbedBuilder()
-					.setDescription(`Disconnected from <#${vcRoom}> because I was left alone ;(`);
+					.setDescription(`**Disconnected from <#${vcRoom}> because I was left alone ;(**`);
 				try {
 		            if (leaveEmbed) leaveEmbed.send({ embeds: [TimeoutEmbed] });
 		        } catch (error) {

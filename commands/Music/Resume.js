@@ -1,8 +1,8 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
-    name: "leave",
-    description: "Let bot leave the voice channel",
+    name: "resume",
+    description: "Let bot resume the song",
     run: async (interaction, client) => {
         await interaction.deferReply({ ephemeral: false });
         const { channel } = interaction.member.voice;
@@ -14,9 +14,9 @@ module.exports = {
         if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.Flags.Connect)) return msg.edit(`I don't have \`CONNECT\` permissions to run this command!`);
         if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.Flags.Speak)) return msg.edit(`I don't have \`SPEAK\` permissions to execute this command!`);
 
-        await player.destroy()
+        await player.pause(false)
         const embed = new EmbedBuilder()
-          .setDescription(`\`🔊\` | **Left:** \`${channel.name}\``)
+          .setDescription(`\`🔊\` | **Resumed:** \`${channel.name}\``)
           .setColor(client.color)
 
         msg.edit({ content: " ", embeds: [embed] });
