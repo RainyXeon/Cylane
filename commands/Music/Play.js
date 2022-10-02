@@ -34,7 +34,7 @@ module.exports = {
                 const tracks = result.tracks;
         
                 if (!result.tracks.length) return msg.edit({ content: 'No result was found' });
-                if (result.type === 'PLAYLIST') for (let track of tracks) player.play(track);
+                if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track);
                 else player.play(tracks[0]);
         
                 if (result.type === 'PLAYLIST'){
