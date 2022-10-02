@@ -8,6 +8,6 @@ module.exports = {
 	 * @param {*} track 
 	 */
 	run: async (client, player, track) => {
-		logger.info(`Player Started in @ ${player.guild}`);
+		logger.info(`Player Started in @ ${player.guildId}`);
 	}
 };
