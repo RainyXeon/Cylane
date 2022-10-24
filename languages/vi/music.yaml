@@ -1,0 +1,189 @@
+### 247 command!
+247_loading: "Đang xủ lý vui lòng đợi..."
+247_off: "`🌙` | *Chế độ 24/7 đã bị: * `Đã vô hiệu hóa`"
+247_on: "`🌕` | *Chế độ 24/7 đã được: * `Kích hoạt`"
+
+### Autoplay command!
+autoplay_loading: "Đang xủ lý vui lòng đợi..."
+autoplay_off: "`📻` | **Tự động phát đã bị: ** `Đã vô hiệu hóa`"
+autoplay_on: "`📻` | **Tự động phát đã được: ** `Đã kích hoạt`"
+
+### Clearqueue command!
+clearqueue_loading: "Đang xủ lý vui lòng đợi..."
+clearqueue_msg: "`📛` | **Hàng chờ nhạc đã được: ** `Đã xóa`"
+
+### Forward command!
+forward_loading: "Đang xủ lý vui lòng đợi..."
+forward_msg: "`⏭` | **Chuyển tiếp đến: ** `% {time}`"
+forward_beyond: "Không thể chuyển tiếp quá thời lượng của bài hát."
+forward_invalid: "Đối số không hợp lệ, phải là một số.\nCách sử dụng đúng: `%{prefix} chuyển tiếp <seconds>`"
+
+### Join command!
+join_loading: "Đang xủ lý vui lòng đợi..."
+join_voice: "Bạn cần ở trong một kênh thoại để sử dụng lệnh tham gia."
+join_msg: "`🔊` | **Đã tham gia:** `%{channel}`"
+
+### Leave command!
+leave_loading: "Đang xủ lý vui lòng đợi..."
+leave_msg: "`🚫` | **Đã rời:** | `%{channel}`"
+
+### Loop command!
+loop_loading: "Đang xủ lý vui lòng đợi..."
+loop_current: "`🔁` | ** Bài hát đang lặp ở chế độ: ** ` Bài hiện tại`"
+unloop_current: "`🔁` | **Bài hát đã dừng lặp ở chế độ: ** `Bài hiên tại`"
+loop_all: "`🔁` | **Bài hát đang lặp ở chế độ:** `Tất cả`"
+unloop_all: "`🔁` | **Bài hát đã dừng lặp ở chế độ** `Tất cả`"
+
+### Loopall command!
+loopall_loading: "Đang xủ lý vui lòng đợi..."
+loopall: "`🔁` | **Bài hát đang lặp ở chế độ:** `Tất cả`"
+unloopall: "`🔁` | **Bài hát đã dừng lặp ở chế độ** `Tất cả`"
+
+### Lyrics command!
+lyrics_loading: "Đang tìm lyrics của bài hát..."
+lyrics_notfound: "Không thể tìm thấy bất kỳ lời bài hát nào cho bài hát đó!"
+lyrics_title: "Lyrics của bài hát %{song}"
+lyrics_toolong: "Lyrics của bài này quá dài để hiển thị!"
+
+### Nowplaying command!
+np_loading: "Đang xủ lý vui lòng đợi..."
+
+np_title: "Đang chơi..."
+np_title_pause: "Nhạc dừng..."
+np_icon: "https://cdn.discordapp.com/emojis/741605543046807626.gif"
+
+# Embed Field
+np_author: "Tác giả:"
+np_request: "Người yêu cầu:"
+np_volume: "Âm lượng:"
+np_view: "Lượt xem:"
+np_upload: "Đăng tải vào:"
+np_download: "Tải xuống:"
+np_current_duration: "Thời lượng hiện tại: `[%{current_duration} / %{total_duration}]`"
+
+# Need in voice to use button
+np_invoice: "Bạn cần ở trong cùng một kênh thoại."
+
+# Message Button
+np_switch_pause: "Tạm dừng"
+np_switch_resume: "Tiếp tục"
+np_pause_msg: "`⏯` | **Bài hát đã:** `%{pause}`"
+
+np_replay_msg: "`⏮` | **Bài hát đã:** `Chơi lại`"
+
+np_stop_msg: "`🚫` | **Bài hát đã:** `Dừng`"
+
+np_skip_msg: "`⏭` | **Bài hát đã:** `Bỏ qua`"
+
+np_switch_enable: "Đã kích hoạt"
+np_switch_disable: "Đã vô hiệu hóa"
+np_repeat_msg: "`🔁` | *Loop has been:* `%{loop}`"
+
+### Pause command!
+pause_loading: "Đang xủ lý vui lòng đợi..."
+pause_switch_pause: "Paused"
+pause_switch_resume: "Resumed"
+pause_msg: "`⏯` | **Bài hát đã:** `%{pause}`"
+
+### Play command!
+play_loading: "🔍 **Đang tìm...** `%{result}`"
+play_invoice: "Đang xủ lý vui lòng Bạn cần ở trong một kênh thoại để sử dụng lệnh này.."
+play_join: "Tôi không có quyền tham gia kênh thoại của bạn."
+play_speak: "Tôi không có quyền trong kênh thoại của bạn."
+play_arg: "Please provide a song name or link to search."
+play_startwith: "Vui lòng sử dụng liên kết để chơi nhạc."
+play_invalid_file: "Vui lòng sử dụng tệp nhạc hợp lệ để sử dụng tính năng này. Lưu ý rằng chỉ hỗ trợ phần mở rộng mp3/ogg, các phần mở rộng tệp nhạc chuyên nghiệp như flac/wav sẽ không được hỗ trợ."
+play_warning_file: "Cảnh báo: Hệ thống không thể phát hiện loại tệp của bạn. Hệ thống có thể không phát nhạc được. Chúng tôi khuyên bạn nên chọn bất kỳ loại tệp nào có phần mở rộng .mp3."
+
+play_track: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` • %{request}"
+play_playlist: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` (%{songs} tracks) • %{request}"
+play_result: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` • %{request}"
+
+play_fail: "Lỗi tải bản nhạc không thành công"
+play_match: "Lỗi bài hát không khớp"
+
+### Previous command!
+previous_loading: "Đang xủ lý vui lòng đợi..."
+previous_notfound: "No previous song/s found."
+previous_msg: "`⏮` | *Song has been:* `Previous`"
+
+### Queue command!
+queue_author: "Queue - %{guild}"
+queue_description: "*Currently Playing*\n*[%{title}](%{url})* `[%{duration}]` • %{request}\n\n*Rest of queue*:%{rest}"
+queue_footer: "Page • %{page}/%{pages} | %{queue_lang} • Song | %{duration} • Total duration"
+queue_notnumber: "Page must be a number."
+queue_page_notfound: "There are only %{page} pages available."
+
+### Replay command!
+replay_loading: "Đang xủ lý vui lòng đợi..."
+replay_msg: "`⏮` | **Song has been:** `Replayed`"
+
+### Resume command!
+resume_loading: "Đang xủ lý vui lòng đợi..."
+resume_switch_pause: "Paused"
+resume_switch_resume: "Resumed"
+resume_msg: "`⏯` | **Song has been:** `%{resume}`"
+
+### Rewind command!
+rewind_loading: "Đang xủ lý vui lòng đợi..."
+rewind_msg: "`⏮` | **Rewind to:** `%{duration}`"
+rewind_beyond: "Cannot rewind beyond the song's duration."
+rewind_invalid: "Invalid argument, must be a number.\nCorrect Usage: `%{prefix}rewind <seconds>`"
+
+### Search command!
+search_loading: "Đang xủ lý vui lòng đợi..."
+search_invoice: "Đang xủ lý vui lòng Bạn cần ở trong một kênh thoại để sử dụng lệnh này.."
+search_join: "Tôi không có quyền tham gia kênh thoại của bạn."
+search_speak: "Tôi không có quyền trong kênh thoại của bạn."
+search_arg: "Please provide a song name or link to search."
+
+search_title: "Song Selection..."
+search_select: "**(%{num}.) [%{title}](%{url})** `%{duration}` Author: `%{author}`"
+search_footer: "Please select a song in 30 seconds."
+search_no_response: "No response."
+
+search_result: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` • %{request}"
+search_playlist: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` (%{songs} tracks) • %{request}"
+
+search_fail: "Lỗi tải bản nhạc không thành công"
+search_match: "Lỗi bài hát không khớp"
+
+### Seek command!
+seek_loading: "Đang xủ lý vui lòng đợi..."
+seek_invalid: "Số không hợp lệ. Vui lòng cung cấp một số trong vài giây.\nCách dùng đúng: `%{prefix}seek <seconds>`"
+seek_beyond: "Không thể tua quá độ dài của bài hát."
+seek_msg: "`⏭` | **Đã tua bài hát đến:** `%{duration}`"
+
+### Shuffle command!
+shuffle_loading: "Đang xủ lý vui lòng đợi..."
+shuffle_msg: "`🔀` | **Hàng đợi đã được:** `Xáo trộn`"
+
+### Skip command!
+skip_loading: "Đang xủ lý vui lòng đợi..."
+skip_msg: "`⏭` | **Bài nhạc đã được:** `Bỏ qua`"
+
+### Skipto command!
+skipto_loading: "Đang xủ lý vui lòng đợi..."
+skipto_invalid_position: "Số không hợp lệ"
+skipto_arg: "Không thể chuyển sang bài hát đang phát. Để bỏ qua loại bài hát đang phát hiện tại: `%{prefix}skip`"
+skipto_invalid: "Số bài hát không hợp lệ."
+skipto_msg: "`⏭` | *Bài hát đã được* `Tua đến %{position}`"
+
+### Volume command!
+volume_loading: "Đang xủ lý vui lòng đợi..."
+volume_usage: "*Âm lượng hiện tại:* `%{volume}%`"
+volume_invalid: "Bạn chỉ có thể đặt âm lượng từ 1% - 100%"
+volume_msg: "`🔊` | **Đã thay đổi âm lượng thành:** `%{volume}%`"
+
+### Radio command!
+radio_invalid: "Số không hợp lệ. Vui lòng chọn một số từ 1-34 \nĐối với danh sách radio, vui lòng nhập /radio nhạc"
+radio_invoice: "Đang xủ lý vui lòng Bạn cần ở trong một kênh thoại để sử dụng lệnh này.."
+radio_join: "Tôi không có quyền tham gia kênh thoại của bạn."
+radio_speak: "Tôi không có quyền trong kênh thoại của bạn."
+radio_loading: "Đang xủ lý vui lòng đợi..."
+radio_track: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` • %{request}"
+radio_match: "Đài này đã bị lỗi, lỗi liên kết hoặc bị hỏng. Vui lòng báo lỗi này cho XeonDex </> # 0017 để khắc phục!"
+
+### Stop command!
+stop_loading: "Đang xử lý, vui lòng đợi"
+stop_msg: "`⏯` | **Đã dừng và xóa hàng đợi.**"

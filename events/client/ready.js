@@ -1,7 +1,5 @@
-const logger = require("../../plugins/logger");
-
 module.exports = async (client) => {
-    logger.info(`Logged in ${client.user.tag}`)
+    client.logger.info(`Logged in ${client.user.tag}`)
 
     let guilds = client.guilds.cache.size;
     let members = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0);

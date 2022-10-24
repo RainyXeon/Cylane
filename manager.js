@@ -2,9 +2,11 @@ const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const Discord = require('discord.js');
 const { Connectors } = require("shoukaku");
 const { Kazagumo, KazagumoTrack } = require("kazagumo");
+const logger = require('./plugins/logger')
+const { I18n } = require("@hammerhq/localization")
 
 class MainClient extends Client {
-     constructor() {
+    constructor() {
         super({
           shards: 'auto',
             allowedMentions: {
@@ -22,6 +24,8 @@ class MainClient extends Client {
     this.dev = this.config.DEV_ID;
     this.color = this.config.EMBED_COLOR;
     if(!this.token) this.token = this.config.TOKEN;
+    this.i18n = new I18n(this.config.LANGUAGE);
+    this.logger = logger
 
     process.on('unhandledRejection', error => console.log(error));
     process.on('uncaughtException', error => console.log(error));

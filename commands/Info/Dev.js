@@ -4,7 +4,7 @@ const ms = require('pretty-ms');
 module.exports = {
     name: "developer",
     description: "Shows the developer information of the Bot (Credit)",
-    run: async (interaction, client) => {
+    run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
           const xeondex = new EmbedBuilder()
               .setTitle(`${client.i18n.get(language, "info", "dev_title")}`)

@@ -1,13 +1,9 @@
-const logger = require("../../plugins/logger");
-
-module.exports = {
+module.exports = async (client, player, track) => {
 	/**
 	 * 
 	 * @param {Client} client 
 	 * @param {*} player 
 	 * @param {*} track 
 	 */
-	run: async (client, player, track) => {
-		logger.info(`Player Started in @ ${player.guildId}`);
-	}
+	client.logger.info(`Player Started in @ ${player.guildId}`);
 };

@@ -4,7 +4,7 @@ const ms = require('pretty-ms');
 module.exports = {
     name: "invite",
     description: "Shows the invite information of the Bot",
-    run: async (interaction, client) => {
+    run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
                 const invite = new EmbedBuilder()
                     .setTitle(`${client.i18n.get(language, "info", "inv_title" , { username: client.user.username })}`)

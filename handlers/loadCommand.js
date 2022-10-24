@@ -1,5 +1,4 @@
 const { readdirSync } = require('fs');
-const logger = require("../plugins/logger");
 
 module.exports = async (client) => {
     readdirSync("./commands/").map(async dir => {
@@ -11,5 +10,5 @@ module.exports = async (client) => {
             }
         });
     })
-    logger.info('SlashCommand Events Loaded!');
+    client.logger.info('SlashCommand Events Loaded!');
 }

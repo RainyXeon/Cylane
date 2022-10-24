@@ -1,7 +1,3 @@
-const logger = require("../../plugins/logger");
-
-module.exports = {
-	run: async (client, player) => {
-		logger.info(`Player End in @ ${player.guildId}`);
-	}
+module.exports = async (client, player) => {
+	client.logger.info(`Player End in @ ${player.guildId}`);
 };

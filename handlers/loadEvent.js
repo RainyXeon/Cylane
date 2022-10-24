@@ -1,5 +1,4 @@
 const { readdirSync } = require('fs');
-const logger = require("../plugins/logger");
 
 module.exports = async (client) => {
     const loadcommand = dirs =>{
@@ -11,5 +10,5 @@ module.exports = async (client) => {
         }
     };
     ["client", "guild"].forEach((x) => loadcommand(x));
-    logger.info('Event Events Loaded!');
+    client.logger.info('Event Events Loaded!');
 };

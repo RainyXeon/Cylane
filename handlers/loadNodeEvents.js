@@ -1,11 +1,10 @@
 const { readdirSync } = require('fs');
-const logger = require("../plugins/logger");
 
 module.exports = async (client) => {
     readdirSync("./events/node/").forEach(file => {
         const event = require(`../events/node/${file}`);
         let eventName = file.split(".")[0];
-        client.manager.shoukaku.on(eventName, (...args) => event.run(this, ...args));
+        client.manager.shoukaku.on(eventName, event.bind(null, client));
       });
-    logger.info('Node Events Loaded!');
+    client.logger.info('Node Events Loaded!');
 }

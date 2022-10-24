@@ -4,7 +4,7 @@ const ms = require('pretty-ms');
 module.exports = {
     name: "ping",
     description: "Shows the ping information of the Bot",
-    run: async (interaction, client) => {
+    run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
           const ping = new EmbedBuilder()
               .setTitle(`${client.i18n.get(language, "info", "ping_title")}` + client.user.username)

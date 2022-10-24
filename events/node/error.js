@@ -1,7 +1,3 @@
-const logger = require("../../plugins/logger");
-
-module.exports = {
-    run: async (client, name, error) => {
-        logger.error(`Lavalink "${name}" error ${error}`);
-    }
+module.exports = async (client, name, error) => {
+    client.logger.error(`Lavalink "${name}" error ${error}`);
 };
