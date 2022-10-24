@@ -177,7 +177,7 @@ module.exports = {
                 name: "3d"
             })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -188,7 +188,7 @@ module.exports = {
                     rotation: { rotationHz: 0.2 }
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -205,7 +205,7 @@ module.exports = {
                 name: "bass"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -231,7 +231,7 @@ module.exports = {
                     ],
                 }
                 
-                await player.node.send(data);
+                await player.send(data);
     
             const bassed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -246,7 +246,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === "bassboost") {
                 const value = interaction.options.getInteger('amount');
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -273,7 +273,7 @@ module.exports = {
                     ]
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const msg1 = await interaction.editReply(`${client.i18n.get(language, "filters", "filter_loading", {
                     name: client.commands.get('bassboost').config.name
@@ -310,7 +310,7 @@ module.exports = {
                         { band: 13, gain: 0 },
                     ]
                 }
-                await player.node.send(data);
+                await player.send(data);
         const msg2 = await interaction.editReply(`${client.i18n.get(language, "filters", "bassboost_loading", {
                     amount: value
                     })}`);
@@ -329,7 +329,7 @@ module.exports = {
                 name: "china"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -344,7 +344,7 @@ module.exports = {
                     }
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -361,7 +361,7 @@ module.exports = {
                 name: "chipmunk"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -376,7 +376,7 @@ module.exports = {
                     },
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -393,7 +393,7 @@ module.exports = {
                 name: "darthvader"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -408,7 +408,7 @@ module.exports = {
                     },
                 }
         
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -425,7 +425,7 @@ module.exports = {
                 name: "daycore"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -455,7 +455,7 @@ module.exports = {
                     },
                 }
         
-                await player.node.send(data);
+                await player.send(data);
     
             const daycored = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -472,7 +472,7 @@ module.exports = {
                 name: "doubletime"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -485,7 +485,7 @@ module.exports = {
                     },
                 }
         
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -502,7 +502,7 @@ module.exports = {
                 name: "earrape"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -512,7 +512,7 @@ module.exports = {
                 op: 'filters',
                 guildId: interaction.guild.id,
             }
-            await player.node.send(data);
+            await player.send(data);
     
             const earrapped = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -527,7 +527,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === "equalizer") {
                 const value = interaction.options.getString('bands');
 
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -550,7 +550,7 @@ module.exports = {
                     op: 'filters',
                     guildId: interaction.guild.id,
                 }
-                return player.node.send(data);
+                return player.send(data);
             }
     
             const bands = value.split(/[ ]+/);
@@ -574,7 +574,7 @@ module.exports = {
                         { band: i, gain: (bands[i]) / 10 },
                     ]
                 }
-                player.node.send(data);
+                player.send(data);
                 bandsStr += `${bands[i]} `;
             }
         
@@ -596,7 +596,7 @@ module.exports = {
                 name: "nightcore"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -611,7 +611,7 @@ module.exports = {
                     },
                 }
         
-                await player.node.send(data);
+                await player.send(data);
     
             const nightcored = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -626,7 +626,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === "pitch") {
             const value = interaction.options.getInteger('amount');
 
-            const player = client.manager.get(interaction.guild.id);
+            const player = client.manager.players.get(interaction.guild.id);
             if(!player) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_player")}`);
             const { channel } = interaction.member.voice;
             if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -641,7 +641,7 @@ module.exports = {
                 timescale: { pitch: value },
             }
     
-            await player.node.send(data);
+            await player.send(data);
     
             const msg = await interaction.editReply(`${client.i18n.get(language, "filters", "pitch_loading", {
                 amount: value
@@ -660,7 +660,7 @@ module.exports = {
                 name: "pop"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -686,7 +686,7 @@ module.exports = {
                     ]
                 }
         
-                await player.node.send(data);
+                await player.send(data);
     
             const popped = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -701,7 +701,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === "rate") {
             const value = interaction.options.getInteger('amount');
 
-            const player = client.manager.get(interaction.guild.id);
+            const player = client.manager.players.get(interaction.guild.id);
             if(!player) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_player")}`);
             const { channel } = interaction.member.voice;
             if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -716,7 +716,7 @@ module.exports = {
                 timescale: { rate: value },
             }
     
-            await player.node.send(data);
+            await player.send(data);
             
             const msg = await interaction.editReply(`${client.i18n.get(language, "filters", "rate_loading", {
                 amount: value
@@ -733,7 +733,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === "reset") {
             const msg = await interaction.editReply(`${client.i18n.get(language, "filters", "reset_loading")}`);
 
-            const player = client.manager.get(interaction.guild.id);
+            const player = client.manager.players.get(interaction.guild.id);
             if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
             const { channel } = interaction.member.voice;
             if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -743,7 +743,7 @@ module.exports = {
                 guildId: interaction.guild.id,
             }
     
-            await player.node.send(data);
+            await player.send(data);
             await player.setVolume(100);
             
             const resetted = new EmbedBuilder()
@@ -759,7 +759,7 @@ module.exports = {
                 name: "slowmotion"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -774,7 +774,7 @@ module.exports = {
                     }
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -791,7 +791,7 @@ module.exports = {
                 name: "soft"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -817,7 +817,7 @@ module.exports = {
                     ]
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const softed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -832,7 +832,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === "speed") {
             const value = interaction.options.getInteger('amount');
 
-            const player = client.manager.get(interaction.guild.id);
+            const player = client.manager.players.get(interaction.guild.id);
             if(!player) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_player")}`);
             const { channel } = interaction.member.voice;
             if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -847,7 +847,7 @@ module.exports = {
                 timescale: { speed: value },
             }
     
-            await player.node.send(data);
+            await player.send(data);
     
             const msg = await interaction.editReply(`${client.i18n.get(language, "filters", "speed_loading", {
                 amount: value
@@ -866,7 +866,7 @@ module.exports = {
                 name: "superbass"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -892,7 +892,7 @@ module.exports = {
                     ]
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const sbed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -909,7 +909,7 @@ module.exports = {
                 name: "television"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -935,7 +935,7 @@ module.exports = {
                     ]
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -952,7 +952,7 @@ module.exports = {
                 name: "treblebass"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -978,7 +978,7 @@ module.exports = {
                     ]
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const tbed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -995,7 +995,7 @@ module.exports = {
                 name: "tremolo"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -1009,7 +1009,7 @@ module.exports = {
                     },
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -1026,7 +1026,7 @@ module.exports = {
                 name: "vaporwave"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -1055,7 +1055,7 @@ module.exports = {
                     },
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const vaporwaved = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -1072,7 +1072,7 @@ module.exports = {
                 name: "vibrate"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -1090,7 +1090,7 @@ module.exports = {
                     },
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
@@ -1107,7 +1107,7 @@ module.exports = {
                 name: "vibrato"
                 })}`);
     
-                const player = client.manager.get(interaction.guild.id);
+                const player = client.manager.players.get(interaction.guild.id);
                 if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
                 const { channel } = interaction.member.voice;
                 if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
@@ -1121,7 +1121,7 @@ module.exports = {
                     },
                 }
     
-                await player.node.send(data);
+                await player.send(data);
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "filters", "filter_on", {

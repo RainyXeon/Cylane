@@ -59,6 +59,7 @@ np_volume: "Volume:"
 np_view: "Views:"
 np_upload: "Upload At:"
 np_download: "Download:"
+np_duration: "Total Duration:"
 np_current_duration: "Current Duration: `[%{current_duration} / %{total_duration}]`"
 
 # Need in voice to use button
@@ -95,9 +96,9 @@ play_startwith: "Please use link to play music."
 play_invalid_file: "Please use a valid music file to use this feature. Note that only mp3/ogg extension is supported, professional music file extensions like flac/wav will not be supported."
 play_warning_file: "Warning: The system cannot detect your file type. The system may not be able to play music. We recommend that you choose any file type with .mp3 extension. "
 
-play_track: "**Queued • [%{title}](%{url})** `%{duration}` • %{request}"
-play_playlist: "**Queued • [%{title}](%{url})** `%{duration}` (%{songs} tracks) • %{request}"
-play_result: "**Queued • [%{title}](%{url})** `%{duration}` • %{request}"
+play_track: "**Queued • [%{title}](%{url})**"
+play_playlist: "**Queued `%{length}` tracks from [%{title}](%{url})**"
+play_result: "**Queued • [%{title}](%{url})**"
 
 play_fail: "Error loading track failed"
 play_match: "Error song not matches"

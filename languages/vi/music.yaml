@@ -59,6 +59,7 @@ np_volume: "Âm lượng:"
 np_view: "Lượt xem:"
 np_upload: "Đăng tải vào:"
 np_download: "Tải xuống:"
+np_duration: "Tổng thời gian:"
 np_current_duration: "Thời lượng hiện tại: `[%{current_duration} / %{total_duration}]`"
 
 # Need in voice to use button
@@ -95,9 +96,9 @@ play_startwith: "Vui lòng sử dụng liên kết để chơi nhạc."
 play_invalid_file: "Vui lòng sử dụng tệp nhạc hợp lệ để sử dụng tính năng này. Lưu ý rằng chỉ hỗ trợ phần mở rộng mp3/ogg, các phần mở rộng tệp nhạc chuyên nghiệp như flac/wav sẽ không được hỗ trợ."
 play_warning_file: "Cảnh báo: Hệ thống không thể phát hiện loại tệp của bạn. Hệ thống có thể không phát nhạc được. Chúng tôi khuyên bạn nên chọn bất kỳ loại tệp nào có phần mở rộng .mp3."
 
-play_track: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` • %{request}"
-play_playlist: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` (%{songs} tracks) • %{request}"
-play_result: "**Đã thêm vào hàng đợi • [%{title}](%{url})** `%{duration}` • %{request}"
+play_track: "**Đã thêm vào hàng đợi • [%{title}](%{url})**"
+play_playlist: "**Đã thêm vào hàng đợi `%{length}` từ [%{title}](%{url})**"
+play_result: "**Đã thêm vào hàng đợi • [%{title}](%{url})**"
 
 play_fail: "Lỗi tải bản nhạc không thành công"
 play_match: "Lỗi bài hát không khớp"

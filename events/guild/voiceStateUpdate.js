@@ -1,7 +1,18 @@
 const delay = require("delay");
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
+const GLang = require("../../plugins/schemas/language.js")
 
 module.exports = async (client, oldState, newState) => {
+	let guildModel = await GLang.findOne({
+		guild: newState.guild.id,
+	});
+	if (!guildModel) {
+		guildModel = await GLang.create({
+			guild: newState.guild.id,
+			language: "en",
+		});
+	}
+	const { language } = guildModel;
 
 	const player = client.manager?.players.get(newState.guild.id);
 	if (!player) return;
@@ -33,7 +44,9 @@ module.exports = async (client, oldState, newState) => {
 				const newPlayer = client.manager?.players.get(newState.guild.id)
 				newPlayer ? player.destroy() : oldState.guild.members.me.voice.channel.leave();
 				const TimeoutEmbed = new EmbedBuilder()
-					.setDescription(`**Disconnected from <#${vcRoom}> because I was left alone ;(**`);
+					.setDescription(`${client.i18n.get(language, "player", "player_end", { 
+						leave: vcRoom
+					})}`);
 				try {
 		            if (leaveEmbed) leaveEmbed.send({ embeds: [TimeoutEmbed] });
 		        } catch (error) {

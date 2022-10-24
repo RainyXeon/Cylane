@@ -25,7 +25,7 @@ module.exports = {
             ]
         }
     ],
-    run: async (interaction, client) => {
+    run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const { channel } = interaction.member.voice;
         const player = client.manager.players.get(interaction.guild.id);
