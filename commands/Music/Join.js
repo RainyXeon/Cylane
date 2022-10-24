@@ -1,29 +1,30 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
-module.exports = {
+// Main code
+module.exports = { 
     name: "join",
-    description: "Let bot join into the voice channel",
+    description: "Make the bot join the voice channel.",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
+        
+        const msg = await interaction.editReply(`${client.i18n.get(language, "music", "join_loading")}`);
         const { channel } = interaction.member.voice;
-        const player = client.manager.players.get(interaction.guild.id);
-
-        const msg = await interaction.editReply(`Loading...`);
-        if (!channel) return msg.edit(`You need to be in the voice channel!`);
-        if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.Flags.Connect)) return msg.edit(`I don't have \`CONNECT\` permissions to run this command!`);
-        if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.Flags.Speak)) return msg.edit(`I don't have \`SPEAK\` permissions to execute this command!`);
+        if(!channel) return msg.edit(`${client.i18n.get(language, "music", "join_voice")}`);
 
         await client.manager.createPlayer({
-            guildId: interaction.guild.id,
-            voiceId: interaction.member.voice.channel.id,
-            textId: interaction.channel.id,
-            deaf: true,
-          });
-        const embed = new EmbedBuilder()
-          .setDescription(`\`🔊\` | **Joined:** \`${channel.name}\``)
-          .setColor(client.color)
+          guildId: interaction.guild.id,
+          voiceId: interaction.member.voice.channel.id,
+          textId: interaction.channel.id,
+          deaf: true,
+        });
 
-        msg.edit({ content: " ", embeds: [embed] });
-        
+        const embed = new EmbedBuilder()
+            .setDescription(`${client.i18n.get(language, "music", "join_msg", {
+                channel: channel.name
+            })}`)
+            .setColor(client.color)
+
+        msg.edit({ content: " ", embeds: [embed] })
+    
     }
 };

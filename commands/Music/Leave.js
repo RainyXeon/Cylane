@@ -1,22 +1,26 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
-module.exports = {
+// Main code
+module.exports = { 
     name: "leave",
-    description: "Let bot leave the voice channel",
+    description: "Make the bot leave the voice channel.",
+
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
-        const { channel } = interaction.member.voice;
+        const msg = await interaction.editReply(`${client.i18n.get(language, "music", "leave_loading")}`);
         const player = client.manager.players.get(interaction.guild.id);
+        const { channel } = interaction.member.voice;
+        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
 
-        const msg = await interaction.editReply(`Loading...`);
-        if (!player) return msg.edit(`I'm not in the voice channel!`)
-        if (!channel) return msg.edit(`You need to be in the voice channel!`);
-        
-        await player.destroy()
+        await player.destroy();
+
         const embed = new EmbedBuilder()
-          .setDescription(`\`🔊\` | **Left:** \`${channel.name}\``)
-          .setColor(client.color)
+            .setDescription(`${client.i18n.get(language, "music", "leave_msg", {
+                channel: channel.name
+            })}`)
+            .setColor(client.color);   
 
-        msg.edit({ content: " ", embeds: [embed] });
+        msg.edit({ content: " ", embeds: [embed] })
+    
     }
 };

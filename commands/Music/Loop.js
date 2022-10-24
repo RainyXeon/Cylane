@@ -43,25 +43,24 @@ module.exports = {
 
         if (mode == "current") {
             await player.setLoop(loop_mode.track)
-            const embed = new EmbedBuilder()
-                .setDescription(`\`🔊\` | **Selected loop mode:** \`${loop_mode.track}\`!`)
-                .setColor(client.color)
-  
-            msg.edit({ content: " ", embeds: [embed] });
+            const looped = new EmbedBuilder()
+                .setDescription(`${client.i18n.get(language, "music", "loop_current")}`)
+                .setColor(client.color);
+            msg.edit({ content: " ", embeds: [looped] });
+
         } else if (mode == "queue") {
             await player.setLoop(loop_mode.queue)
-            const embed = new EmbedBuilder()
-                .setDescription(`\`🔊\` | **Selected loop mode:** \`${loop_mode.track}\`!`)
-                .setColor(client.color)
-  
-            msg.edit({ content: " ", embeds: [embed] });
+            const looped_queue = new EmbedBuilder()
+                .setDescription(`${client.i18n.get(language, "music", "loop_all")}`)
+                .setColor(client.color);
+            msg.edit({ content: " ", embeds: [looped_queue] });
+
         } else if (mode == "none") {
             await player.setLoop(loop_mode.none)
-            const embed = new EmbedBuilder()
-                .setDescription(`\`🔊\` | **Selected loop mode:** \`${loop_mode.track}\`!`)
-                .setColor(client.color)
-  
-            msg.edit({ content: " ", embeds: [embed] });
+            const unloopall = new EmbedBuilder()
+                .setDescription(`${client.i18n.get(language, "music", "unloop_all")}`)
+                .setColor(client.color);
+            msg.edit({ content: " ", embeds: [unloopall] });
         }
     }
 };
