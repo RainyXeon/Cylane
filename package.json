@@ -1,6 +1,6 @@
 {
-  "name": "nano-template-slashbot",
-  "version": "1.0",
+  "name": "cylane",
+  "version": "1.5",
   "description": "✈ Join Discord: https://discord.gg/xHvsCMjnhU 👌",
   "main": "index.js",
   "dependencies": {
@@ -11,6 +11,7 @@
     "discord.js": "^14.5.1-dev.1664669766-3f86561.0",
     "dotenv": "^16.0.1",
     "kazagumo": "^2.2.3",
+    "lyrics-finder": "^21.7.0",
     "mongoose": "^6.6.7",
     "plsargs": "^0.1.6",
     "pretty-ms": "^7.0.1",

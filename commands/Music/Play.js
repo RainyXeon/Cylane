@@ -61,7 +61,6 @@ module.exports = {
                     if(!player.playing) player.play();
                 } else if (result.type === 'SEARCH') {
                     const embed = new EmbedBuilder()
-                        .setDescription(`**Queued [${tracks[0].title}](${tracks[0].uri})**`)
                         .setColor(client.color)
                         .setDescription(`${client.i18n.get(language, "music", "play_result", {
                             title: tracks[0].title,
