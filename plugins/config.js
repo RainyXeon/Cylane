@@ -3,7 +3,7 @@ const { resolve } = require("path");
 
 module.exports = {
     TOKEN: process.env.TOKEN || "YOUR_TOKEN",  // your bot token
-    EMBED_COLOR: process.env.EMBED_COLOR || "#000001", //<= default is "#000001"
+    EMBED_COLOR: "#" + process.env.EMBED_COLOR || "#000001", //<= default is "#000001"
 
     OWNER_ID: process.env.OWNER_ID || "YOUR_CLIENT_ID", //your owner discord id example: "515490955801919488"
 
@@ -30,6 +30,8 @@ module.exports = {
         name: process.env.NODE_NAME || 'Main',
         auth: process.env.NODE_AUTH || 'coders',
         secure: parseBoolean(process.env.NODE_SECURE || 'false'),
+        retryAmount: Infinity,
+        retryDelay: 3000,
       },
     ],
 }

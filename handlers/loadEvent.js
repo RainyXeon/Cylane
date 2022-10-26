@@ -10,5 +10,5 @@ module.exports = async (client) => {
         }
     };
     ["client", "guild"].forEach((x) => loadcommand(x));
-    client.logger.info('Event Events Loaded!');
+    client.logger.info('Client Events Loaded!');
 };

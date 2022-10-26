@@ -110,7 +110,7 @@ previous_msg: "`⏮` | *Song has been:* `Previous`"
 
 ### Queue command!
 queue_author: "Queue - %{guild}"
-queue_description: "*Currently Playing*\n*[%{title}](%{url})* `[%{duration}]` • %{request}\n\n*Rest of queue*:%{rest}"
+queue_description: "*Currently Playing*\n*[%{title}](%{url})* `[%{duration}]` \n\n*Rest of queue*:%{rest}"
 queue_footer: "Page • %{page}/%{pages} | %{queue_lang} • Song | %{duration} • Total duration"
 queue_notnumber: "Page must be a number."
 queue_page_notfound: "There are only %{page} pages available."
