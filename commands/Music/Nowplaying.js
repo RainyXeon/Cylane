@@ -12,13 +12,12 @@ module.exports = {
         if (!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
 
         const song = player.queue.current;
-        const CurrentDuration = formatDuration(player.position);
+        const position = player.shoukaku.position
+        const CurrentDuration = formatDuration(position);
         const TotalDuration = formatDuration(song.length);
         const Thumbnail = `https://img.youtube.com/vi/${song.identifier}/maxresdefault.jpg`;
-        const Part = Math.floor(player.position / song.duration * 30);
+        const Part = Math.floor(position / song.length * 30);
         const Emoji = player.playing ? "🔴 |" : "⏸ |";
-
-        console.log(song)
 
         const embeded = new EmbedBuilder()
             .setAuthor({ name: player.playing ? `${client.i18n.get(language, "music", "np_title")}` : `${client.i18n.get(language, "music", "np_title_pause")}`, iconURL: `${client.i18n.get(language, "music", "np_icon")}` })
@@ -43,8 +42,8 @@ module.exports = {
         if (realtime === 'true') {
         interval = setInterval(async () => {
             if (!player.playing) return;
-            const CurrentDuration = formatDuration(player.position);
-            const Part = Math.floor(player.position / song.duration * 30);
+            const CurrentDuration = formatDuration(position);
+            const Part = Math.floor(position / song.length * 30);
             const Emoji = player.playing ? "🔴 |" : "⏸ |";
 
             embeded.fields[6] = { name: `${client.i18n.get(language, "music", "np_current_duration", {

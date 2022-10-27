@@ -54,6 +54,7 @@ np_invoice: "Bạn cần phải tham gia cùng 1 kênh đàm thoại."
 #Message Button
 np_switch_pause: "Đã dừng"
 np_switch_resume: "Tiếp tục"
+np_duration: "Tổng thời lượng:"
 np_pause_msg: "`⏯` | *Nhạc đã:* `%{pause}`"
 np_replay_msg: "`⏮` | *Nhạc đã:* `Phát lại`"
 np_stop_msg: "`🚫` | *Nhạc đã:* `Dừng`"
