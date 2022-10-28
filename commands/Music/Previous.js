@@ -8,15 +8,14 @@ module.exports = {
         await interaction.deferReply({ ephemeral: false });
             const msg = await interaction.editReply(`${client.i18n.get(language, "music", "previous_loading")}`);
 
-            const player = client.manager.get(interaction.guild.id);
+            const player = client.manager.players.get(interaction.guild.id);
             if (!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
             const { channel } = interaction.member.voice;
             if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
-    
             if (!player.queue.previous) return msg.edit(`${client.i18n.get(language, "music", "previous_notfound")}`);
     
             await player.queue.unshift(player.queue.previous);
-            await player.stop();
+            await player.skip()
     
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "music", "previous_msg")}`)
