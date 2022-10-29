@@ -49,7 +49,6 @@ module.exports = {
                         })}`)
                         .setColor(client.color)
                     msg.edit({ content: " ", embeds: [embed] });
-                    if(!player.playing) player.play();
                 } else if (result.type === 'TRACK') {
                     const embed = new EmbedBuilder()
                     .setDescription(`${client.i18n.get(language, "music", "play_track", {
@@ -58,7 +57,6 @@ module.exports = {
                     })}`)
                     .setColor(client.color)
                     msg.edit({ content: " ", embeds: [embed] });
-                    if(!player.playing) player.play();
                 } else if (result.type === 'SEARCH') {
                     const embed = new EmbedBuilder()
                         .setColor(client.color)
@@ -67,7 +65,6 @@ module.exports = {
                             url: tracks[0].uri,
                         })}`)
                     msg.edit({ content: " ", embeds: [embed] });
-                    if(!player.playing) player.play();
                 }        
             }
         } catch (e) {

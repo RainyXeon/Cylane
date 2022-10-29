@@ -4,6 +4,7 @@ const { Connectors } = require("shoukaku");
 const { Kazagumo, KazagumoTrack } = require("kazagumo");
 const logger = require('./plugins/logger')
 const { I18n } = require("@hammerhq/localization")
+const Spotify = require('kazagumo-spotify');
 
 class MainClient extends Client {
     constructor() {
@@ -36,7 +37,17 @@ class MainClient extends Client {
         send: (guildId, payload) => {
             const guild = client.guilds.cache.get(guildId);
             if (guild) guild.shard.send(payload);
-        }
+        },
+        plugins: [
+            new Spotify({
+              clientId: this.config.SPOTIFY_ID,
+              clientSecret: this.config.SPOTIFY_SECRET,
+              playlistPageLimit: 1, // optional ( 100 tracks per page )
+              albumPageLimit: 1, // optional ( 50 tracks per page )
+              searchLimit: 10, // optional ( track search limit. Max 50 )
+              searchMarket: 'US', // optional || default: US ( Enter the country you live in. [ Can only be of 2 letters. For eg: US, IN, EN ] )//
+            }),
+          ],
     }, new Connectors.DiscordJS(this), this.config.NODES);
 
 	  const client = this;

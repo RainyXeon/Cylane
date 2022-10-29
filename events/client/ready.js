@@ -12,6 +12,9 @@ module.exports = async (client) => {
     ]
 
     setInterval(() => {
-        client.user.setActivity(`${activities[Math.floor(Math.random() * activities.length)]}`, { type: "STREAMING", url: "https://www.twitch.tv/lofichillnight" });
-    }, 60000)
+        client.user.setPresence({ 
+            activities: [{ name: `${activities[Math.floor(Math.random() * activities.length)]}`, type: 2 }], 
+            status: 'online', 
+        });
+    }, 15000)
 };

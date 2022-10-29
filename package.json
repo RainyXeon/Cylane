@@ -11,6 +11,7 @@
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.1",
     "kazagumo": "^2.2.3",
+    "kazagumo-spotify": "^1.1.5",
     "lyrics-finder": "^21.7.0",
     "mongoose": "^6.6.7",
     "plsargs": "^0.1.6",
