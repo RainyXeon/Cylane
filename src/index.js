@@ -8,6 +8,6 @@ client.on("error", (err) => {
       message: err
     })
 });
-client.manager.on("debug", (deb) => {
-  console.log(deb)
-})
+// client.manager.on("debug", (deb) => {
+//   console.log(deb)
+// })

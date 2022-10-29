@@ -53,7 +53,7 @@ module.exports = async (client, player, track) => {
       { name: `${client.i18n.get(language, "player", "author_title")}`, value: `${song.author}`, inline: true },
       { name: `${client.i18n.get(language, "player", "request_title")}`, value: `${song.requester}`, inline: true },
       { name: `${client.i18n.get(language, "player", "volume_title")}`, value: `${player.volume}%`, inline: true },
-      { name: `${client.i18n.get(language, "player", "queue_title")}`, value: `${song.totalSize}`, inline: true },
+      { name: `${client.i18n.get(language, "player", "queue_title")}`, value: `${song.size}`, inline: true },
       { name: `${client.i18n.get(language, "player", "duration_title")}`, value: `${formatduration(song.length, true)}`, inline: true },
       { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatduration(player.queue.length)}`, inline: true },
       { name: `${client.i18n.get(language, "player", "download_title")}`, value: `**[${song.title} - y2mate.com](https://www.y2mate.com/youtube/${song.identifier})**`, inline: false },

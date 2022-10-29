@@ -1,7 +1,7 @@
 const { plsParseArgs } = require('plsargs');
 const args = plsParseArgs(process.argv.slice(2));
 const path = require("path");
-const { TOKEN } = require("./plugins/config.js");
+const { TOKEN } = require("./src/plugins/config.js");
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v10');
 const { readdirSync } = require('fs');
@@ -22,9 +22,9 @@ const { readdirSync } = require('fs');
 
         const commands = [];
 
-        readdirSync("./commands/").map(async dir => {
-            readdirSync(`./commands/${dir}`).map(async (cmd) => {
-                commands.push(require(path.join(__dirname, `./commands/${dir}/${cmd}`)));
+        readdirSync("./src/commands/").map(async dir => {
+            readdirSync(`./src/commands/${dir}`).map(async (cmd) => {
+                commands.push(require(path.join(__dirname, `./src/commands/${dir}/${cmd}`)));
             })
         })
 
