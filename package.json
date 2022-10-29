@@ -21,8 +21,8 @@
     "youtube-sr": "^4.3.4"
   },
   "scripts": {
-    "start": "node --no-warnings index.js",
-    "dev": "nodemon index.js",
+    "start": "node --no-warnings ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "deploy:global": "node deploySlash.js global",
     "deploy:global:clear": "node deploySlash.js clearglobal"
   },

@@ -12,7 +12,7 @@ module.exports = {
 
     LANGUAGE: {
       defaultLocale: process.env.LANGUAGE || "en", // "en" = default language
-      directory: resolve("languages"), // <= location of language
+      directory: resolve("./src/languages"), // <= location of language
     },
 
     DEV_ID: [], // if you want to use command bot only, you can put your id here example: ["123456789", "123456789"]

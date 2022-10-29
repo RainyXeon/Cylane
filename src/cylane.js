@@ -6,7 +6,7 @@ const logger = require('./plugins/logger')
 const { I18n } = require("@hammerhq/localization")
 const Spotify = require('kazagumo-spotify');
 
-class MainClient extends Client {
+class CylaneClient extends Client {
     constructor() {
         super({
           shards: 'auto',
@@ -61,4 +61,4 @@ class MainClient extends Client {
     };
 };
 
-module.exports = MainClient;
+module.exports = CylaneClient;
