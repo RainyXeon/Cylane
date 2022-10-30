@@ -71,6 +71,10 @@ MONGO_URI=mongodb://127.0.0.1:27017/dreamvast
 LIMIT_TRACK=50
 LIMIT_PLAYLIST=10
 
+# Spotify
+SPOTIFY_ID=asdkjdoiuwdjaslkjdlksaajdlas
+SPOTIFY_SECRET=fjwhuoefhnjksanheufidnwiudlhsjanwjdli
+
 # Lavalink
 NODE_URL=localhost:2333
 NODE_NAME=MAIN
@@ -347,12 +351,12 @@ Example Output:
 
 **3. Build the docker container for the Discord bot.**
 ```
-docker build -t dreamvast .
+docker build -t cylane .
 ```
 
 **4. Run the docker container.**
 ```
-docker run -d dreamvast
+docker run -d cylane
 ```
 ---------------------------------------------
 
@@ -413,6 +417,12 @@ EMBED_COLOR=#000001
 
 # Devloper
 OWNER_ID=REPLACE_HERE
+
+LIMIT_TRACK=50
+LIMIT_PLAYLIST=10
+
+SPOTIFY_ID=asdkjdoiuwdjaslkjdlksaajdlas
+SPOTIFY_SECRET=fjwhuoefhnjksanheufidnwiudlhsjanwjdli
 ```
 
 **2. Use this command and you're done!**
