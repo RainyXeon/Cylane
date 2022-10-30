@@ -2,7 +2,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, } = require("discord.js")
 const formatduration = require('../../structures/FormatDuration.js');
 const GControl = require("../../plugins/schemas/control.js")
 const GLang = require("../../plugins/schemas/language.js")
-// const Setup = require("../../plugins/schemas/setup.js")
+const Setup = require("../../plugins/schemas/setup.js")
   
 module.exports = async (client, player, track) => {
 	client.logger.info(`Player Started in @ ${player.guildId}`);
@@ -18,15 +18,15 @@ module.exports = async (client, player, track) => {
 
   /////////// Update Music Setup ///////////
 
-//   await client.UpdateQueueMsg(player);
+  await client.UpdateQueueMsg(player);
 
   /////////// Update Music Setup ///////////
 
   const channel = client.channels.cache.get(player.textId);
   if (!channel) return;
 
-//   let data = await Setup.findOne({ guild: channel.guild.id });
-//   if (player.textChannel === data.channel) return;
+  let data = await Setup.findOne({ guild: channel.guild.id });
+  if (player.textChannel === data.channel) return;
 
   if (Control.playerControl === 'disable') return
 
@@ -55,10 +55,10 @@ module.exports = async (client, player, track) => {
       { name: `${client.i18n.get(language, "player", "volume_title")}`, value: `${player.volume}%`, inline: true },
       { name: `${client.i18n.get(language, "player", "queue_title")}`, value: `${song.size}`, inline: true },
       { name: `${client.i18n.get(language, "player", "duration_title")}`, value: `${formatduration(song.length, true)}`, inline: true },
-      { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatduration(player.queue.length)}`, inline: true },
+      { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatduration(song.length)}`, inline: true },
       { name: `${client.i18n.get(language, "player", "download_title")}`, value: `**[${song.title} - y2mate.com](https://www.y2mate.com/youtube/${song.identifier})**`, inline: false },
       { name: `${client.i18n.get(language, "player", "current_duration_title", {
-        current_duration: formatduration(position, true),
+        current_duration: formatduration(song.length, true),
       })}`, value: `\`\`\`🔴 | 🎶──────────────────────────────\`\`\``, inline: false },
     ])
     .setTimestamp();

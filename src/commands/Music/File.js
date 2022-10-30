@@ -32,7 +32,7 @@ module.exports = {
           deaf: true,
         });
       
-        const result = await player.search(file.attachment, interaction.user);
+        const result = await player.search(file.attachment, { requester: interaction.user });
         const tracks = result.tracks;
 
         if (!result.tracks.length) return msg.edit({ content: 'No result was found' });
