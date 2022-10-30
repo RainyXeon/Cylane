@@ -28,7 +28,7 @@ module.exports = async (client) => {
             index: i + 1,
             title: song.title,
             duration: formatDuration(song.length),
-            request: song.requester.tag,
+            request: song.requester,
         })}`);
 
         await songStrings.push(...queuedSongs);

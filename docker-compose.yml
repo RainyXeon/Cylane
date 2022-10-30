@@ -1,0 +1,72 @@
+version: "3"
+
+services:
+  lavalink:
+    image: fredboat/lavalink:dev
+    container_name: lavalink
+    hostname: lavalink
+    restart: unless-stopped
+    networks:
+      - lavalink-net
+    volumes:
+      - ./docker/application.yml:/opt/Lavalink/application.yml:ro
+    healthcheck:
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  
+  mongodb:
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: cylane
+      MONGO_INITDB_ROOT_PASSWORD: cylake
+    restart: on-failure
+    networks:
+      - mongodb-net
+    volumes:
+      - mongodb_data:/data/db
+    hostname: mongodb
+
+  cylane:
+    build: .
+    image: cylane:latest
+    container_name: cylane
+    restart: unless-stopped
+    networks:
+      - lavalink-net
+      - mongodb-net
+    depends_on:
+      - lavalink
+      - mongodb
+    environment:
+      # Bot
+      - TOKEN=${TOKEN}
+      - NP_REALTIME=${NP_REALTIME}
+      - LEAVE_TIMEOUT=${LEAVE_TIMEOUT}
+      - LANGUAGE=${LANGUAGE}
+      - EMBED_COLOR=${EMBED_COLOR}
+
+      # Devloper
+      - OWNER_ID=${OWNER_ID}
+
+      # Database
+      - MONGO_URI=mongodb://cylane:cylake@mongodb:27017/streamhatchet?directConnection=true&authSource=admin&replicaSet=replicaset&retryWrites=true
+
+      # Spotify
+      - SPOTIFY_ID=${SPOTIFY_ID}
+      - SPOTIFY_SECRET=${SPOTIFY_SECRET}
+
+      # Lavalink
+      - NODE_HOST=lavalink
+      - NODE_PORT=2333
+      - NODE_PASSWORD=dreamvast
+
+networks:
+  lavalink-net:
+  mongodb-net:
+
+volumes:
+  mongodb_data:
