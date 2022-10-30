@@ -25,7 +25,14 @@ module.exports = {
             if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply(`${client.i18n.get(language, "noplayer", "no_voice")}`);
     
             const song = player.queue.current;
-            const qduration = `${formatDuration(player.queue.length)}`;
+            function fixedduration () {
+                const current = player.queue.current.length ?? 0;
+                return player.queue
+                  .reduce((acc, cur) => acc + (cur.length || 0),
+                    current
+                );
+            }
+            const qduration = `${formatDuration(fixedduration())}`;
             const thumbnail = `https://img.youtube.com/vi/${song.identifier}/hqdefault.jpg`;
     
             let pagesNum = Math.ceil(player.queue.length / 10);
@@ -52,6 +59,7 @@ module.exports = {
                     .setDescription(`${client.i18n.get(language, "music", "queue_description", {
                         title: song.title,
                         url: song.uri,
+                        request: song.requester,
                         duration: formatDuration(song.length),
                         rest: str == '' ? '  Nothing' : '\n' + str,
                     })}`)

@@ -41,12 +41,20 @@ module.exports = {
                 if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track) 
                 else player.play(tracks[0]);
         
+                function fixedduration () {
+                    const current = tracks[0].length ?? 0;
+                    return tracks
+                      .reduce((acc, cur) => acc + (cur.length || 0),
+                        current
+                    );
+                }
+
                 if (result.type === 'PLAYLIST'){
                     const embed = new EmbedBuilder()
                         .setDescription(`${client.i18n.get(language, "music", "play_playlist", {
                             title: tracks[0].title,
                             url: value,
-                            duration: convertTime(tracks[0].length),
+                            duration: convertTime(fixedduration()),
                             songs: tracks.length,
                             request: tracks[0].requester
                         })}`)

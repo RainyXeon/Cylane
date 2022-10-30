@@ -35,8 +35,16 @@ module.exports = async (client) => {
 
         const Str = songStrings.slice(0, 10).join('\n');
 
+        function fixedduration () {
+            const current = player.queue.current.length ?? 0;
+            return player.queue
+              .reduce((acc, cur) => acc + (cur.length || 0),
+                current
+            );
+        }
+
         let cSong = player.queue.current;
-        let qDuration = `${formatDuration(player.queue.length)}`;
+        let qDuration = `${formatDuration(fixedduration())}`;
 
         let embed = new EmbedBuilder()
             .setAuthor({ name: `${client.i18n.get(language, "setup", "setup_author")}`, iconURL: `${client.i18n.get(language, "setup", "setup_author_icon")}` })

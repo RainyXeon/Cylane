@@ -11,6 +11,14 @@ module.exports = {
         const player = client.manager.players.get(interaction.guild.id);
         if (!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
 
+        function fixedduration () {
+            const current = player.queue.current.length ?? 0;
+            return player.queue
+              .reduce((acc, cur) => acc + (cur.length || 0),
+                current
+            );
+        }
+
         const song = player.queue.current;
         const position = player.shoukaku.position
         const CurrentDuration = formatDuration(position);
@@ -25,10 +33,13 @@ module.exports = {
             .setDescription(`**[${song.title}](${song.uri})**`)
             .setThumbnail(Thumbnail)
             .addFields([
-                { name: `${client.i18n.get(language, "music", "np_author")}`, value: `${song.author}`, inline: true },
-                { name: `${client.i18n.get(language, "music", "np_duration")}`, value: `${TotalDuration}`, inline: true },
-                { name: `${client.i18n.get(language, "music", "np_volume")}`, value: `${player.volume}%`, inline: true },
-                { name: `${client.i18n.get(language, "music", "np_download")}`, value: `**[Click Here](https://www.y2mate.com/youtube/${song.identifier})**`, inline: true },
+                { name: `${client.i18n.get(language, "player", "author_title")}`, value: `${song.author}`, inline: true },
+                { name: `${client.i18n.get(language, "player", "request_title")}`, value: `${song.requester}`, inline: true },
+                { name: `${client.i18n.get(language, "player", "volume_title")}`, value: `${player.volume}%`, inline: true },
+                { name: `${client.i18n.get(language, "player", "queue_title")}`, value: `${player.queue.length}`, inline: true },
+                { name: `${client.i18n.get(language, "player", "duration_title")}`, value: `${formatDuration(song.length, true)}`, inline: true },
+                { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatDuration(fixedduration())}`, inline: true },
+                { name: `${client.i18n.get(language, "player", "download_title")}`, value: `**[${song.title} - y2mate.com](https://www.y2mate.com/youtube/${song.identifier})**`, inline: false },
                 { name: `${client.i18n.get(language, "music", "np_current_duration", {
                     current_duration: CurrentDuration,
                     total_duration: TotalDuration
