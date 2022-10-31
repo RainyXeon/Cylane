@@ -6,7 +6,7 @@ module.exports = {
     /**
      * @param {ContextMenuInteraction} interaction
      */
-    run: async (interaction, client, user, language) => {
+    run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "skip_loading")}`);
 

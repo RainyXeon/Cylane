@@ -1,5 +1,6 @@
 const { Client, EmbedBuilder } = require("discord.js");
 const formatDuration = require("../../structures/FormatDuration.js");
+const { QueueDuration } = require("../../structures/QueueDuration.js");
 const GLang = require("../../plugins/schemas/language.js");
 const Setup = require("../../plugins/schemas/setup.js");
   
@@ -28,23 +29,17 @@ module.exports = async (client) => {
             index: i + 1,
             title: song.title,
             duration: formatDuration(song.length),
-            request: song.requester,
+            request: song.requester.tag,
         })}`);
 
         await songStrings.push(...queuedSongs);
 
         const Str = songStrings.slice(0, 10).join('\n');
 
-        function fixedduration () {
-            const current = player.queue.current.length ?? 0;
-            return player.queue
-              .reduce((acc, cur) => acc + (cur.length || 0),
-                current
-            );
-        }
+        const TotalDuration = QueueDuration(player)
 
         let cSong = player.queue.current;
-        let qDuration = `${formatDuration(fixedduration())}`;
+        let qDuration = `${formatDuration(TotalDuration)}`;
 
         let embed = new EmbedBuilder()
             .setAuthor({ name: `${client.i18n.get(language, "setup", "setup_author")}`, iconURL: `${client.i18n.get(language, "setup", "setup_author_icon")}` })
@@ -97,7 +92,7 @@ module.exports = async (client) => {
         const playEmbed = new EmbedBuilder()
           .setColor(client.color)
           .setAuthor({ name: `${client.i18n.get(language, "setup", "setup_playembed_author")}` })
-          .setImage(`${client.i18n.get(language, "setup", "setup_playembed_image")}`)
+          .setImage(`https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.jpeg?size=300`)
           .setDescription(`${client.i18n.get(language, "setup", "setup_playembed_desc", {
               clientId: client.user.id,
           })}`)

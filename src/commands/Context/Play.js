@@ -1,13 +1,13 @@
 const { ContextMenuInteraction, EmbedBuilder, PermissionsBitField } = require('discord.js');
 const { convertTime } = require("../../structures/ConvertTime.js");
-
+const { StartQueueDuration } = require("../../structures/QueueDuration.js");
 module.exports = { 
     name: "Play",
     type: 3,
     /**
      * @param {ContextMenuInteraction} interaction
      */
-    run: async (interaction, client, user, language) => {
+    run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
 
         const value = (interaction.channel.messages.cache.get(interaction.targetId).content ?? await interaction.channel.messages.fetch(interaction.targetId));
@@ -32,6 +32,8 @@ module.exports = {
         const result = await player.search(value, { requester: interaction.user });
         const tracks = result.tracks;
 
+        const TotalDuration = StartQueueDuration(tracks)
+
         if (!result.tracks.length) return msg.edit({ content: 'No result was found' });
         if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track) 
         else player.play(tracks[0]);
@@ -41,7 +43,7 @@ module.exports = {
                 .setDescription(`${client.i18n.get(language, "music", "play_playlist", {
                     title: tracks[0].title,
                     url: value,
-                    duration: convertTime(tracks[0].length),
+                    duration: convertTime(TotalDuration),
                     songs: tracks.length,
                     request: tracks[0].requester
                 })}`)

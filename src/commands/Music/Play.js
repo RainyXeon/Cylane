@@ -1,5 +1,6 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const { convertTime } = require("../../structures/ConvertTime.js");
+const { StartQueueDuration } = require("../../structures/QueueDuration.js");
 
 module.exports = {
     name: "play",
@@ -40,21 +41,16 @@ module.exports = {
                 if (!result.tracks.length) return msg.edit({ content: 'No result was found' });
                 if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track) 
                 else player.play(tracks[0]);
-        
-                function fixedduration () {
-                    const current = tracks[0].length ?? 0;
-                    return tracks
-                      .reduce((acc, cur) => acc + (cur.length || 0),
-                        current
-                    );
-                }
+
+                const TotalDuration = StartQueueDuration(tracks)
+    
 
                 if (result.type === 'PLAYLIST'){
                     const embed = new EmbedBuilder()
                         .setDescription(`${client.i18n.get(language, "music", "play_playlist", {
                             title: tracks[0].title,
                             url: value,
-                            duration: convertTime(fixedduration()),
+                            duration: convertTime(TotalDuration),
                             songs: tracks.length,
                             request: tracks[0].requester
                         })}`)

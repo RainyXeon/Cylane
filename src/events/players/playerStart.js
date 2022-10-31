@@ -1,5 +1,6 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, } = require("discord.js");
 const formatduration = require('../../structures/FormatDuration.js');
+const { QueueDuration } = require("../../structures/QueueDuration.js");
 const GControl = require("../../plugins/schemas/control.js")
 const GLang = require("../../plugins/schemas/language.js")
 const Setup = require("../../plugins/schemas/setup.js")
@@ -44,13 +45,7 @@ module.exports = async (client, player, track) => {
     const song = player.queue.current;
     const position = player.shoukaku.position
 
-  function fixedduration () {
-      const current = player.queue.current.length ?? 0;
-      return player.queue
-        .reduce((acc, cur) => acc + (cur.length || 0),
-          current
-      );
-  }
+  const TotalDuration = QueueDuration(player)
   
   const embeded = new EmbedBuilder()
     .setAuthor({ name: `${client.i18n.get(language, "player", "track_title")}`, iconURL: `${client.i18n.get(language, "player", "track_icon")}` })
@@ -63,7 +58,7 @@ module.exports = async (client, player, track) => {
       { name: `${client.i18n.get(language, "player", "volume_title")}`, value: `${player.volume}%`, inline: true },
       { name: `${client.i18n.get(language, "player", "queue_title")}`, value: `${player.queue.length}`, inline: true },
       { name: `${client.i18n.get(language, "player", "duration_title")}`, value: `${formatduration(song.length, true)}`, inline: true },
-      { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatduration(fixedduration())}`, inline: true },
+      { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatduration(TotalDuration)}`, inline: true },
       { name: `${client.i18n.get(language, "player", "download_title")}`, value: `**[${song.title} - y2mate.com](https://www.y2mate.com/youtube/${song.identifier})**`, inline: false },
       { name: `${client.i18n.get(language, "player", "current_duration_title", {
         current_duration: formatduration(song.length, true),
