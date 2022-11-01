@@ -44,6 +44,15 @@ module.exports = async(client, interaction) => {
             });
             await interaction.respond(choice).catch(() => { });
           }
+
+          if (interaction.commandName == "pl-add") {
+            checkRegex()
+              let choice = []
+              await YouTube.search(url || Random, { safeSearch: true, limit: 10 }).then(result => {
+                  result.forEach((x) => { choice.push({ name: x.title, value: x.url }) })
+              });
+              await interaction.respond(choice).catch(() => { });
+            }
         }
 
         const command = client.slash.get(interaction.commandName);

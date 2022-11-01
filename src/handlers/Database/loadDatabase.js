@@ -6,6 +6,7 @@ module.exports = async (client) => {
         await mongoose.connect(MONGO_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            autoIndex: false
         });
         client.logger.info('Connected to the database!')
     } catch (error) {
