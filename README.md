@@ -1,6 +1,7 @@
 ## 📑 Short Feature
 - [x] Music System
 - [x] Multi Language
+- [x] Playlist Network
 - [x] SlashCommand
 - [x] ContextMenus
 - [x] Custom Filters
@@ -225,7 +226,6 @@ After installation or finishes all you can use `node .` to start the bot. or `Ru
 - Import (/pl-import [name])
 - Detail (/pl-detail [name])
 - Remove (/pl-remove [name] [position])
-- Savequeue (/pl-savequeue [name])
 - View (/pl-view)
 
 
