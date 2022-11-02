@@ -2,9 +2,9 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const Playlist = require("../../plugins/schemas/playlist.js");
 
 module.exports = {
-    name: "pl-delete",
+    name: ["playlist", "delete"],
     description: "Delete a playlist",
-    category: "Playlist",
+    categories: "Playlist",
     options: [
         {
             name: "name",

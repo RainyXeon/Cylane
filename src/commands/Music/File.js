@@ -1,14 +1,15 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../structures/ConvertTime.js");
 // Main code
 module.exports = { 
-    name: "mp3",
+    name: ["mp3"],
     description: "Play the music file for the bot",
+    categories: "Music",
     options: [
         {
             name: "file",
             description: "The music file to play",
-            type: 11,
+            type: ApplicationCommandOptionType.Attachment,
         }
     ],
     run: async (interaction, client, language) => {

@@ -2,8 +2,9 @@ const { EmbedBuilder } = require('discord.js');
 
 // Main code
 module.exports = { 
-    name: "clear",
+    name: ["clear"],
     description: "Clear song in queue!",
+    categories: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "clearqueue_loading")}`);

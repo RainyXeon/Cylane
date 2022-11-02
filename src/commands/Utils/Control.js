@@ -1,13 +1,14 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const GControl = require('../../plugins/schemas/control.js');
 module.exports = { 
-  name: "control",
+  name: ["settings", "control"],
   description: "Enable or disable the player control",
+  categories: "Utils",
   options: [
       {
           name: "type",
           description: "Choose enable or disable",
-          type: 3,
+          type: ApplicationCommandOptionType.String,
           required: true,
           choices: [
               {

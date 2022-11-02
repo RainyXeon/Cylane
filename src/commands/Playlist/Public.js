@@ -2,7 +2,7 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const Playlist = require("../../plugins/schemas/playlist.js");
 
 module.exports = {
-    name: "pl-public",
+    name: ["playlist", "public"],
     description: "Public a playlist",
     category: "Playlist",
     options: [

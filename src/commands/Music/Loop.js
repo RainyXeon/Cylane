@@ -1,13 +1,14 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
-    name: "loop",
+    name: ["loop"],
     description: "Loop song in queue type all/current!",
+    categories: "Music",
     options: [
         {
             name: "type",
             description: "Type of loop",
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: true,
             choices: [
                 {

@@ -4,9 +4,9 @@ const { SlashPage } = require('../../structures/PageQueue.js');
 const Playlist = require("../../plugins/schemas/playlist.js");
 
 module.exports = {
-    name: "pl-detail",
+    name: ["playlist", "detail"],
     description: "Detail a playlist",
-    category: "Playlist",
+    categories: "Playlist",
     options: [
         {
             name: "name",

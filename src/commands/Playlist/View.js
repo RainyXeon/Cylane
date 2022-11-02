@@ -4,7 +4,7 @@ const Playlist = require("../../plugins/schemas/playlist.js");
 const humanizeDuration = require('humanize-duration');
 
 module.exports = {
-    name: "pl-view",
+    name: ["playlist", "view"],
     description: "View your playlists",
     category: "Playlist",
     options: [

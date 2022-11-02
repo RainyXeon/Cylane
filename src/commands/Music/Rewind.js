@@ -1,16 +1,17 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const formatDuration = require('../../structures/FormatDuration.js');
 const rewindNum = 10;
 
 // Main code
 module.exports = { 
-    name: "rewind",
+    name: ["rewind"],
     description: "Rewind timestamp in the song!",
+    categories: "Music",
     options: [
         {
             name: "seconds",
             description: "Rewind timestamp in the song!",
-            type: 4,
+            type: ApplicationCommandOptionType.Number,
             required: false,
         }
     ],

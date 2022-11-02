@@ -2,8 +2,9 @@ const { EmbedBuilder } = require('discord.js');
 
 // Main code
 module.exports = { 
-    name: "autoplay",
+    name: ["autoplay"],
     description: "Autoplay music (Random play songs)",
+    categories: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
 

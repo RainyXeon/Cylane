@@ -2,8 +2,9 @@ const { EmbedBuilder } = require('discord.js');
 
 // Main code
 module.exports = { 
-    name: "resume",
+    name: ["resume"],
     description: "Resume the music!",
+    categories: "Music",
     run: async (interaction, client, language) => {
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "resume_loading")}`);
 

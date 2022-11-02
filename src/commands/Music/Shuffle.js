@@ -2,8 +2,9 @@ const { EmbedBuilder } = require('discord.js');
 
 // Main code
 module.exports = { 
-    name: "shuffle",
+    name: ["shuffle"],
     description: "Shuffle song in queue!",
+    categories: "Music",
     run: async (interaction, client, language) => {
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "shuffle_loading")}`);
 

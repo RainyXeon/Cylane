@@ -1,15 +1,16 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../structures/ConvertTime.js");
 const { StartQueueDuration } = require("../../structures/QueueDuration.js");
 
 module.exports = {
-    name: "play",
+    name: ["play"],
     description: "Play a song from any types",
+    categories: "Music",
     options: [
         {
             name: "search",
             description: "The song link or name",
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: true,
             autocomplete: true
         }

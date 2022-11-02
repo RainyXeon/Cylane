@@ -1,7 +1,8 @@
 const { EmbedBuilder } = require('discord.js');
 module.exports = { 
-  name: "restart",
+  name: ["settings", "restart"],
   description: "Shuts down the client!",
+  categories: "Admin",
 run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
 

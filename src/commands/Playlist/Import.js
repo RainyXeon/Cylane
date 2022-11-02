@@ -3,9 +3,9 @@ const { convertTime } = require("../../structures/ConvertTime.js");
 const Playlist = require("../../plugins/schemas/playlist.js");
 
 module.exports = {
-    name: "pl-import",
+    name: ["playlist", "import"],
     description: "Import a playlist to queue.",
-    category: "Playlist",
+    categories: "Playlist",
     options: [
         {
             name: "name",

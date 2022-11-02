@@ -1,8 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
 
 module.exports = { 
-    name: "pause",
+    name: ["pause"],
     description: "Pause the music!",
+    categories: "Music",
 
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });

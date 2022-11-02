@@ -2,8 +2,9 @@ const { EmbedBuilder } = require('discord.js');
 
 // Main code
 module.exports = { 
-    name: "replay",
+    name: ["replay"],
     description: "Replay the current song!",
+    categories: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "replay_loading")}`);

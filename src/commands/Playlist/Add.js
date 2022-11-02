@@ -6,9 +6,9 @@ const Playlist = require("../../plugins/schemas/playlist.js");
 const TrackAdd = [];
 
 module.exports = {
-    name: "pl-add",
+    name: ["playlist", "add"],
     description: "Add song to a playlist",
-    category: "Playlist",
+    categories: "Playlist",
     options: [
         {
             name: "name",
@@ -19,7 +19,7 @@ module.exports = {
         {
             name: "search",
             description: "The song link or name",
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: true,
             autocomplete: true
         }
@@ -103,7 +103,7 @@ module.exports = {
                 });
             }
         } catch (e) {
-            console.log(e)
+
         }  
     }
 }

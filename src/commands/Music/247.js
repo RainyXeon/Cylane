@@ -1,8 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
-    name: "247",
+    name: ["247"],
     description: "24/7 in voice channel",
+    categories: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

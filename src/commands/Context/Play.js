@@ -1,9 +1,10 @@
-const { ContextMenuInteraction, EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { ContextMenuInteraction, EmbedBuilder, PermissionsBitField,  ApplicationCommandType } = require('discord.js');
 const { convertTime } = require("../../structures/ConvertTime.js");
 const { StartQueueDuration } = require("../../structures/QueueDuration.js");
 module.exports = { 
-    name: "Play",
-    type: 3,
+    name: ["Play"],
+    type: ApplicationCommandType.Message,
+    categories: "Context",
     /**
      * @param {ContextMenuInteraction} interaction
      */

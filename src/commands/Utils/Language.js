@@ -1,14 +1,15 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const GLang = require('../../plugins/schemas/language.js'); 
 module.exports = { 
-  name: "language",
+  name: ["settings", "language"],
   description: "Change the language for the bot",
+  categories: "Utils",
   options: [
       {
           name: "input",
           description: "The new language",
           required: true,
-          type: 3
+          type: ApplicationCommandOptionType.String
       }
   ],
 run: async (interaction, client, language) => {

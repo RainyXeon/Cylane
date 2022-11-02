@@ -2,8 +2,9 @@ const { EmbedBuilder } = require('discord.js');
 
 // Main code
 module.exports = { 
-    name: "join",
+    name: ["join"],
     description: "Make the bot join the voice channel.",
+    categories: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

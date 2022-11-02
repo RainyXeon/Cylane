@@ -1,9 +1,9 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, version } = require('discord.js');
-const ms = require('pretty-ms');
 
 module.exports = {
-    name: "ping",
+    name: ["ping"],
     description: "Shows the ping information of the Bot",
+    categories: "Info",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
           const ping = new EmbedBuilder()

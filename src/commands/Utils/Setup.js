@@ -1,13 +1,14 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const Setup = require('../../plugins/schemas/setup.js')
 module.exports = { 
-  name: "setup",
+  name: ["settings", "setup"],
   description: "Setup channel song request",
+  categories: "Utils",
   options: [
       {
           name: "type",
           description: "Type of channel",
-          type: 3,
+          type: ApplicationCommandOptionType.String,
           required: true,
           choices: [
               {

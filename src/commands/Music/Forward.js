@@ -1,16 +1,17 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const formatDuration = require('../../structures/FormatDuration.js');
 const fastForwardNum = 10;
 
 // Main code
 module.exports = { 
-    name: "forward",
+    name: ["forward"],
     description: "Forward timestamp in the song!",
+    categories: "Music",
     options: [
         {
             name: "seconds",
             description: "The number of seconds to forward the timestamp by.",
-            type: 4,
+            type: ApplicationCommandOptionType.Number,
             required: false
         }
     ],

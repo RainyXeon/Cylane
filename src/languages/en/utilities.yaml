@@ -14,3 +14,9 @@ control_perm: "You need the `MANAGE_GUILD` permission to use this command."
 control_set: "`🔧` | *Player control mode has been set to:* `%{toggle}`"
 control_change: "`🔧` | *Player control mode has been change to:* `%{toggle}`"
 control_err: "An error occured while setting the player control mode!"
+
+##### Help command #####
+help_desc: "Please Select Category Menu!"
+help_category_desc: "Select the %{category} to see all commands."
+help_category: "%{category}"
+help_timeout: "```Help Menu timed out try using %{prefix}help again.```"

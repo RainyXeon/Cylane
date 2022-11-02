@@ -1,17 +1,18 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const formatDuration = require('../../structures/FormatDuration.js');
 const { convertTime } = require("../../structures/ConvertTime.js");
 const { SlashPage } = require('../../structures/PageQueue.js');
 
 // Main code
 module.exports = { 
-    name: "queue",
+    name: ["queue"],
     description: "Show the queue of songs.",
+    categories: "Music",
     options: [
         {
             name: "page",
             description: "Page number to show.",
-            type: 4,
+            type: ApplicationCommandOptionType.Number,
             required: false,
         }
     ],

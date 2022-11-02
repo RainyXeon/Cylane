@@ -2,8 +2,9 @@ const { EmbedBuilder, PermissionsBitField, ActionRowBuilder, ButtonBuilder, } = 
 const formatDuration = require('../../structures/FormatDuration.js');
 // Main code
 module.exports = { 
-    name: "nowplaying",
+    name: ["nowplaying"],
     description: "Display the song currently playing.",
+    categories: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const realtime = client.config.NP_REALTIME;

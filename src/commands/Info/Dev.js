@@ -2,8 +2,9 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, version } = require('disc
 const ms = require('pretty-ms');
 
 module.exports = {
-    name: "developer",
+    name: ["developer"],
     description: "Shows the developer information of the Bot (Credit)",
+    categories: "Info",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
           const xeondex = new EmbedBuilder()

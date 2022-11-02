@@ -19,6 +19,23 @@ module.exports = async(client, interaction) => {
 
         const language = LANGUAGE;
 
+        let subCommandName = "";
+        try {
+          subCommandName = interaction.options.getSubcommand();
+        } catch { };
+        let subCommandGroupName = "";
+        try {
+          subCommandGroupName = interaction.options.getSubcommandGroup();
+        } catch { };
+
+        const command = client.slash.find(command => {
+          switch (command.name.length) {
+            case 1: return command.name[0] == interaction.commandName;
+            case 2: return command.name[0] == interaction.commandName && command.name[1] == subCommandName;
+            case 3: return command.name[0] == interaction.commandName && command.name[1] == subCommandGroupName && command.name[2] == subCommandName;
+          }
+        });
+
         if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
           const url = interaction.options.get("search").value
 
@@ -45,7 +62,7 @@ module.exports = async(client, interaction) => {
             await interaction.respond(choice).catch(() => { });
           }
 
-          if (interaction.commandName == "pl-add") {
+          if (interaction.commandName + command.name[1] == "playlist" + "add") {
             checkRegex()
               let choice = []
               await YouTube.search(url || Random, { safeSearch: true, limit: 10 }).then(result => {
@@ -54,17 +71,22 @@ module.exports = async(client, interaction) => {
               await interaction.respond(choice).catch(() => { });
             }
         }
-
-        const command = client.slash.get(interaction.commandName);
-
-        if(!command) return;
+    
+        if (!command) return;
         if (!client.dev.includes(interaction.user.id) && client.dev.length > 0) { 
             interaction.reply(`${client.i18n.get(language, "interaction", "dev_only")}`); 
             logger.info(`[INFOMATION] ${interaction.user.tag} trying request the command from ${interaction.guild.name} (${interaction.guild.id})`); 
             return;
         }
 
-        client.logger.info(`[COMMAND] ${command.name} used by ${interaction.user.tag} from ${interaction.guild.name} (${interaction.guild.id})`);
+        const msg_cmd = [
+          `[COMMAND] ${command.name[0]}`,
+          `${command.name[1] || ""}`,
+          `${command.name[2] || ""}`,
+          `used by ${interaction.user.tag} from ${interaction.guild.name} (${interaction.guild.id})`,
+        ]
+
+        client.logger.info(`${msg_cmd.join(" ")}`);
 
         if(!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.SendMessages)) return interaction.user.dmChannel.send(`${client.i18n.get(language, "interaction", "no_perms")}`);
         if(!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ViewChannel)) return;

@@ -1,8 +1,9 @@
-const { ContextMenuInteraction, EmbedBuilder } = require('discord.js');
+const { ContextMenuInteraction, EmbedBuilder,  ApplicationCommandType } = require('discord.js');
 
 module.exports = { 
-    name: "Shuffle",
-    type: 3,
+    name: ["Shuffle"],
+    type: ApplicationCommandType.Message,
+    categories: "Context",
     /**
      * @param {ContextMenuInteraction} interaction
      */

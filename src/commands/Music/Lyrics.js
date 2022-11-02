@@ -1,15 +1,16 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const lyricsfinder = require('lyrics-finder');
 
 // Main code
 module.exports = { 
-    name: "lyrics",
+    name: ["lyrics"],
     description: "Display lyrics of a song.",
+    categories: "Music",
     options: [
         {
             name: "input",
             description: "The song you want to find lyrics for",
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: false,
         }
     ],

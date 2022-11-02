@@ -2,8 +2,9 @@ const { EmbedBuilder } = require('discord.js');
 
 // Main code
 module.exports = { 
-    name: "previous",
+    name: ["previous"],
     description: "Play the previous song in the queue.",
+    categories: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
             const msg = await interaction.editReply(`${client.i18n.get(language, "music", "previous_loading")}`);

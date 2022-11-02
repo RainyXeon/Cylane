@@ -2,9 +2,9 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const Playlist = require("../../plugins/schemas/playlist.js");
 
 module.exports = {
-    name: "pl-private",
+    name: ["playlist", "private"],
     description: "Private a playlist",
-    category: "Playlist",
+    categories: "Playlist",
     options: [
         {
             name: "name",

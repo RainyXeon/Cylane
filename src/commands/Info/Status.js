@@ -2,8 +2,9 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, version } = require('disc
 const ms = require('pretty-ms');
 
 module.exports = {
-    name: "status",
+    name: ["status"],
     description: "Shows the status information of the Bot",
+    categories: "Info",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
           const info = new EmbedBuilder()
