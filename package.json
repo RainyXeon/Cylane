@@ -1,7 +1,7 @@
 {
   "name": "cylane",
   "version": "1.5",
-  "description": "✈ Join Discord: https://discord.gg/xHvsCMjnhU 👌",
+  "description": "A discord lavalink bot using shokaku/kazagumo",
   "main": "index.js",
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
@@ -30,8 +30,8 @@
     "deploy:global": "node deploySlash.js global",
     "deploy:global:clear": "node deploySlash.js global clear"
   },
-  "author": "Adivise",
-  "license": "Apache-2.0",
+  "author": "RainyXeon",
+  "license": "agpl-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/XeonE52680v3/nano-slashbot-template.git"

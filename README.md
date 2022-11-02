@@ -13,12 +13,6 @@
 - [x] Youtube
 - [x] SoundCloud
 - [x] Spotify
-- [x] Deezer
-- [x] Facebook 
-- [x] Twitch
-- [x] Apple
-- [x] Bandcamp
-- [x] Vimeo
 - [x] Https (Radio)
 
 <details><summary>📎 Requirements [CLICK ME]</summary>
