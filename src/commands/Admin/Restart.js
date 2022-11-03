@@ -10,7 +10,8 @@ run: async (interaction, client, language) => {
 
             const restart = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "utilities", "restart_msg")}`)
-                .setColor(client.color);
+                .setColor(client.color)
+                .setFooter({ text: `© ${interaction.guild.members.me.displayName}`, iconURL: client.user.displayAvatarURL({ dynamic: true })})
         
             await interaction.editReply({ embeds: [restart] });
                     

@@ -1,10 +1,11 @@
-const { Client, EmbedBuilder } = require("discord.js");
+const { Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const formatDuration = require("../../structures/FormatDuration.js");
 const { QueueDuration } = require("../../structures/QueueDuration.js");
 const GLang = require("../../plugins/schemas/language.js");
 const Setup = require("../../plugins/schemas/setup.js");
   
 module.exports = async (client) => {
+    const file = new AttachmentBuilder('../../../assets/banner.jpg');
     client.UpdateQueueMsg = async function (player) {
         let data = await Setup.findOne({ guild: player.guildId });
         if (data.enable === false) return;
