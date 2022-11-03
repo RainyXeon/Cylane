@@ -2,9 +2,9 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const fetch = require('node-fetch')
 
 module.exports = {
-    name: ["test"],
-    description: "Test the unofficial command",
-    categories: "Admin",
+    name: ["anime", "hug"],
+    description: "Post the random hug",
+    categories: "Anime",
     options: [
         {
             name: "user",

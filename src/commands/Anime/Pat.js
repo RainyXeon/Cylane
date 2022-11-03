@@ -2,9 +2,9 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const fetch = require('node-fetch')
 
 module.exports = {
-    name: ["test"],
-    description: "Test the unofficial command",
-    categories: "Admin",
+    name: ["anime", "pat"],
+    description: "Post the random pat",
+    categories: "Anime",
     options: [
         {
             name: "user",
@@ -17,12 +17,12 @@ module.exports = {
         let link = ""
         await interaction.deferReply({ ephemeral: false });
         if(interaction.user.id != client.owner) return interaction.editReply({ content: `${client.i18n.get(language, "interaction", "owner_only")}` });
-        await fetch('https://some-random-api.ml/animu/hug').then(res => res.json()).then(json => link = json.link);
+        await fetch('https://some-random-api.ml/animu/pat').then(res => res.json()).then(json => link = json.link);
         const value = interaction.options.getUser("user")
 
         if (value){
             const embed = new EmbedBuilder()
-                .setDescription(`*Hugs <@${value.id}>*`)
+                .setDescription(`*Pats <@${value.id}>*`)
                 .setImage(link)
                 .setFooter({ text: `Provided by some-random-api.ml`, iconURL: client.user.displayAvatarURL({ dynamic: true })})
             interaction.editReply({ embeds: [embed] })
