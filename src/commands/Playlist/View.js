@@ -6,7 +6,7 @@ const humanizeDuration = require('humanize-duration');
 module.exports = {
     name: ["playlist", "view"],
     description: "View your playlists",
-    category: "Playlist",
+    categories: "Playlist",
     options: [
         {
             name: "page",
