@@ -1,4 +1,4 @@
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField } = require('discord.js');
 const Setup = require('../../plugins/schemas/setup.js')
 module.exports = { 
   name: ["settings", "setup"],
@@ -24,7 +24,7 @@ module.exports = {
   ],
 run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
-            if (!interaction.member.permissions.has('MANAGE_GUILD')) return interaction.editReply(`${client.i18n.get(language, "utilities", "lang_perm")}`);
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return interaction.editReply(`${client.i18n.get(language, "utilities", "lang_perm")}`);
             if(interaction.options.getString('type') === "create") {
                 // Create voice
                 await interaction.guild.channels.create({
@@ -41,7 +41,7 @@ run: async (interaction, client, language) => {
                     const playEmbed = new EmbedBuilder()
                         .setColor(client.color)
                         .setAuthor({ name: `${client.i18n.get(language, "setup", "setup_playembed_author")}` })
-                        .setImage(`${client.i18n.get(language, "setup", "setup_playembed_image")}`)
+                        .setImage(`https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.jpeg?size=300`)
                         .setDescription(`${client.i18n.get(language, "setup", "setup_playembed_desc")}`)
                         .setFooter({ text: `${client.i18n.get(language, "setup", "setup_playembed_footer")}` });
 
@@ -63,6 +63,10 @@ run: async (interaction, client, language) => {
                         });
                     }
                 if(interaction.options.getString('type') === "delete") {
+                    const SetupChannel = await Setup.findOne({ guild: interaction.guild.id });
+                    const fetchedChannel = interaction.guild.channels.cache.get(SetupChannel.channel);
+                    await fetchedChannel.delete();
+
                     await Setup.findOneAndUpdate({ guild: interaction.guild.id }, {
                             guild: interaction.guild.id,
                             enable: false,

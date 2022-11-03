@@ -1,4 +1,4 @@
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField } = require('discord.js');
 const GControl = require('../../plugins/schemas/control.js');
 module.exports = { 
   name: ["settings", "control"],
@@ -24,7 +24,7 @@ module.exports = {
   ],
 run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
-            if (!interaction.member.permissions.has('MANAGE_GUILD')) return interaction.editReply(`${client.i18n.get(language, "utilities", "control_perm")}`);
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return interaction.editReply(`${client.i18n.get(language, "utilities", "lang_perm")}`);
             const Control = await GControl.findOne({ guild: interaction.guild.id });
             if(interaction.options.getString('type') === "enable") {
                 if(!Control) {

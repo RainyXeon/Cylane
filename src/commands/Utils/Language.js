@@ -1,4 +1,4 @@
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField } = require('discord.js');
 const GLang = require('../../plugins/schemas/language.js'); 
 module.exports = { 
   name: ["settings", "language"],
@@ -16,7 +16,7 @@ run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
             const input = interaction.options.getString("input");
 
-            if (!interaction.member.permissions.has('MANAGE_GUILD')) return interaction.editReply(`${client.i18n.get(language, "utilities", "lang_perm")}`);
+            if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return interaction.editReply(`${client.i18n.get(language, "utilities", "lang_perm")}`);
             const languages = client.i18n.getLocales();
 
             if (!languages.includes(input)) return interaction.editReply(`${client.i18n.get(language, "utilities", "provide_lang", {
