@@ -42,37 +42,32 @@ module.exports = {
 
         const msg = await interaction.editReply(`${client.i18n.get(language, "playlist", "import_loading")}`);
 
-        const embed = new EmbedBuilder() // **Imported • \`${Plist}\`** (${playlist.tracks.length} tracks) • ${message.user}
-            .setDescription(`${client.i18n.get(language, "playlist", "import_imported", {
-                name: Plist,
-                tracks: playlist.tracks.length,
-                duration: totalDuration,
-                user: interaction.user
-            })}`)
-            .setColor(client.color)
-
-        msg.edit({ content: " ", embeds: [embed] });
-
         for (let i = 0; i < playlist.tracks.length; i++) {
-            const res = await player.search(playlist.tracks[i].uri);
-            player.queue.add(res.tracks[0])
+            const res = await player.search(playlist.tracks[i].uri, { requester: interaction.user });
             if(res.type == "TRACK") {
                 SongAdd.push(res.tracks[0]);
                 SongLoad++;
-                if (!player.playing) player.play();
             } else if(res.type == "PLAYLIST") {
                 for (let t = 0; t < res.tracks.length; t++) {
                     SongAdd.push(res.tracks[t]);
                     SongLoad++;
                 }
-                if (!player.playing) player.play();
             } else if(res.type == "SEARCH") {
                 SongAdd.push(res.tracks[0]);
                 SongLoad++;
-                if (!player.playing) player.play();
             }
             if(SongLoad == playlist.tracks.length) {
                 player.queue.add(SongAdd);
+                const embed = new EmbedBuilder() // **Imported • \`${Plist}\`** (${playlist.tracks.length} tracks) • ${message.user}
+                    .setDescription(`${client.i18n.get(language, "playlist", "import_imported", {
+                        name: Plist,
+                        tracks: playlist.tracks.length,
+                        duration: totalDuration,
+                        user: interaction.user
+                    })}`)
+                    .setColor(client.color)
+    
+                msg.edit({ content: " ", embeds: [embed] });
                 if (!player.playing) { player.play(); }
             }
         }

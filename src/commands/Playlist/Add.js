@@ -86,9 +86,21 @@ module.exports = {
                         if(LimitTrack > client.config.LIMIT_TRACK) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_limit_track", {
                             limit: client.config.LIMIT_TRACK
                         })}`); TrackAdd.length = 0; return; }
-                        for (let songs = 0; songs < TrackAdd.length; songs++) {
-                            playlist.tracks.push(TrackAdd[songs]);
-                        }
+                        // for (let songs = 0; songs < TrackAdd.length; songs++) {
+                        //     playlist.tracks.push(TrackAdd[songs]);
+                        // }
+                        TrackAdd.forEach(track => {
+                            playlist.tracks.push(
+                              {
+                                title: track.title,
+                                uri: track.uri,
+                                length: track.length,
+                                thumbnail: track.thumbnail,
+                                author: track.author,
+                                requester: track.requester // Just case can push
+                              }
+                            )
+                        });
                         playlist.save().then(() => {
                         const embed = new EmbedBuilder()
                             .setDescription(`${client.i18n.get(language, "playlist", "add_added", {
