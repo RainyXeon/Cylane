@@ -1,5 +1,6 @@
 const { EmbedBuilder, PermissionsBitField, ActionRowBuilder, ButtonBuilder, } = require('discord.js');
 const formatDuration = require('../../structures/FormatDuration.js');
+const { QueueDuration } = require("../../structures/QueueDuration.js");
 // Main code
 module.exports = { 
     name: ["nowplaying"],
@@ -12,19 +13,11 @@ module.exports = {
         const player = client.manager.players.get(interaction.guild.id);
         if (!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
 
-        function fixedduration () {
-            const current = player.queue.current.length ?? 0;
-            return player.queue
-              .reduce((acc, cur) => acc + (cur.length || 0),
-                current
-            );
-        }
-
         const song = player.queue.current;
         const position = player.shoukaku.position
         const CurrentDuration = formatDuration(position);
         const TotalDuration = formatDuration(song.length);
-        const Thumbnail = `https://img.youtube.com/vi/${song.identifier}/maxresdefault.jpg`;
+        const Thumbnail = `https://img.youtube.com/vi/${song.identifier}/maxresdefault.jpg` || `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.jpeg`;
         const Part = Math.floor(position / song.length * 30);
         const Emoji = player.playing ? "🔴 |" : "⏸ |";
 
@@ -39,7 +32,7 @@ module.exports = {
                 { name: `${client.i18n.get(language, "player", "volume_title")}`, value: `${player.volume}%`, inline: true },
                 { name: `${client.i18n.get(language, "player", "queue_title")}`, value: `${player.queue.length}`, inline: true },
                 { name: `${client.i18n.get(language, "player", "duration_title")}`, value: `${formatDuration(song.length, true)}`, inline: true },
-                { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatDuration(fixedduration())}`, inline: true },
+                { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatDuration(QueueDuration(player))}`, inline: true },
                 { name: `${client.i18n.get(language, "player", "download_title")}`, value: `**[${song.title} - y2mate.com](https://www.y2mate.com/youtube/${song.identifier})**`, inline: false },
                 { name: `${client.i18n.get(language, "music", "np_current_duration", {
                     current_duration: CurrentDuration,

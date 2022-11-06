@@ -38,7 +38,7 @@ module.exports = {
                 const result = await client.manager.search(input, { requester: interaction.user });
                 const tracks = result.tracks;
         
-                if (!result.tracks.length) return msg.edit({ content: 'No result was found' });
+                if (!result.tracks.length) return msg.edit({ content: `${client.i18n.get(language, "music", "add_match")}` });
                 if (result.type === 'PLAYLIST') for (let track of tracks) TrackAdd.push(track) 
                 else TrackAdd.push(tracks[0]);
         

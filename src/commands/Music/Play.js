@@ -39,26 +39,13 @@ module.exports = {
                 const result = await player.search(value, { requester: interaction.user });
                 const tracks = result.tracks;
         
-                if (!result.tracks.length) return msg.edit({ content: 'No result was found' });
+                if (!result.tracks.length) return msg.edit({ content: `${client.i18n.get(language, "music", "play_match")}` });
                 if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track) 
                 else player.play(tracks[0]);
 
                 const TotalDuration = StartQueueDuration(tracks)
     
-
-                if (result.type === 'PLAYLIST'){
-                    const embed = new EmbedBuilder()
-                        .setDescription(`${client.i18n.get(language, "music", "play_playlist", {
-                            title: tracks[0].title,
-                            url: value,
-                            duration: convertTime(TotalDuration),
-                            songs: tracks.length,
-                            request: tracks[0].requester
-                        })}`)
-                        .setColor(client.color)
-                    msg.edit({ content: " ", embeds: [embed] });
-                    if(!player.playing) player.play();
-                } else if (result.type === 'TRACK') {
+                if (result.type === 'TRACK') {
                     const embed = new EmbedBuilder()
                     .setDescription(`${client.i18n.get(language, "music", "play_track", {
                         title: tracks[0].title,

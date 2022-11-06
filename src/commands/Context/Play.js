@@ -35,7 +35,7 @@ module.exports = {
 
         const TotalDuration = StartQueueDuration(tracks)
 
-        if (!result.tracks.length) return msg.edit({ content: 'No result was found' });
+        if (!result.tracks.length) return msg.edit({ content: `${client.i18n.get(language, "music", "play_match")}` });
         if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track) 
         else player.play(tracks[0]);
 
