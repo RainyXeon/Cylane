@@ -45,31 +45,27 @@ module.exports = async(client, interaction) => {
   
 				  const Random = DEFAULT[Math.floor(Math.random() * DEFAULT.length)];
 
-          async function checkRegex() {
+          if (
+            interaction.commandName == "play" ||
+            interaction.commandName + command.name[1] == "playlist" + "add"
+          ) {
+            let choice = []
             if (match == true) {
-              let choice = []
+              choice.push({ name: url, value: url })
+              await interaction.respond(choice).catch(() => { });
+            } else if (match == false) {
+              await client.manager.search(url || Random).then(result => {
+                for (let i = 0; i <= 10; i++) {
+                  const x = result.tracks[i];
+                  choice.push({ name: x.title, value: x.uri }) 
+                }
+              })
+              await interaction.respond(choice).catch(() => { });
+            } else {
               choice.push({ name: url, value: url })
               await interaction.respond(choice).catch(() => { });
             }
           }
-
-          if (interaction.commandName == "play") {
-					checkRegex()
-            let choice = []
-            await YouTube.search(url || Random, { safeSearch: true, limit: 10 }).then(result => {
-                result.forEach((x) => { choice.push({ name: x.title, value: x.url }) })
-            });
-            await interaction.respond(choice).catch(() => { });
-          }
-
-          if (interaction.commandName + command.name[1] == "playlist" + "add") {
-            checkRegex()
-              let choice = []
-              await YouTube.search(url || Random, { safeSearch: true, limit: 10 }).then(result => {
-                  result.forEach((x) => { choice.push({ name: x.title, value: x.url }) })
-              });
-              await interaction.respond(choice).catch(() => { });
-            }
         }
     
         if (!command) return;

@@ -26,18 +26,12 @@ addColors({
 const logger = createLogger({
 	transports: [
 		new transports.Console({
-      level: 'info',
       format: customFormat,
     }),
 
     new transports.Console({
       level: 'error',
-      format: customFormat,
-    }),
-
-    new transports.Console({
-      level: 'warn',
-      format: customFormat,
+      format: fileFormat,
     }),
 
     new transports.File({
