@@ -1,6 +1,5 @@
 const { PermissionsBitField, InteractionType, CommandInteraction } = require("discord.js");
 const GLang = require("../../plugins/schemas/language.js");
-const YouTube = require("youtube-sr").default;
 const { DEFAULT } = require("../../plugins/config.js")
 const { REGEX } = require("../../plugins/regex.js")
 

@@ -15,6 +15,7 @@
     "kazagumo": "^2.2.3",
     "kazagumo-spotify": "^1.1.5",
     "lyrics-finder": "^21.7.0",
+    "moment": "^2.29.4",
     "mongoose": "^6.7.1",
     "plsargs": "^0.1.6",
     "pretty-ms": "^7.0.1",

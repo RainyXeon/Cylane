@@ -1,0 +1,77 @@
+[1mdiff --git a/package.json b/package.json[m
+[1mindex d557336..5001d62 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -15,14 +15,14 @@[m
+     "kazagumo": "^2.2.3",[m
+     "kazagumo-spotify": "^1.1.5",[m
+     "lyrics-finder": "^21.7.0",[m
+[32m+[m[32m    "moment": "^2.29.4",[m
+     "mongoose": "^6.7.1",[m
+     "plsargs": "^0.1.6",[m
+     "pretty-ms": "^7.0.1",[m
+     "recursive-readdir": "^2.2.3",[m
+     "shoukaku": "^3.2.2",[m
+     "stuffs": "^0.1.22",[m
+[31m-    "winston": "^3.8.1",[m
+[31m-    "youtube-sr": "^4.3.4"[m
+[32m+[m[32m    "winston": "^3.8.1"[m
+   },[m
+   "scripts": {[m
+     "start": "node --no-warnings ./src/index.js",[m
+[1mdiff --git a/src/commands/Music/Autoplay.js b/src/commands/Music/Autoplay.js[m
+[1mindex d16ea35..c1c33bf 100644[m
+[1m--- a/src/commands/Music/Autoplay.js[m
+[1m+++ b/src/commands/Music/Autoplay.js[m
+[36m@@ -19,7 +19,7 @@[m [mmodule.exports = {[m
+             player.autoplay = false[m
+             await player.queue.clear();[m
+ [m
+[31m-            const off = new MessageEmbed()[m
+[32m+[m[32m            const off = new EmbedBuilder()[m
+             .setDescription(`${client.i18n.get(language, "music", "autoplay_off")}`)[m
+             .setColor(client.color);[m
+ [m
+[1mdiff --git a/src/events/guild/interactionCreate.js b/src/events/guild/interactionCreate.js[m
+[1mindex 1ee3468..40d21d3 100644[m
+[1m--- a/src/events/guild/interactionCreate.js[m
+[1m+++ b/src/events/guild/interactionCreate.js[m
+[36m@@ -1,6 +1,5 @@[m
+ const { PermissionsBitField, InteractionType, CommandInteraction } = require("discord.js");[m
+ const GLang = require("../../plugins/schemas/language.js");[m
+[31m-const YouTube = require("youtube-sr").default;[m
+ const { DEFAULT } = require("../../plugins/config.js")[m
+ const { REGEX } = require("../../plugins/regex.js")[m
+ [m
+[1mdiff --git a/src/plugins/logger.js b/src/plugins/logger.js[m
+[1mindex 7bdda1e..d645d45 100644[m
+[1m--- a/src/plugins/logger.js[m
+[1m+++ b/src/plugins/logger.js[m
+[36m@@ -1,12 +1,10 @@[m
+ const { createLogger, transports, format, addColors } = require('winston');[m
+ const { combine, timestamp, prettyPrint, printf, colorize } = format;[m
+[32m+[m[32mconst moment = require("moment");[m
+ [m
+ const timezoned = () => {[m
+[31m-    return new Date().toLocaleString('vn-VI', {[m
+[31m-        timeZone: 'Asia/Ho_Chi_Minh'[m
+[31m-    });[m
+[32m+[m[32m    return moment().format("DD-MM-YYYY hh:mm:ss")[m
+ }[m
+[31m-[m
+ const customFormat = format.combine(timestamp({ format: timezoned }), printf((info) => {[m
+ 	return `[${info.timestamp}] - [${info.level.toUpperCase().padEnd(7)}] - [${info.message}]`[m
+ }), colorize({ all: true }))[m
+[1mdiff --git a/src/structures/PageQueue.js b/src/structures/PageQueue.js[m
+[1mindex 3d5e8a2..4394cea 100644[m
+[1m--- a/src/structures/PageQueue.js[m
+[1m+++ b/src/structures/PageQueue.js[m
+[36m@@ -68,7 +68,7 @@[m [mconst SlashPlaylist = async (client, message, pages, timeout, queueLength, langu[m
+         .setCustomId('next')[m
+         .setLabel('➡')[m
+         .setStyle('Primary')[m
+[31m-    const row = new MessageActionRow()[m
+[32m+[m[32m    const row = new ActionRowBuilder()[m
+         .addComponents(row1, row2)[m
+ [m
+     let page = 0;[m

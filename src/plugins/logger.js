@@ -1,10 +1,9 @@
 const { createLogger, transports, format, addColors } = require('winston');
 const { combine, timestamp, prettyPrint, printf, colorize } = format;
+const moment = require("moment");
 
 const timezoned = () => {
-    return new Date().toLocaleString('vn-VI', {
-        timeZone: 'Asia/Ho_Chi_Minh'
-    });
+    return moment().format("DD-MM-YYYY hh:mm:ss")
 }
 
 const customFormat = format.combine(timestamp({ format: timezoned }), printf((info) => {
