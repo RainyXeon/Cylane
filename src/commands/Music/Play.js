@@ -55,6 +55,18 @@ module.exports = {
                     })}`)
                     .setColor(client.color)
                     msg.edit({ content: " ", embeds: [embed] });
+                } else if (result.type === 'PLAYLIST') {
+                    const embed = new EmbedBuilder()
+                        .setDescription(`${client.i18n.get(language, "music", "play_playlist", {
+                            title: tracks[0].title,
+                            url: value,
+                            duration: convertTime(TotalDuration),
+                            songs: tracks.length,
+                            request: tracks[0].requester
+                        })}`)
+                        .setColor(client.color)
+                    msg.edit({ content: " ", embeds: [embed] });
+                    if(!player.playing) player.play();
                 } else if (result.type === 'SEARCH') {
                     const embed = new EmbedBuilder()
                         .setColor(client.color)
