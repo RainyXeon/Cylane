@@ -76,12 +76,20 @@ run: async (interaction, client, language) => {
 
                 if(interaction.options.getString('type') === "delete") {
                     const SetupChannel = await Setup.findOne({ guild: interaction.guild.id });
-                    const fetchedTextChannel = interaction.guild.channels.cache.get(SetupChannel.channel);
+
+                    const embed = new EmbedBuilder()
+                        .setDescription(`${client.i18n.get(language, "setup", "setup_deleted")}`)
+                        .setColor(client.color);
+
+                    if (!SetupChannel) return interaction.editReply({ embeds: [embed] });
+
+                    const fetchedTextChannel = interaction.guild.channels.cache.get(SetupChannel.channel)
                     const fetchedVoiceChannel = interaction.guild.channels.cache.get(SetupChannel.voice)
                     const fetchedCategory = interaction.guild.channels.cache.get(SetupChannel.category)
-                    await fetchedTextChannel.delete();
-                    await fetchedVoiceChannel.delete()
-                    await fetchedCategory.delete()
+
+                    if (fetchedCategory) await fetchedCategory.delete()
+                    if (fetchedVoiceChannel) await fetchedVoiceChannel.delete()
+                    if (fetchedTextChannel) await fetchedTextChannel.delete();
 
                     await Setup.findOneAndUpdate({ guild: interaction.guild.id }, {
                             guild: interaction.guild.id,
@@ -91,10 +99,6 @@ run: async (interaction, client, language) => {
                             voice: "",
                             category: ""
                         });
-                        
-                    const embed = new EmbedBuilder()
-                        .setDescription(`${client.i18n.get(language, "setup", "setup_deleted")}`)
-                        .setColor(client.color);
 
                     return interaction.editReply({ embeds: [embed] });
         }

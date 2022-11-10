@@ -169,6 +169,8 @@ const delay = require("delay");
                 enable: false,
                 channel: "",
                 playmsg: "",
+                voice: "",
+                category: ""
             });
             if (database.enable === false) return;
     
