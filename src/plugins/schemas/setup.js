@@ -10,6 +10,8 @@ const CreateGuild = mongoose.Schema({
     channel: String,
     playmsg: String,
     queuemsg: String,
+    voice: String,
+    category: String
 });
 
 module.exports = mongoose.model('Setup', CreateGuild);
