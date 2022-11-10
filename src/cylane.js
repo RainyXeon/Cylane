@@ -28,8 +28,8 @@ class CylaneClient extends Client {
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
 
-    process.on('unhandledRejection', error => console.log(error));
-    process.on('uncaughtException', error => console.log(error));
+    process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
+    process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
 
     this.manager = new Kazagumo({
         defaultSearchEngine: "youtube", 
