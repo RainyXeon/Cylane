@@ -34,6 +34,8 @@ module.exports = {
         retryDelay: 3000,
       },
     ],
+
+    AUTO_DEPLOY: parseBoolean(process.env.AUTO_DEPLOY || 'true'),
 }
 
 

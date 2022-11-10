@@ -150,30 +150,32 @@ const { ApplicationCommandOptionType, REST, Routes, ApplicationCommandManager } 
     console.info("No interactions read, all existing ones will be cleared...");
   }
 
+  console.log(command.length)
+
   const rest = new REST({ version: "9" }).setToken(TOKEN);
   const client = await rest.get(Routes.user());
   console.info(`Account information received! ${client.username}#${client.discriminator} (${client.id})`);
 
   console.info(`Interactions are posted on discord!`);
-  switch (deployed) {
-    case "guild": {
-      let guildId = args.get(1);
-      console.info(`Deploy mode: guild (${guildId})`);
+  // switch (deployed) {
+  //   case "guild": {
+  //     let guildId = args.get(1);
+  //     console.info(`Deploy mode: guild (${guildId})`);
 
-      await rest.put(Routes.applicationGuildCommands(client.id, guildId), { body: command });
+  //     await rest.put(Routes.applicationGuildCommands(client.id, guildId), { body: command });
 
-      console.info(`Shared commands may take 3-5 seconds to arrive.`);
-      break;
-    }
-    case "global": {
-      console.info(`Deploy mode: global`);
+  //     console.info(`Shared commands may take 3-5 seconds to arrive.`);
+  //     break;
+  //   }
+  //   case "global": {
+  //     console.info(`Deploy mode: global`);
 
-      await rest.put(Routes.applicationCommands(client.id), { body: command });
+  //     await rest.put(Routes.applicationCommands(client.id), { body: command });
 
-      console.info(`Shared commands can take up to 1 hour to arrive. If you want it to come immediately, you can throw your bot from your server and get it back.`);
-      break;
-    }
-  }
+  //     console.info(`Shared commands can take up to 1 hour to arrive. If you want it to come immediately, you can throw your bot from your server and get it back.`);
+  //     break;
+  //   }
+  // }
 
   console.info(`Interactions shared!`);
 })();

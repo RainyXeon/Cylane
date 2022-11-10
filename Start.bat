@@ -1,6 +1,6 @@
 @echo off
 
-title Dreamvast [GLOBAL]
+title Cylane [GLOBAL]
 
 :StartBot
 

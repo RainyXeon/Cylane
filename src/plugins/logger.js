@@ -7,7 +7,7 @@ const timezoned = () => {
 }
 
 const customFormat = format.combine(timestamp({ format: timezoned }), printf((info) => {
-	return `[${info.timestamp}] - [${info.level.toUpperCase().padEnd(7)}] - [${info.message}]`
+	return `${info.timestamp} - ${info.level.toUpperCase().padEnd(7)} - ${info.message}`
 }), colorize({ all: true }))
 
 const fileFormat = format.combine(

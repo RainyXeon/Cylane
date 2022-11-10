@@ -38,15 +38,13 @@ Java 11-13 **[Download JDK13](http://www.mediafire.com/file/m6gk7aoq96db8g0/file
 git clone https://github.com/RainyXeon/Cylane
 cd Cylane
 npm install
-node deploySlash.js global
+npm start
 ```
 
 <details><summary>📄 Configuration [CLICK ME]</summary>
 <p>
 
 ## 📄 Configuration
-
-> **OPTION 1️⃣**
 
 Copy or Rename `.env.example` to `.env` and fill out the values:
 
@@ -57,6 +55,7 @@ NP_REALTIME=false
 LEAVE_TIMEOUT=120000
 LANGUAGE=en
 EMBED_COLOR=#000001
+AUTO_DEPLOY=true
 
 # Devloper
 OWNER_ID=REPLACE_HERE
@@ -76,65 +75,7 @@ NODE_NAME=MAIN
 NODE_AUTH=123456
 NODE_SECURE=false
 ```
-
-> **OPTION 2️⃣**
-
-Go to folder `settings` edit `config.js` and you can fill out the values:
-
-```js
-require("dotenv").config();
-const { resolve } = require("path");
-
-module.exports = {
-    TOKEN: process.env.TOKEN || "YOUR_TOKEN",  // your bot token
-    EMBED_COLOR: "#" + process.env.EMBED_COLOR || "#000001", //<= default is "#000001"
-
-    OWNER_ID: process.env.OWNER_ID || "YOUR_CLIENT_ID", //your owner discord id example: "515490955801919488"
-
-    NP_REALTIME: process.env.NP_REALTIME || "BOOLEAN", // "true" = realtime, "false" = not realtime :3 // WARNING: on set to "true" = laggy and bot will ratelimit if you have a lot of servers
-    LEAVE_TIMEOUT: parseInt(process.env.LEAVE_TIMEOUT || "120000"), // leave timeout default "120000" = 2 minutes // 1000 = 1 seconds
-
-    LANGUAGE: {
-      defaultLocale: process.env.LANGUAGE || "en", // "en" = default language
-      directory: resolve("./src/languages"), // <= location of language
-    },
-
-    DEV_ID: [], // if you want to use command bot only, you can put your id here example: ["123456789", "123456789"]
-
-    MONGO_URI: process.env.MONGO_URI || "YOUR_MONGO_URI", // your mongo uri
-
-    SPOTIFY_ID: process.env.SPOTIFY_ID,
-    SPOTIFY_SECRET: process.env.SPOTIFY_SECRET,
-
-    DEFAULT: ["yorushika", "yoasobi", "tuyu"],
-
-    NODES: [
-      {
-        url: process.env.NODE_URL || 'lavalink-coders.ml:80',
-        name: process.env.NODE_NAME || 'Main',
-        auth: process.env.NODE_AUTH || 'coders',
-        secure: parseBoolean(process.env.NODE_SECURE || 'false'),
-        retryAmount: Infinity,
-        retryDelay: 3000,
-      },
-    ],
-}
-
-
-function parseBoolean(value){
-  if (typeof(value) === 'string'){
-      value = value.trim().toLowerCase();
-  }
-  switch(value){
-      case true:
-      case "true":
-          return true;
-      default:
-          return false;
-  }
-}
-```
-After installation or finishes all you can use `node .` to start the bot. or `Run Start.bat`
+After installation or finishes all you can use `npm start` to start the bot. or `Run Start.bat`
 
 </p>
 </details>
@@ -319,15 +260,19 @@ docker rm [container id]
 # Bot
 TOKEN=REPLACE_HERE
 NP_REALTIME=false
+LEAVE_TIMEOUT=120000
 LANGUAGE=en
 EMBED_COLOR=#000001
+AUTO_DEPLOY=true
 
 # Devloper
 OWNER_ID=REPLACE_HERE
 
+# Database
 LIMIT_TRACK=50
 LIMIT_PLAYLIST=10
 
+# Spotify
 SPOTIFY_ID=asdkjdoiuwdjaslkjdlksaajdlas
 SPOTIFY_SECRET=fjwhuoefhnjksanheufidnwiudlhsjanwjdli
 ```
