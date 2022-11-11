@@ -1,7 +1,8 @@
-const { PermissionsBitField, InteractionType, CommandInteraction } = require("discord.js");
+const { PermissionsBitField, InteractionType, CommandInteraction, EmbedBuilder } = require("discord.js");
 const GLang = require("../../plugins/schemas/language.js");
-const { DEFAULT } = require("../../plugins/config.js")
+const { DEFAULT, PREMIUM_COMMANDS } = require("../../plugins/config.js")
 const { REGEX } = require("../../plugins/regex.js")
+const Premium = require("../../plugins/schemas/premium.js");
 
  /**
   * @param {CommandInteraction} interaction
@@ -13,10 +14,12 @@ module.exports = async(client, interaction) => {
 
         let LANGUAGE = client.i18n;
 
-		let guildModel = await GLang.findOne({ guild: interaction.guild.id });
+		    let guildModel = await GLang.findOne({ guild: interaction.guild.id });
         if(guildModel && guildModel.language) LANGUAGE = guildModel.language;
 
         const language = LANGUAGE;
+
+        const user = Premium.findOne({ Id: interaction.user.id })
 
         let subCommandName = "";
         try {
@@ -82,6 +85,23 @@ module.exports = async(client, interaction) => {
         ]
 
         client.logger.info(`${msg_cmd.join(" ")}`);
+
+        if (PREMIUM_COMMANDS.includes(command.name.at(-1)) === true) {
+          try {
+            if (!user.isPremium) {
+                const embed = new EmbedBuilder()
+                    .setAuthor({ name: `${client.i18n.get(language, "nopremium", "premium_author")}`, iconURL: client.user.displayAvatarURL() })
+                    .setDescription(`${client.i18n.get(language, "nopremium", "premium_desc")}`)
+                    .setColor(client.color)
+                    .setTimestamp()
+        
+                return interaction.reply({ content: " ", embeds: [embed] });
+              }
+          } catch (err) {
+              console.log(err)
+              interaction.editReply({ content: `${client.i18n.get(language, "nopremium", "premium_error")}` })
+          }
+        }
 
         if(!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.SendMessages)) return interaction.user.dmChannel.send(`${client.i18n.get(language, "interaction", "no_perms")}`);
         if(!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ViewChannel)) return;

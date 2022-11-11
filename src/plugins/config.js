@@ -24,6 +24,8 @@ module.exports = {
 
     DEFAULT: ["yorushika", "yoasobi", "tuyu"],
 
+    PREMIUM_COMMANDS: ["profile"],
+
     NODES: [
       {
         url: process.env.NODE_URL || 'lavalink-coders.ml:80',
