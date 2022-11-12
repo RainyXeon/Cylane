@@ -19,7 +19,7 @@ module.exports = {
         const value = interaction.options.getString("name");
         const PName = value.replace(/_/g, ' ');
 
-        const playlist = await Playlist.findOne({ name: PName });
+        const playlist = await Playlist.findOne({ name: PName, owner: interaction.user.id });
         if(!playlist) return interaction.editReply(`${client.i18n.get(language, "playlist", "public_notfound")}`);
         if(playlist.owner !== interaction.user.id) return interaction.editReply(`${client.i18n.get(language, "playlist", "public_owner")}`);
 

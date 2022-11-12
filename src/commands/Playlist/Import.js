@@ -1,6 +1,7 @@
 const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../structures/ConvertTime.js");
 const Playlist = require("../../plugins/schemas/playlist.js");
+let playlist
 
 module.exports = {
     name: ["playlist", "import"],
@@ -10,7 +11,11 @@ module.exports = {
         {
             name: "name",
             description: "The name of the playlist",
-            required: true,
+            type: ApplicationCommandOptionType.String,
+        },
+        {
+            name: "id",
+            description: "The id of the playlist",
             type: ApplicationCommandOptionType.String,
         }
     ],
@@ -18,6 +23,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral: false });
 
         const value = interaction.options.getString("name");
+        const id = interaction.options.getString("id")
         const { channel } = interaction.member.voice;
         if (!channel) return interaction.editReply(`${client.i18n.get(language, "playlist", "import_voice")}`);
         if (!interaction.guild.members.cache.get(client.user.id).permissionsIn(channel).has(PermissionsBitField.Flags.Connect)) return interaction.editReply(`${client.i18n.get(language, "playlist", "import_join")}`);
@@ -30,12 +36,18 @@ module.exports = {
             deaf: true,
           });
 
-        const Plist = value.replace(/_/g, ' ');
         const SongAdd = [];
         let SongLoad = 0;
 
-        const playlist = await Playlist.findOne({ name: Plist });
-        if(!playlist) { interaction.editReply(`${client.i18n.get(language, "playlist", "import_notfound")}`); return; }
+        if (id) playlist = await Playlist.findOne({ id: id });
+        if (value) {
+            const Plist = value.replace(/_/g, ' ');
+            playlist = await Playlist.findOne({ name: Plist, owner: interaction.user.id });
+        }
+        if (!id && !value) return interaction.editReply(`${client.i18n.get(language, "playlist", "no_id_or_name")}`)
+        if (id && value) return interaction.editReply(`${client.i18n.get(language, "playlist", "got_id_and_name")}`)
+        if (!playlist) return interaction.deferReply(`${client.i18n.get(language, "playlist", "invalid")}`)
+
         if(playlist.private && playlist.owner !== interaction.user.id) { interaction.editReply(`${client.i18n.get(language, "playlist", "import_private")}`); return; }
 
         const totalDuration = convertTime(playlist.tracks.reduce((acc, cur) => acc + cur.length, 0));
@@ -60,7 +72,7 @@ module.exports = {
                 player.queue.add(SongAdd);
                 const embed = new EmbedBuilder() // **Imported • \`${Plist}\`** (${playlist.tracks.length} tracks) • ${message.user}
                     .setDescription(`${client.i18n.get(language, "playlist", "import_imported", {
-                        name: Plist,
+                        name: playlist.name,
                         tracks: playlist.tracks.length,
                         duration: totalDuration,
                         user: interaction.user

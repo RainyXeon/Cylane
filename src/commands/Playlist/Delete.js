@@ -18,7 +18,7 @@ module.exports = {
 
         const value = interaction.options.getString("name");
         const Plist = value.replace(/_/g, ' ');
-        const playlist = await Playlist.findOne({ name: Plist });
+        const playlist = await Playlist.findOne({ name: Plist, owner: interaction.user.id });
 
         if(!playlist) return interaction.editReply(`${client.i18n.get(language, "playlist", "delete_notfound")}`);
         if(playlist.owner !== interaction.user.id) return interaction.editReply(`${client.i18n.get(language, "playlist", "delete_owner")}`);

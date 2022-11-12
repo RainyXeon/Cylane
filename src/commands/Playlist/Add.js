@@ -79,7 +79,7 @@ module.exports = {
                 } else { //The playlist link is invalid.
                     return msg.edit(`${client.i18n.get(language, "playlist", "add_match")}`);
                 }
-                Playlist.findOne({ name: PlaylistName }).then(playlist => {
+                Playlist.findOne({ name: PlaylistName, owner: interaction.user.id }).then(playlist => {
                     if(playlist) {
                         if(playlist.owner !== interaction.user.id) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_owner")}`); TrackAdd.length = 0; return; }
                         const LimitTrack = tracks.length + TrackAdd.length;

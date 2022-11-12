@@ -2,6 +2,7 @@
 create_loading: "**Creating playlist...**"
 create_arg: "Please provide a playlist name. Example: %{prefix}create <playlist name>"
 create_toolong: "Playlist name can't be longer than 16 characters."
+des_toolong: "Playlist description cannot be longer than 1000 characters."
 create_limit_playlist: "You can't have playlist more than %{limit} playlists."
 create_name_exist: "This name already have in data."
 create_created: "`📦` | *Created* • `%{playlist}`"
@@ -81,3 +82,20 @@ public_owner: "You can't public this playlist."
 public_already: "This playlist is already public."
 public_loading: "Loading please wait..."
 public_success: "`📦` | *Playlist is now:* `Public`"
+
+##### Info Command ######
+info_title: "Playlist %{name} infomation:"
+info_name: "Name:"
+info_id: "ID:"
+info_total: "Total songs:"
+info_created: "Created:"
+info_private: "Private:"
+info_owner: "Owner:"
+info_des: "Description:"
+
+got_id_and_name: "Only provided with either playlist id or name"
+no_id_or_name: "Please provide playlist id or name"
+invalid: "Provided playlist name or id is invalid"
+
+enabled: "Enabled"
+disabled: "Disabled"

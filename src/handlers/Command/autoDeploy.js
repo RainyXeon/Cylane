@@ -4,18 +4,16 @@ const chillout = require("chillout");
 const { makeSureFolderExists } = require("stuffs");
 const path = require("path");
 const readdirRecursive = require("recursive-readdir");
-const { TOKEN, AUTO_DEPLOY } = require("../../plugins/config.js");
-const logger = require("../../plugins/logger.js");
 const { ApplicationCommandOptionType, REST, Routes, ApplicationCommandManager } = require('discord.js');
 
-module.exports = async () => {
+module.exports = async (client) => {
   let command = [];
 
-  if (!AUTO_DEPLOY) return logger.info("Auto deploy disabled. Exiting auto deploy...")
+  if (!client.config.AUTO_DEPLOY) return client.logger.info("Auto deploy disabled. Exiting auto deploy...")
 
-  const rest = new REST({ version: "10" }).setToken(TOKEN);
+  const rest = new REST({ version: "9" }).setToken(client.config.TOKEN);
 
-  const client = await rest.get(Routes.user());
+  const user = await rest.get(Routes.user());
 
   let interactionsFolder = path.resolve("./src/commands");
 
@@ -23,7 +21,7 @@ module.exports = async () => {
 
   let store = [];
 
-  logger.info("Auto deploy enabled. Reading interaction files...")
+  client.logger.info("Auto deploy enabled. Reading interaction files...")
 
   let interactionFilePaths = await readdirRecursive(interactionsFolder);
 
@@ -139,9 +137,7 @@ module.exports = async () => {
   }, []);
   command = command.map(i => ApplicationCommandManager.transformCommand(i));
 
-  if (command.length === 0) return logger.info("No interactions loaded. Exiting auto deploy...")
-  const registered = await rest.get(Routes.applicationCommands(client.id))
-  if (registered.length === command.length) return logger.info(`Interactions are posted on discord! Exiting auto deploy...`)
-  await rest.put(Routes.applicationCommands(client.id), { body: command });
-  logger.info(`Interactions deployed! Exiting auto deploy...`);
+  if (command.length === 0) return client.logger.info("No interactions loaded. Exiting auto deploy...")
+  await rest.put(Routes.applicationCommands(user.id), { body: command });
+  client.logger.info(`Interactions deployed! Exiting auto deploy...`);
 }
