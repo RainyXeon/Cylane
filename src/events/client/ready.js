@@ -1,6 +1,9 @@
 module.exports = async (client) => {
     client.logger.info(`Logged in ${client.user.tag}`)
 
+    // Auto Deploy
+    require("../../plugins/autoDeploy.js")(client)
+
     let guilds = client.guilds.cache.size;
     let members = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0);
     let channels = client.channels.cache.size;

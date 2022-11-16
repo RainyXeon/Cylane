@@ -83,7 +83,8 @@ info_owner: "Chủ sở hữu:"
 info_des: "Mô tả:"
 
 got_id_and_name: "Chỉ được cung cấp tên hoặc id của danh sách phát"
-no_id_or_name: "Vui lòng cung cấp id haowcj tên của danh sách phát"
+no_id_or_name: "Vui lòng cung cấp id hoặc tên của danh sách phát"
+no_des: "Không có mô tả được cung cấp"
 invalid: "Tên hoặc id bạn vừa cung cấp không hặp lệ"
 
 enabled: "Đã kích hoạt"

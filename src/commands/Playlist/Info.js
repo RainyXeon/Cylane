@@ -46,11 +46,11 @@ module.exports = {
       .addFields([
         { name: `${client.i18n.get(language, "playlist", "info_name")}`, value: `${info.name}`, inline: true },
         { name: `${client.i18n.get(language, "playlist", "info_id")}`, value: `${info.id}`, inline: true },
-        { name: `${client.i18n.get(language, "playlist", "info_total")}`, value: `${info.tracks.length} songs`, inline: true },
+        { name: `${client.i18n.get(language, "playlist", "info_total")}`, value: `${info.tracks.length}`, inline: true },
         { name: `${client.i18n.get(language, "playlist", "info_created")}`, value: `${created}`, inline: true },
         { name: `${client.i18n.get(language, "playlist", "info_private")}`, value: `${info.private ? client.i18n.get(language, "playlist", "enabled") : client.i18n.get(language, "playlist", "disabled")}`, inline: true },
         { name: `${client.i18n.get(language, "playlist", "info_owner")}`, value: `${name.username}`, inline: true },
-        { name: `${client.i18n.get(language, "playlist", "info_des")}`, value: `${info.description}` }
+        { name: `${client.i18n.get(language, "playlist", "info_des")}`, value: `${info.description === null ? client.i18n.get(language, "playlist", "no_des") : info.description}` }
       ])
       .setColor(client.color)
       interaction.editReply({ embeds: [embed] })

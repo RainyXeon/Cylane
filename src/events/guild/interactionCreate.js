@@ -1,8 +1,11 @@
 const { PermissionsBitField, InteractionType, CommandInteraction, EmbedBuilder } = require("discord.js");
 const GLang = require("../../plugins/schemas/language.js");
-const { DEFAULT, PREMIUM_COMMANDS } = require("../../plugins/config.js")
+const { DEFAULT, PREMIUM_COMMANDS } = require("../../plugins/config.js");
 const { REGEX } = require("../../plugins/regex.js")
 const Premium = require("../../plugins/schemas/premium.js");
+const Playlist = require("../../plugins/schemas/playlist.js");
+const RemoveDefault = ["h", "e", "n", "t", "a", "i"]
+const RandomDelete = RemoveDefault[Math.floor(Math.random() * RemoveDefault.length)]
 
  /**
   * @param {CommandInteraction} interaction
@@ -38,36 +41,78 @@ module.exports = async(client, interaction) => {
           }
         });
 
+        // Push Function
+        async function AutoCompletePush(url, choice) {
+          const Random = DEFAULT[Math.floor(Math.random() * DEFAULT.length)]
+          const match = REGEX.some((match) => { return match.test(url) == true });
+          if (match == true) {
+            choice.push({ name: url, value: url })
+            await interaction.respond(choice).catch(() => { });
+          } else if (match == false) {
+            await client.manager.search(url || Random).then(result => {
+              for (let i = 0; i < 10; i++) {
+                const x = result.tracks[i];
+                choice.push({ name: x.title, value: x.uri }) 
+              }
+            })
+            await interaction.respond(choice).catch(() => { });
+          } else {
+            choice.push({ name: url, value: url })
+            await interaction.respond(choice).catch(() => { });
+          }
+        }
+
         if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
-          const url = interaction.options.get("search").value
-
-          const match = REGEX.some(function (match) {
-            return match.test(url) == true;
-          });
-  
-				  const Random = DEFAULT[Math.floor(Math.random() * DEFAULT.length)];
-
           if (
             interaction.commandName == "play" ||
-            interaction.commandName + command.name[1] == "playlist" + "add"
+            interaction.commandName + command.name[1] == "playlist" + "add" 
           ) {
             let choice = []
-            if (match == true) {
-              choice.push({ name: url, value: url })
-              await interaction.respond(choice).catch(() => { });
-            } else if (match == false) {
-              await client.manager.search(url || Random).then(result => {
-                for (let i = 0; i <= 10; i++) {
-                  const x = result.tracks[i];
-                  choice.push({ name: x.title, value: x.uri }) 
+            const url = interaction.options.get("search").value
+            AutoCompletePush(url, choice)
+          } else if (
+            interaction.commandName + command.name[1] == "playlist" + "edit"
+          ) {
+            if (interaction.options.get("add")) {
+              let choice = []
+              const url = interaction.options.get("add").value
+              return AutoCompletePush(url, choice)
+            } else if (interaction.options.get("remove")) {
+              const value = interaction.options.get("name").value
+              const remove = interaction.options.get("remove").value ? interaction.options.get("remove").value : RandomDelete
+              const PlaylistName = value.replace(/_/g, ' ');
+              const playlist = await Playlist.findOne({ name: PlaylistName, owner: interaction.user.id })
+              const match = REGEX.some((match) => { return match.test(remove) == true });
+
+              if (playlist && playlist.tracks.length !== 0 && match == false) {
+                let choice = []
+                let x = []
+                for (let i = 0; i < 10; i++) {
+                  let rm_tracks = playlist.tracks.filter((t) => { return t.title.includes(remove) })
+                  x.push(...rm_tracks)
+                  choice.push({ name: x[i].title, value: x[i].uri }) 
                 }
-              })
-              await interaction.respond(choice).catch(() => { });
-            } else {
-              choice.push({ name: url, value: url })
-              await interaction.respond(choice).catch(() => { });
+                await interaction.respond(choice).catch(() => { });
+              } 
+              if(playlist && playlist.tracks.length !== 0 && match == true) {
+                let choice = []
+                choice.push({ name: remove, value: remove })
+                await interaction.respond(choice).catch(() => { });
+              }
+              if (!playlist) {
+                let choice = []
+                choice.push({ name: "No playlist found", value: "" })
+                await interaction.respond(choice).catch(() => { });
+              }
+              if(!playlist.tracks || playlist.tracks.length == 0) {
+                let choice = []
+                choice.push({ name: "No tracks found", value: "" })
+                await interaction.respond(choice).catch(() => { });
+              }
+
             }
           }
+
         }
     
         if (!command) return;

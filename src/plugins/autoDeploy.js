@@ -4,16 +4,12 @@ const chillout = require("chillout");
 const { makeSureFolderExists } = require("stuffs");
 const path = require("path");
 const readdirRecursive = require("recursive-readdir");
-const { ApplicationCommandOptionType, REST, Routes, ApplicationCommandManager } = require('discord.js');
+const { ApplicationCommandOptionType, ApplicationCommandManager } = require('discord.js');
 
 module.exports = async (client) => {
   let command = [];
 
   if (!client.config.AUTO_DEPLOY) return client.logger.info("Auto deploy disabled. Exiting auto deploy...")
-
-  const rest = new REST({ version: "9" }).setToken(client.config.TOKEN);
-
-  const user = await rest.get(Routes.user());
 
   let interactionsFolder = path.resolve("./src/commands");
 
@@ -138,6 +134,6 @@ module.exports = async (client) => {
   command = command.map(i => ApplicationCommandManager.transformCommand(i));
 
   if (command.length === 0) return client.logger.info("No interactions loaded. Exiting auto deploy...")
-  await rest.put(Routes.applicationCommands(user.id), { body: command });
+  await client.application.commands.set(command)
   client.logger.info(`Interactions deployed! Exiting auto deploy...`);
 }

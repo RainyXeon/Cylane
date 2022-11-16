@@ -63,7 +63,7 @@ module.exports = {
 
         for (var i = 0; i < amount; i++) {
         const codePremium = voucher_codes.generate({
-            pattern: '#####-#####-#####-#####-#####'
+            pattern: '#############-#########-######'
         })
 
         const code = codePremium.toString().toUpperCase()

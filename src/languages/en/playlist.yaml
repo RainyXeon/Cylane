@@ -95,6 +95,7 @@ info_des: "Description:"
 
 got_id_and_name: "Only provided with either playlist id or name"
 no_id_or_name: "Please provide playlist id or name"
+no_des: "No description provided"
 invalid: "Provided playlist name or id is invalid"
 
 enabled: "Enabled"
