@@ -4,8 +4,6 @@ const { DEFAULT, PREMIUM_COMMANDS } = require("../../plugins/config.js");
 const { REGEX } = require("../../plugins/regex.js")
 const Premium = require("../../plugins/schemas/premium.js");
 const Playlist = require("../../plugins/schemas/playlist.js");
-const RemoveDefault = ["h", "e", "n", "t", "a", "i"]
-const RandomDelete = RemoveDefault[Math.floor(Math.random() * RemoveDefault.length)]
 
  /**
   * @param {CommandInteraction} interaction

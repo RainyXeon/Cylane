@@ -90,3 +90,25 @@ no_des: "ไม่มีคำบรรยาย"
 
 enabled: "เปิดใช้งาน"
 disabled: "พิการ"
+
+##### Edit command #####
+edit_exist: "ID นี้ถูกใช้แล้ว โปรดลอง ID อื่น"
+edit_new: "แก้ไขใหม่:"
+edit_name: "**ชื่อ:**"
+edit_id: "**ID:**"
+edit_des: "**คำอธิบาย:**"
+edit_private: "**ส่วนตัว:**"
+
+edit_added: "**เพิ่ม:**"
+edit_added_none: "ไม่มี url เพลงที่เพิ่ม"
+
+edit_removed: "**ตำแหน่งแทร็กที่ถูกลบ:**"
+edit_removed_none: "ไม่มีตำแหน่งเพลงที่ถูกลบ"
+
+edit_button_yes: "ยอมรับ"
+edit_button_no: "ปฏิเสธ"
+
+edit_accepted: "ยอมรับการเปลี่ยนแปลง!"
+edit_canceled: "ยกเลิกการเปลี่ยนแปลง!"
+
+edit_timed_out: "ยกเลิกการเปลี่ยนแปลงเพราะหมดเวลา!"

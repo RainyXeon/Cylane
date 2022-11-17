@@ -89,3 +89,25 @@ invalid: "Tên hoặc id bạn vừa cung cấp không hặp lệ"
 
 enabled: "Đã kích hoạt"
 disabled: "Chưa kích hoạt"
+
+##### Edit command #####
+edit_exist: "ID này đã được sử dụng, vui lòng thử một ID khác."
+edit_new: "Chỉnh sửa mới:"
+edit_name: "**Tên:**"
+edit_id: "**ID:**"
+edit_des: "**Mô tả:**"
+edit_private: "**Riêng tư:**"
+
+edit_added: "**Đã thêm:**"
+edit_added_none: "Không có url bài hát được thêm vào"
+
+edit_removed: "**Vị trí bài hát đã xóa:**"
+edit_removed_none: "Không có vị trí bài hát bị xóa"
+
+edit_button_yes: "Chấp nhận"
+edit_button_no: "Hủy bỏ"
+
+edit_accepted: "Thay đổi đã được chấp nhận!"
+edit_canceled: "Thay đổi đã bị hủy bỏ!"
+
+edit_timed_out: "Thay đổi đã bị hủy bỏ do đã hết thời gian!"

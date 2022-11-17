@@ -100,3 +100,25 @@ invalid: "Provided playlist name or id is invalid"
 
 enabled: "Enabled"
 disabled: "Disabled"
+
+##### Edit command #####
+edit_exist: "This ID is already in use, please try another ID."
+edit_new: "New Edit:"
+edit_name: "**Name:**"
+edit_id: "**ID:**"
+edit_des: "**Description:**"
+edit_private: "**Private:**"
+
+edit_added: "**Added:**"
+edit_added_none: "No added song url"
+
+edit_removed: "**Removed Track Position:**"
+edit_removed_none: "No removed song position"
+
+edit_button_yes: "Accept"
+edit_button_no: "Deny"
+
+edit_accepted: "Change accepted!"
+edit_canceled: "Canceled change!"
+
+edit_timed_out: "Canceled change because time out!"

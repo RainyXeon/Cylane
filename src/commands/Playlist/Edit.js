@@ -86,41 +86,50 @@ module.exports = {
         }
       }
 
+      function parseReply(value) {
+        if (value) return client.i18n.get(language, "playlist", "enabled")
+        return client.i18n.get(language, "playlist", "disabled")
+      }
+
       const private = parseBoolean(get_private)
 
       async function RunCommands(newname, des, id, private, add, remove) {
         try {
           await interaction.deferReply({ ephemeral: false });
-          if(Exist) return interaction.editReply("This ID is already in use, please try another ID.")
+          if (!playlist) return interaction.editReply(`${client.i18n.get(language, "playlist", "public_notfound")}`)
+          if(Exist) return interaction.editReply(`${client.i18n.get(language, "playlist", "edit_exist")}`)
           const embed = new EmbedBuilder()
-            .setTitle("New Edit:")
-            .setDescription(stripIndents`**Name:** \`${newname !== null ? newname : name}\`
-            **ID:** \`${id !== null ? id : playlist.id}\`
-            **Description:** \`${des !== null ? des : playlist.description}\`
-            **Private:** \`${private !== null ? private : playlist.private}\`
-            **Added:** \`${add !== null ? add : "No added song url"}\`
-            **Removed Track Position:** \`${remove !== null ? remove : "No removed song url"}\` `)
+            .setTitle(`${client.i18n.get(language, "playlist", "edit_new")}`)
+            .setDescription(stripIndents`${client.i18n.get(language, "playlist", "edit_name")} \`${newname !== null ? newname : name}\`
+            ${client.i18n.get(language, "playlist", "edit_id")} \`${id !== null ? id : playlist.id}\`
+            ${client.i18n.get(language, "playlist", "edit_des")} \`${des !== null ? des : playlist.description}\`
+            ${client.i18n.get(language, "playlist", "edit_private")} \`${private !== null ? parseReply(private) : parseReply(playlist.private)}\`
+            ${client.i18n.get(language, "playlist", "edit_added")} \`${add !== null ? add : client.i18n.get(language, "playlist", "edit_added_none")}\`
+            ${client.i18n.get(language, "playlist", "edit_removed")} \`${remove !== null ? remove : client.i18n.get(language, "playlist", "edit_removed_none")}\` `)
             .setColor(client.color)
           const row = new ActionRowBuilder()
             .addComponents([
               new ButtonBuilder()
-                .setCustomId("no")
-                .setEmoji("✖️")
-                .setLabel("No")
-                .setStyle("Danger"),
-      
-              new ButtonBuilder()
                 .setCustomId("yes")
                 .setEmoji("✔️")
-                .setLabel("Yes")
+                .setLabel(`${client.i18n.get(language, "playlist", "edit_button_yes")}`)
                 .setStyle("Success"),
+              
+              new ButtonBuilder()
+                .setCustomId("no")
+                .setEmoji("✖️")
+                .setLabel(`${client.i18n.get(language, "playlist", "edit_button_no")}`)
+                .setStyle("Danger"),
             ])
           const msg = await interaction.editReply({ embeds: [embed], components: [row], ephemeral: true })
           const collector = msg.createMessageComponentCollector({ time: 15000 })
           collector.on('collect', async (message) => {
             const col_id = message.customId;
             if (col_id == "no") {
-              await message.reply({ content: 'Canceled change!'})
+              const embed = new EmbedBuilder()
+                .setColor(client.color)
+                .setDescription(`${client.i18n.get(language, "playlist", "edit_canceled")}`)
+              await message.reply({ embeds: [embed] })
               msg.edit({ components: [] })
               collector.stop();
             } else if(col_id == "yes") {
@@ -162,7 +171,10 @@ module.exports = {
               playlist.description = des !== null ? des : playlist.description,
               
               playlist.save().then(async () => {
-                await message.reply({ content: 'Change accepted!' })
+                const embed = new EmbedBuilder()
+                  .setColor(client.color)
+                  .setDescription(`${client.i18n.get(language, "playlist", "edit_accepted")}`)
+                await message.reply({ embeds: [embed] })
                 msg.edit({ components: [] })
                 collector.stop();
               }).catch((e) => console.log(e))
@@ -171,18 +183,18 @@ module.exports = {
           })
           collector.on('end', async (collected, reason) => {
             if(reason === "time") {
-              msg.edit({ content: `Canceled change because time out!`, embeds: [], components: []})
+              const embed = new EmbedBuilder()
+                .setColor(client.color)
+                .setDescription(`${client.i18n.get(language, "playlist", "edit_timed_out")}`)
+              await msg.edit({ embeds: [embed], components: []})
             }
           });
 
-          console.log(newname, des, id, private, add, remove)
         } catch (e) { }
       }
       if (interaction.options.getString("add") || interaction.options.getString("remove")) {
-        console.log("Edit mode")
         return RunCommands(newname, des, id, private, add, remove)
       }
-      console.log("Raw mode")
       RunCommands(newname, des, id, private, add, remove)
     }
 }
