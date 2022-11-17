@@ -69,48 +69,14 @@ module.exports = async(client, interaction) => {
           ) {
             let choice = []
             const url = interaction.options.get("search").value
-            AutoCompletePush(url, choice)
+            return AutoCompletePush(url, choice)
           } else if (
             interaction.commandName + command.name[1] == "playlist" + "edit"
           ) {
-            if (interaction.options.get("add")) {
-              let choice = []
-              const url = interaction.options.get("add").value
-              return AutoCompletePush(url, choice)
-            } else if (interaction.options.get("remove")) {
-              const value = interaction.options.get("name").value
-              const remove = interaction.options.get("remove").value ? interaction.options.get("remove").value : RandomDelete
-              const PlaylistName = value.replace(/_/g, ' ');
-              const playlist = await Playlist.findOne({ name: PlaylistName, owner: interaction.user.id })
-              const match = REGEX.some((match) => { return match.test(remove) == true });
-
-              if (playlist && playlist.tracks.length !== 0 && match == false) {
-                let choice = []
-                let x = []
-                for (let i = 0; i < 10; i++) {
-                  let rm_tracks = playlist.tracks.filter((t) => { return t.title.includes(remove) })
-                  x.push(...rm_tracks)
-                  choice.push({ name: x[i].title, value: x[i].uri }) 
-                }
-                await interaction.respond(choice).catch(() => { });
-              } 
-              if(playlist && playlist.tracks.length !== 0 && match == true) {
-                let choice = []
-                choice.push({ name: remove, value: remove })
-                await interaction.respond(choice).catch(() => { });
-              }
-              if (!playlist) {
-                let choice = []
-                choice.push({ name: "No playlist found", value: "" })
-                await interaction.respond(choice).catch(() => { });
-              }
-              if(!playlist.tracks || playlist.tracks.length == 0) {
-                let choice = []
-                choice.push({ name: "No tracks found", value: "" })
-                await interaction.respond(choice).catch(() => { });
-              }
-
-            }
+            let choice = []
+            const url = interaction.options.get("add").value
+            return AutoCompletePush(url, choice)
+            
           }
 
         }

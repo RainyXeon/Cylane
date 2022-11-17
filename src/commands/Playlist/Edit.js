@@ -4,7 +4,7 @@ const { StartQueueDuration } = require("../../structures/QueueDuration.js");
 const Playlist = require("../../plugins/schemas/playlist.js");
 const { stripIndents } = require("common-tags");
 const humanizeDuration = require('humanize-duration');
-
+const remove_regex = /[^0] - [^0]/
 const TrackAdd = [];
 
 module.exports = {
@@ -56,9 +56,8 @@ module.exports = {
       },
       {
         name: "remove",
-        description: "Remove track to the playlist",
-        type: ApplicationCommandOptionType.String,
-        autocomplete: true
+        description: "Remove track using song position.",
+        type: ApplicationCommandOptionType.Number,
       },
     ],
     run: async (interaction, client, language) => {
@@ -69,7 +68,7 @@ module.exports = {
       const des = interaction.options.getString("description") ? interaction.options.getString("description") : null
       const get_private = interaction.options.getString("private") ? interaction.options.getString("private") : null
       const add = interaction.options.getString("add") ? interaction.options.getString("add") : null
-      const remove = interaction.options.getString("remove") ? interaction.options.getString("remove") : null
+      const remove = interaction.options.getNumber("remove") ? interaction.options.getNumber("remove") : null
       const playlist = await Playlist.findOne({ name: PlaylistName, owner: interaction.user.id })
       const Exist = await Playlist.findOne({ id: id });
 
@@ -100,7 +99,7 @@ module.exports = {
             **Description:** \`${des !== null ? des : playlist.description}\`
             **Private:** \`${private !== null ? private : playlist.private}\`
             **Added:** \`${add !== null ? add : "No added song url"}\`
-            **Removed:** \`${remove !== null ? remove : "No removed song url"}\` `)
+            **Removed Track Position:** \`${remove !== null ? remove : "No removed song url"}\` `)
             .setColor(client.color)
           const row = new ActionRowBuilder()
             .addComponents([
@@ -148,6 +147,13 @@ module.exports = {
                     }
                   )
                 });
+              }
+
+              if (remove) {
+                const position = remove;
+                const song = playlist.tracks[position];
+                if(!song) return interaction.editReply(`${client.i18n.get(language, "playlist", "remove_song_notfound")}`);
+                playlist.tracks.splice(position - 1, 1);
               }
 
               playlist.id = id !== null ? id : playlist.id,
