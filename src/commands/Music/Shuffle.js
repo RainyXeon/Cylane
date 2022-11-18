@@ -5,6 +5,7 @@ module.exports = {
     name: ["shuffle"],
     description: "Shuffle song in queue!",
     categories: "Music",
+    premium: false,
     run: async (interaction, client, language) => {
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "shuffle_loading")}`);
 

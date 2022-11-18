@@ -5,6 +5,7 @@ module.exports = {
     name: ["filter", "television"],
     description: "Turning on television filter",
     categories: "Filter",
+    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

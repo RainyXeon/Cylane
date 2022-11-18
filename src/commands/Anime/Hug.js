@@ -5,6 +5,7 @@ module.exports = {
     name: ["anime", "hug"],
     description: "Post the random hug",
     categories: "Anime",
+    premium: false,
     options: [
         {
             name: "user",

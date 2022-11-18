@@ -4,6 +4,7 @@ module.exports = {
   name: ["settings", "control"],
   description: "Enable or disable the player control",
   categories: "Utils",
+  premium: false,
   options: [
       {
           name: "type",

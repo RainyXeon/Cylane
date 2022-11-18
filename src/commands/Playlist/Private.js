@@ -5,6 +5,7 @@ module.exports = {
     name: ["playlist", "private"],
     description: "Private a playlist",
     categories: "Playlist",
+    premium: false,
     options: [
         {
             name: "name",

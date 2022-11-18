@@ -6,6 +6,7 @@ module.exports = {
     name: ["nowplaying"],
     description: "Display the song currently playing.",
     categories: "Music",
+    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const realtime = client.config.NP_REALTIME;

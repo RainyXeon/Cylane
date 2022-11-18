@@ -5,7 +5,7 @@ module.exports = {
     name: ["leave"],
     description: "Make the bot leave the voice channel.",
     categories: "Music",
-
+    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "leave_loading")}`);

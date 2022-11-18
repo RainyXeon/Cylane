@@ -5,6 +5,7 @@ module.exports = {
     name: ["filter", "equalizer"],
     description: 'Custom Equalizer!',
     categories: "Filter",
+    premium: false,
     options: [
         {
             name: 'bands',

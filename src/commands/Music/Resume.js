@@ -5,6 +5,7 @@ module.exports = {
     name: ["resume"],
     description: "Resume the music!",
     categories: "Music",
+    premium: false,
     run: async (interaction, client, language) => {
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "resume_loading")}`);
 

@@ -6,6 +6,7 @@ module.exports = {
     name: ["profile"],
     description: "View your premium profile!",
     category: "Premium",
+    premium: true,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

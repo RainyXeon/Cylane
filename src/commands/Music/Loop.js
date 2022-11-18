@@ -4,6 +4,7 @@ module.exports = {
     name: ["loop"],
     description: "Loop song in queue type all/current!",
     categories: "Music",
+    premium: false,
     options: [
         {
             name: "type",

@@ -5,6 +5,7 @@ module.exports = {
     name: ["filter", "pitch"],
     description: 'Sets the pitch of the song.',
     categories: "Filter",
+    premium: false,
     options: [
         {
             name: 'amount',

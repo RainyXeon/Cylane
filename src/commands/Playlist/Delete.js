@@ -5,6 +5,7 @@ module.exports = {
     name: ["playlist", "delete"],
     description: "Delete a playlist",
     categories: "Playlist",
+    premium: false,
     options: [
         {
             name: "name",

@@ -6,6 +6,7 @@ module.exports = {
     name: ["lyrics"],
     description: "Display lyrics of a song.",
     categories: "Music",
+    premium: false,
     options: [
         {
             name: "input",

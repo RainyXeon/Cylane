@@ -6,6 +6,7 @@ module.exports = {
     name: ["lofi"],
     description: "Play a lofi radio station",
     categories: "Music",
+    premium: false,
     run: async (interaction, client, language) => {
       await interaction.deferReply({ ephemeral: false });
       const msg = await interaction.editReply(`${client.i18n.get(language, "music", "radio_loading")}`);

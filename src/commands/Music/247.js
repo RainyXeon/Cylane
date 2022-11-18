@@ -4,6 +4,7 @@ module.exports = {
     name: ["247"],
     description: "24/7 in voice channel",
     categories: "Music",
+    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const options = interaction.options.getString('type')

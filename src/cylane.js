@@ -50,7 +50,7 @@ class CylaneClient extends Client {
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES);
 
-    ["slash"].forEach(x => this[x] = new Collection());
+    ["slash", "premiums"].forEach(x => this[x] = new Collection());
     ["loadCommand", "loadEvent", "loadDatabase", "loadNodeEvents", "loadPlayer"].forEach(x => require(`./handlers/${x}`)(this));
 
     const client = this;

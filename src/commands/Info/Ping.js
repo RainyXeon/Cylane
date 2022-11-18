@@ -4,6 +4,7 @@ module.exports = {
     name: ["ping"],
     description: "Shows the ping information of the Bot",
     categories: "Info",
+    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
           const ping = new EmbedBuilder()

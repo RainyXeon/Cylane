@@ -4,6 +4,7 @@ module.exports = {
   name: ["settings", "setup"],
   description: "Setup channel song request",
   categories: "Utils",
+  premium: false,
   options: [
       {
           name: "type",

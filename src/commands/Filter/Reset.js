@@ -5,6 +5,7 @@ module.exports = {
     name: ["filter", "reset"],
     description: "Reset filter",
     categories: "Filter",
+    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
 

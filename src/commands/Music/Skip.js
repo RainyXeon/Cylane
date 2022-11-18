@@ -5,6 +5,7 @@ module.exports = {
     name: ["skip"],
     description: "Skips the song currently playing.",
     categories: "Music",
+    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "skip_loading")}`);

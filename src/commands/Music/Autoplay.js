@@ -5,6 +5,7 @@ module.exports = {
     name: ["autoplay"],
     description: "Autoplay music (Random play songs)",
     categories: "Music",
+    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
 

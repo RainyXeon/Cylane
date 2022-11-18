@@ -7,6 +7,7 @@ module.exports = {
     name: ["playlist", "detail"],
     description: "Detail a playlist",
     categories: "Playlist",
+    premium: false,
     options: [
         {
             name: "name",

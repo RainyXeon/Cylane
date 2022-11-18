@@ -6,6 +6,7 @@ module.exports = {
     name: ["play"],
     description: "Play a song from any types",
     categories: "Music",
+    premium: false,
     options: [
         {
             name: "search",
@@ -18,6 +19,7 @@ module.exports = {
     run: async (interaction, client, language) => {
         try {
             if (interaction.options.getString("search")) {
+                let test = "Connect"
                 await interaction.deferReply({ ephemeral: false });
                 const value = interaction.options.get("search").value;
                 const msg = await interaction.editReply(`${client.i18n.get(language, "music", "play_loading", {

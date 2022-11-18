@@ -5,6 +5,7 @@ module.exports = {
     name: ["premium", "remove"],
     description: "Remove premium from members!",
     category: "Premium",
+    premium: false,
     options: [
         {
             name: "target",
@@ -23,18 +24,14 @@ module.exports = {
         const db = await Premium.findOne({ Id: mentions.id });
 
         if (db.isPremium) {
-          let remove = new db({
-            Id: interaction.user.id,
-            isPremium: false,
-            premium: {
-                redeemedBy: [],
-                redeemedAt: null,
-                expiresAt: null,
-                plan: null
-            }
-          })
 
-          await remove.save().catch(() => {})
+          db.isPremium = false
+          db.premium.redeemedBy = []
+          db.premium.redeemedAt = null
+          db.premium.expiresAt = null
+          db.premium.plan = null
+
+          await db.save().catch(() => {})
 
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "premium", "remove_desc", {

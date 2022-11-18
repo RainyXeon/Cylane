@@ -4,6 +4,7 @@ module.exports = {
   name: ["settings", "language"],
   description: "Change the language for the bot",
   categories: "Utils",
+  premium: false,
   options: [
       {
           name: "input",

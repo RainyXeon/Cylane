@@ -5,6 +5,7 @@ module.exports = {
     name: ["filter", "rate"],
     description: "Sets the rate of the song.",
     categories: "Filter",
+    premium: false,
     options: [
         {
             name: "amount",

@@ -7,6 +7,7 @@ module.exports = {
     name: ["premium", "generate"],
     description: "Generate a premium code!",
     category: "Premium",
+    premium: false,
     options: [
         {
             name: "plan",

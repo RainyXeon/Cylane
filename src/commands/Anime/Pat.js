@@ -5,6 +5,7 @@ module.exports = {
     name: ["anime", "pat"],
     description: "Post the random pat",
     categories: "Anime",
+    premium: false,
     options: [
         {
             name: "user",
