@@ -2,16 +2,14 @@ const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const Discord = require('discord.js');
 const { Connectors } = require("shoukaku");
 const { Kazagumo, KazagumoTrack } = require("kazagumo");
-const logger = require('../plugins/logger')
+const logger = require('../../plugins/logger')
 const { I18n } = require("@hammerhq/localization")
 const Spotify = require('kazagumo-spotify');
-const Cluster = require('discord-hybrid-sharding');
 
 class Manager extends Client {
     constructor() {
         super({
-            shards: Cluster.data.SHARD_LIST,
-            shardCount: Cluster.data.TOTAL_SHARDS,
+            shards: 'auto',
             allowedMentions: {
                 parse: ["roles", "users", "everyone"],
                 repliedUser: false
@@ -22,7 +20,7 @@ class Manager extends Client {
                 GatewayIntentBits.GuildMessages,
             ]
         });
-    this.config = require("../plugins/config.js");
+    this.config = require("../../plugins/config.js");
     this.owner = this.config.OWNER_ID;
     this.dev = this.config.DEV_ID;
     this.color = this.config.EMBED_COLOR;
@@ -53,9 +51,8 @@ class Manager extends Client {
     }, new Connectors.DiscordJS(this), this.config.NODES);
 
     ["slash", "premiums"].forEach(x => this[x] = new Collection());
-    ["loadCommand", "loadEvent", "loadDatabase", "loadNodeEvents", "loadPlayer"].forEach(x => require(`../handlers/${x}`)(this));
+    ["loadCommand", "loadEvent", "loadDatabase", "loadNodeEvents", "loadPlayer"].forEach(x => require(`../../handlers/${x}`)(this));
 
-    this.cluster = new Cluster.Client(this);
 
     const client = this;
 

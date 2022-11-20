@@ -37,8 +37,7 @@ Java 11-13 **[Download JDK13](http://www.mediafire.com/file/m6gk7aoq96db8g0/file
 ```
 git clone https://github.com/RainyXeon/Cylane
 cd Cylane
-npm install
-npm start
+Start.bat
 ```
 
 <details><summary>📄 Configuration [CLICK ME]</summary>
