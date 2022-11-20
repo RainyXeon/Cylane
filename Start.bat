@@ -4,6 +4,6 @@ title Cylane [GLOBAL]
 
 :StartBot
 
-node --no-warnings ./src/index.js
+node --no-warnings ./src/main/index.js
 
 goto StartBot

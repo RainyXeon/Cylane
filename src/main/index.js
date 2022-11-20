@@ -1,5 +1,5 @@
-const CylaneClient = require("./cylane.js");
-const client = new CylaneClient();
+const Manager = require("./manager.js");
+const client = new Manager();
 
 client.connect()
 client.on("error", (err) => {
