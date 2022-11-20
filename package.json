@@ -30,9 +30,10 @@
     "youtube-sr": "^4.3.4"
   },
   "scripts": {
-    "start": "node ./src/main/index.js",
-    "sharding": "node ./src/sharding/cluster.js",
-    "dev": "nodemon ./src/main/index.js",
+    "start": "node ./src/client/index.js",
+    "start:normal": "node ./src/client/login.js",
+    "dev": "nodemon ./src/client/index.js",
+    "dev:normal": "nodemon ./src/client/login.js",
     "deploy:global": "node deploySlash.js global",
     "deploy:global:clear": "node deploySlash.js global clear"
   },
