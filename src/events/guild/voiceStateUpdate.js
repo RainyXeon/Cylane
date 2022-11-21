@@ -46,7 +46,8 @@ module.exports = async (client, oldState, newState) => {
 				const TimeoutEmbed = new EmbedBuilder()
 					.setDescription(`${client.i18n.get(language, "player", "player_end", { 
 						leave: vcRoom
-					})}`);
+					})}`)
+					.setColor(client.color)
 				try {
 		            if (leaveEmbed) leaveEmbed.send({ embeds: [TimeoutEmbed] });
 		        } catch (error) {

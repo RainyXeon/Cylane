@@ -6,6 +6,7 @@ const logger = require('../../plugins/logger')
 const { I18n } = require("@hammerhq/localization")
 const Spotify = require('kazagumo-spotify');
 const Cluster = require('discord-hybrid-sharding');
+const Deezer = require('kazagumo-deezer');
 
 class Manager extends Client {
     constructor() {
@@ -49,6 +50,9 @@ class Manager extends Client {
               searchLimit: 10, // optional ( track search limit. Max 50 )
               searchMarket: 'US', // optional || default: US ( Enter the country you live in. [ Can only be of 2 letters. For eg: US, IN, EN ] )//
             }),
+            new Deezer({
+                playlistLimit: 20
+            })
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES);
 

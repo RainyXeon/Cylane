@@ -14,6 +14,9 @@
 - [x] SoundCloud
 - [x] Spotify
 - [x] Https (Radio)
+- [x] Deezer
+- [x] Twitch
+- [x] Bandcamp
 
 <details><summary>📎 Requirements [CLICK ME]</summary>
 <p>
