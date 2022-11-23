@@ -31,7 +31,9 @@ module.exports = {
           db.premium.expiresAt = null
           db.premium.plan = null
 
-          await db.save().catch(() => {})
+          const done = await db.save().catch(() => {})
+
+          await client.premiums.set(interaction.user.id, done)
 
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "premium", "remove_desc", {

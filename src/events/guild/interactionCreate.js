@@ -15,7 +15,6 @@ module.exports = async(client, interaction) => {
 
     if(guildModel && guildModel.language) LANGUAGE = guildModel.language;
     const language = LANGUAGE;
-    const user = await Premium.findOne({ Id: interaction.user.id })
 
     let subCommandName = "";
     try {
@@ -83,9 +82,11 @@ module.exports = async(client, interaction) => {
     ]
 
     client.logger.info(`${msg_cmd.join(" ")}`);
-    
+
+    const user = interaction.client.premiums.get(interaction.user.id)
+
     try {
-      if (command.premium && user && !user.isPremium) {
+      if (command.premium && !user.isPremium) {
         const embed = new EmbedBuilder()
           .setAuthor({ name: `${client.i18n.get(language, "nopremium", "premium_author")}`, iconURL: client.user.displayAvatarURL() })
           .setDescription(`${client.i18n.get(language, "nopremium", "premium_desc")}`)

@@ -1,8 +1,12 @@
+const Premium = require("../../plugins/schemas/premium.js");
+
 module.exports = async (client) => {
     client.logger.info(`Logged in ${client.user.tag}`)
 
     // Auto Deploy
     require("../../plugins/autoDeploy.js")(client)
+    const users = await Premium.find();
+    users.forEach(user => client.premiums.set(user.Id, user))
 
     let guilds = client.guilds.cache.size;
     let members = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0);

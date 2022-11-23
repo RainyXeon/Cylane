@@ -3,7 +3,7 @@ const { resolve } = require("path");
 
 module.exports = {
     TOKEN: process.env.TOKEN || "YOUR_TOKEN",  // your bot token
-    EMBED_COLOR: "#" + process.env.EMBED_COLOR || "#c2e9ff", //<= default is "#c2e9ff"
+    EMBED_COLOR: checkColor(process.env.EMBED_COLOR), //<= default is "#c2e9ff"
 
     OWNER_ID: process.env.OWNER_ID || "YOUR_CLIENT_ID", //your owner discord id example: "515490955801919488"
 
@@ -61,4 +61,9 @@ function parseBoolean(value){
       default:
           return false;
   }
+}
+
+function checkColor(color) {
+  if (!color) return "#c2e9ff"
+  else return "#" + color
 }

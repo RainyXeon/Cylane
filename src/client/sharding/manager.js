@@ -31,9 +31,6 @@ class Manager extends Client {
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
 
-    process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
-    process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
-
     this.manager = new Kazagumo({
         defaultSearchEngine: "youtube", 
         // MAKE SURE YOU HAVE THIS
