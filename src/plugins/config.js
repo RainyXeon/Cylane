@@ -32,8 +32,6 @@ module.exports = {
         name: process.env.NODE_NAME || 'Main',
         auth: process.env.NODE_AUTH || 'coders',
         secure: parseBoolean(process.env.NODE_SECURE || 'false'),
-        retryAmount: Infinity,
-        retryDelay: 3000,
       },
     ],
 
@@ -47,6 +45,15 @@ module.exports = {
       /^(?:(https?):\/\/)?(?:(?:www|m)\.)?(soundcloud\.com|snd\.sc)\/(.*)$/,
       /(?:https:\/\/music\.apple\.com\/)(?:.+)?(artist|album|music-video|playlist)\/([\w\-\.]+(\/)+[\w\-\.]+|[^&]+)\/([\w\-\.]+(\/)+[\w\-\.]+|[^&]+)/
     ],
+
+    SHOUKAKU_OPTIONS: {
+      moveOnDisconnect: false,
+      resumable: true,
+      resumableTimeout: 600,
+      reconnectTries: Infinity,
+      restTimeout: 3000
+    }
+
 }
 
 

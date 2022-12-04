@@ -52,7 +52,7 @@ class Manager extends Client {
                 playlistLimit: 20
             })
           ],
-    }, new Connectors.DiscordJS(this), this.config.NODES);
+    }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
     ["slash", "premiums"].forEach(x => this[x] = new Collection());
     ["loadCommand", "loadEvent", "loadDatabase", "loadNodeEvents", "loadPlayer"].forEach(x => require(`../../handlers/${x}`)(this));
