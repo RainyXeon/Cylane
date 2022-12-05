@@ -20,14 +20,12 @@ module.exports = {
 
         if (data) {
             await data.delete();
-            player.twentyFourSeven = false;
             const on = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "music", "247_off")}`)
                 .setColor(client.color);
             msg.edit({ content: " ", embeds: [on] });
 
         } else if (!data) {
-            player.twentyFourSeven = true;
             data = new db({
                 guild: player.guildId,
                 text: player.textId,

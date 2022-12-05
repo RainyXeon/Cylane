@@ -1,8 +1,11 @@
 const delay = require("delay");
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
 const GLang = require("../../plugins/schemas/language.js")
+const db = require("../../plugins/schemas/autoreconnect")
 
 module.exports = async (client, oldState, newState) => {
+	let data = await db.findOne({ guild: newState.guild.id })
+	
 	let guildModel = await GLang.findOne({
 		guild: newState.guild.id,
 	});
@@ -28,7 +31,7 @@ module.exports = async (client, oldState, newState) => {
 	if (oldState.id === client.user.id) return;
 	if (!oldState.guild.members.cache.get(client.user.id).voice.channelId) return;
 
-	if (player.twentyFourSeven) return;
+	if (data) return;
 
 	const vcRoom = oldState.guild.members.me.voice.channel.id;
 

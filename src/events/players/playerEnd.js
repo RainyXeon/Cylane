@@ -1,12 +1,14 @@
 const { EmbedBuilder, Client } = require("discord.js");
 const GLang = require("../../plugins/schemas/language.js");
+const db = require("../../plugins/schemas/autoreconnect")
 
  module.exports = async (client, player) => {
 	client.logger.info(`Player End in @ ${player.guildId}`);
+	let data = await db.findOne({ guild: player.guildId })
 	const channel = client.channels.cache.get(player.textChannel);
 	if (!channel) return;
 
-	if (player.twentyFourSeven) return;
+	if (data) return;
 
 	if (player.queue.length) return
 

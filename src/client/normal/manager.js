@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const Discord = require('discord.js');
 const { Connectors } = require("shoukaku");
-const { Kazagumo, KazagumoTrack } = require("kazagumo");
+const { Kazagumo, KazagumoTrack, Plugins } = require("kazagumo");
 const logger = require('../../plugins/logger')
 const { I18n } = require("@hammerhq/localization")
 const Spotify = require('kazagumo-spotify');
@@ -36,7 +36,7 @@ class Manager extends Client {
         defaultSearchEngine: "youtube", 
         // MAKE SURE YOU HAVE THIS
         send: (guildId, payload) => {
-            const guild = client.guilds.cache.get(guildId);
+            const guild = this.guilds.cache.get(guildId);
             if (guild) guild.shard.send(payload);
         },
         plugins: [
@@ -50,7 +50,8 @@ class Manager extends Client {
             }),
             new Deezer({
                 playlistLimit: 20
-            })
+            }),
+            new Plugins.PlayerMoved(this)
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 

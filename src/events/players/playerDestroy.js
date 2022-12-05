@@ -6,9 +6,10 @@ const db  = require("../../plugins/schemas/autoreconnect")
 	client.logger.info(`Player Destroy in @ ${player.guildId}`);
 	const channel = client.channels.cache.get(player.textId);
 	let data = await db.findOne({ guild: player.guildId })
+
 	if (!channel) return;
 
-	if (player.state == 5 && player.twentyFourSeven && data) {
+	if (player.state == 5 && data) {
 		await client.manager.createPlayer({
 			guildId: data.guild,
 			voiceId: data.voice,
@@ -16,8 +17,6 @@ const db  = require("../../plugins/schemas/autoreconnect")
 			deaf: true,
 		});
 	}
-
-	if (player.twentyFourSeven) return;
 
 	let guildModel = await GLang.findOne({
 	  guild: channel.guild.id,
