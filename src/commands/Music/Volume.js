@@ -11,12 +11,12 @@ module.exports = {
             name: "amount",
             description: "The amount of volume to set the bot to.",
             type: ApplicationCommandOptionType.Number,
-            required: false,
+            required: true,
         }
     ],
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
-        const value = interaction.options.getInteger("amount");
+        const value = interaction.options.getNumber("amount");
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "volume_loading")}`);
 
         const player = client.manager.players.get(interaction.guild.id);

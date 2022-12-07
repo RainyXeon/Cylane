@@ -2,6 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 const GLang = require("../../plugins/schemas/language.js");
 
 module.exports = async (client, player, track, payload) => {
+  const guild = await client.guilds.cache.get(player.guildId)
 
   console.error(payload.error);
 
@@ -32,7 +33,7 @@ module.exports = async (client, player, track, payload) => {
 
   channel.send({ embeds: [embed] });
 
-  client.logger.error(`Track Error in ${player.guildId}. Auto-Leaved!`);
+  client.logger.error(`Track Error in ${guild.name} / ${player.guildId}. Auto-Leaved!`);
   await player.destroy(guild);
 
 }

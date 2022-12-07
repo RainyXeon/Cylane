@@ -17,6 +17,7 @@
     "humanize-duration": "^3.27.3",
     "kazagumo": "^2.3.0",
     "kazagumo-deezer": "^1.2.1",
+    "kazagumo-nico": "^1.0.3",
     "kazagumo-spotify": "^1.1.5",
     "lyrics-finder": "^21.7.0",
     "moment": "^2.29.4",

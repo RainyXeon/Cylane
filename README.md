@@ -17,6 +17,7 @@
 - [x] Deezer
 - [x] Twitch
 - [x] Bandcamp
+- [x] NicoVideo
 
 <details><summary>📎 Requirements [CLICK ME]</summary>
 <p>

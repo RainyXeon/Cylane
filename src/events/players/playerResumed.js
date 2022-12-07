@@ -1,3 +1,4 @@
 module.exports = async (client, player) => {
-    client.logger.info(`Player Resumed in @ ${player.guildId}`);
+    const guild = await client.guilds.cache.get(player.guildId)
+    client.logger.info(`Player Resumed in @ ${guild.name} / ${player.guildId}`);
 };

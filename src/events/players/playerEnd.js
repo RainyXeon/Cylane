@@ -3,7 +3,8 @@ const GLang = require("../../plugins/schemas/language.js");
 const db = require("../../plugins/schemas/autoreconnect")
 
  module.exports = async (client, player) => {
-	client.logger.info(`Player End in @ ${player.guildId}`);
+	const guild = await client.guilds.cache.get(player.guildId)
+	client.logger.info(`Player End in @ ${guild.name} / ${player.guildId}`);
 	let data = await db.findOne({ guild: player.guildId })
 	const channel = client.channels.cache.get(player.textChannel);
 	if (!channel) return;

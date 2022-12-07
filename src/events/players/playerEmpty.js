@@ -1,4 +1,5 @@
 module.exports = async (client, player, track, playload) => {
+  const guild = await client.guilds.cache.get(player.guildId)
   if (player.autoplay === true) {
       const requester = player.autoplay.requester
       const identifier = player.queue.current.identifier;
@@ -7,6 +8,6 @@ module.exports = async (client, player, track, playload) => {
       
       player.queue.add(res.tracks[1]);
   }
-  client.logger.info(`Player Empty in @ ${player.guildId}`);
+  client.logger.info(`Player Empty in @ ${guild.name} / ${player.guildId}`);
   await player.destroy()
 }

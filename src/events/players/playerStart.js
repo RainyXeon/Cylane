@@ -6,7 +6,8 @@ const GLang = require("../../plugins/schemas/language.js")
 const Setup = require("../../plugins/schemas/setup.js")
   
 module.exports = async (client, player, track) => {
-	client.logger.info(`Player Started in @ ${player.guildId}`);
+  const guild = await client.guilds.cache.get(player.guildId)
+	client.logger.info(`Player Started in @ ${guild.name} / ${player.guildId}`);
   let Control = await GControl.findOne({ guild: player.guildId });
   if (!Control) {
     Control = await GControl.create({
@@ -55,7 +56,7 @@ module.exports = async (client, player, track) => {
     .addFields([
       { name: `${client.i18n.get(language, "player", "author_title")}`, value: `${song.author}`, inline: true },
       { name: `${client.i18n.get(language, "player", "request_title")}`, value: `${song.requester}`, inline: true },
-      { name: `${client.i18n.get(language, "player", "volume_title")}`, value: `${player.volume}%`, inline: true },
+      { name: `${client.i18n.get(language, "player", "volume_title")}`, value: `${player.volume * 100}%`, inline: true },
       { name: `${client.i18n.get(language, "player", "queue_title")}`, value: `${player.queue.length}`, inline: true },
       { name: `${client.i18n.get(language, "player", "duration_title")}`, value: `${formatduration(song.length, true)}`, inline: true },
       { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatduration(TotalDuration)}`, inline: true },
@@ -202,27 +203,32 @@ module.exports = async (client, player, track) => {
         if(!player) {
           collector.stop();
         }
-        await player.setVolume(player.volume + 5);
 
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "player", "volup_msg", {
-              volume: player.volume,
+              volume: (player.volume * 100) + 10
             })}`)
             .setColor(client.color);
 
+        if (player.volume * 100 == 100) return message.reply({ embeds: [embed], ephemeral: true });
+
+        await player.setVolume((player.volume * 100) + 10);
         message.reply({ embeds: [embed], ephemeral: true });
       }
       else if(id === "voldown") {
         if(!player) {
           collector.stop();
         }
-        await player.setVolume(player.volume - 5);
 
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "player", "voldown_msg", {
-              volume: player.volume,
+              volume: (player.volume * 100) - 10,
             })}`)
             .setColor(client.color);
+
+        if (player.volume * 100 == 0) return message.reply({ embeds: [embed], ephemeral: true });
+
+        await player.setVolume((player.volume * 100) - 10);
 
         message.reply({ embeds: [embed], ephemeral: true });
       }
@@ -230,7 +236,7 @@ module.exports = async (client, player, track) => {
         if(!player) {
           collector.stop();
         }
-        await player.send({ op: "seek", guildId: interaction.guild.id, position: 0 });
+        await player.send({ op: "seek", guildId: message.guild.id, position: 0 });
 
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "player", "replay_msg")}`)

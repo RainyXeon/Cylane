@@ -6,6 +6,7 @@ const logger = require('../../plugins/logger')
 const { I18n } = require("@hammerhq/localization")
 const Spotify = require('kazagumo-spotify');
 const Deezer = require('kazagumo-deezer');
+const Nico = require('kazagumo-nico');
 
 class Manager extends Client {
     constructor() {
@@ -51,6 +52,7 @@ class Manager extends Client {
             new Deezer({
                 playlistLimit: 20
             }),
+            new Nico(),
             new Plugins.PlayerMoved(this)
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
