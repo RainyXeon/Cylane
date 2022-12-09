@@ -49,10 +49,8 @@ class Manager extends Client {
               searchLimit: 10, // optional ( track search limit. Max 50 )
               searchMarket: 'US', // optional || default: US ( Enter the country you live in. [ Can only be of 2 letters. For eg: US, IN, EN ] )//
             }),
-            new Deezer({
-                playlistLimit: 20
-            }),
-            new Nico(),
+            new Deezer(),
+            new Nico({ searchLimit: 10 }),
             new Plugins.PlayerMoved(this)
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
