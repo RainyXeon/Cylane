@@ -7,21 +7,24 @@ const { I18n } = require("@hammerhq/localization")
 const Spotify = require('kazagumo-spotify');
 const Deezer = require('kazagumo-deezer');
 const Nico = require('kazagumo-nico');
+require("dotenv").config();
 
 class Manager extends Client {
     constructor() {
-        super({
-            shards: 'auto',
-            allowedMentions: {
-                parse: ["roles", "users", "everyone"],
-                repliedUser: false
-            },
-            intents: [
-                GatewayIntentBits.Guilds,
-                GatewayIntentBits.GuildVoiceStates,
-                GatewayIntentBits.GuildMessages,
-            ]
-        });
+    super({
+        shards: 'auto',
+        allowedMentions: {
+            parse: ["roles", "users", "everyone"],
+            repliedUser: false
+        },
+        intents: require("../../plugins/config.js").ENABLE_MESSAGE ? [
+            32768, 128, 512, 1
+        ] : [
+            GatewayIntentBits.Guilds,
+            GatewayIntentBits.GuildVoiceStates,
+            GatewayIntentBits.GuildMessages,
+        ]
+    });
     this.config = require("../../plugins/config.js");
     this.owner = this.config.OWNER_ID;
     this.dev = this.config.DEV_ID;

@@ -53,7 +53,9 @@ module.exports = {
       resumableTimeout: 600,
       reconnectTries: Infinity,
       restTimeout: 3000
-    }
+    },
+
+    ENABLE_MESSAGE: parseBoolean(process.env.ENABLE_MESSAGE || 'false')
 
 }
 

@@ -51,7 +51,7 @@ module.exports = async (client) => {
                 request: cSong.requester,
             })}`) // [${cSong.title}](${cSong.uri}) \`[${formatDuration(cSong.duration)}]\` • ${cSong.requester}
             .setColor(client.color)
-            .setImage(`https://img.youtube.com/vi/${cSong.identifier}/sddefault.jpg`)
+            .setImage(`${cSong.thumbnail}`)
             .setFooter({ text: `${client.i18n.get(language, "setup", "setup_footer", {
                 songs: player.queue.size,
                 volume: player.volume,

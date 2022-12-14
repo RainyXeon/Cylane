@@ -289,6 +289,15 @@ docker-compose up -d --build
 </p>
 </details>
 
+<details><summary>❓ FAQ</summary>
+<p>
+
+### 1. How to enable search in setup channel?
+Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE CONTENT INTENT` at the developer portal
+
+</p>
+</details>
+
 ## 🛑 Super Requirements 
 
 Java 11-13 **[Download JDK13](http://www.mediafire.com/file/m6gk7aoq96db8g0/file)** (i use this version) for LAVALINK!

@@ -198,6 +198,7 @@ const delay = require("delay");
     
                 const song = message.cleanContent;
                 await message.delete();
+                if (!song) return
     
                 let voiceChannel = await message.member.voice.channel;
                 if (!voiceChannel) return message.channel.send(`${client.i18n.get(language, "noplayer", "no_voice")}`).then((msg) => { 
@@ -206,6 +207,8 @@ const delay = require("delay");
                     }, 4000);
                 });
 
+                let msg = await message.channel.messages.fetch(database.playmsg)
+
               const player = await client.manager.createPlayer({
                 guildId: message.guild.id,
                 voiceId: message.member.voice.channel.id,
@@ -213,7 +216,7 @@ const delay = require("delay");
                 deaf: true,
               });
               
-              const result = await player.search(song, message.author);
+              const result = await player.search(song, { requester: message.author });
               const tracks = result.tracks;
       
               if (!result.tracks.length) return msg.edit({ content: 'No result was found' });
