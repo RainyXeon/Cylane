@@ -59,6 +59,8 @@ LEAVE_TIMEOUT=120000
 LANGUAGE=en
 EMBED_COLOR=#000001
 AUTO_DEPLOY=true
+ENABLE_MESSAGE=false
+PORT=8080
 
 # Devloper
 OWNER_ID=REPLACE_HERE
@@ -267,6 +269,8 @@ LEAVE_TIMEOUT=120000
 LANGUAGE=en
 EMBED_COLOR=#000001
 AUTO_DEPLOY=true
+ENABLE_MESSAGE=false
+PORT=8080
 
 # Devloper
 OWNER_ID=REPLACE_HERE
@@ -295,6 +299,28 @@ docker-compose up -d --build
 ### 1. How to enable search in setup channel?
 Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE CONTENT INTENT` at the developer portal
 
+</p>
+</details>
+
+<details><summary>🕸️ Websocket enum</summary>
+<p>
+
+- Player create:
+```
+0: Destroyed
+1: Created
+2: Started tracks
+3: Paused tracks
+4: Resumed tracks
+5: Skiped track
+6: Return to prevoius track
+```
+
+- Error code:
+```
+0x100: No player on this guild
+0x105: No previous track
+```
 </p>
 </details>
 

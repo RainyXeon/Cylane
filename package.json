@@ -30,6 +30,7 @@
     "stuffs": "^0.1.22",
     "voucher-code-generator": "^1.3.0",
     "winston": "^3.8.1",
+    "ws": "^8.11.0",
     "youtube-sr": "^4.3.4"
   },
   "scripts": {

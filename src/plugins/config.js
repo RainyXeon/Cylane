@@ -55,7 +55,9 @@ module.exports = {
       restTimeout: 3000
     },
 
-    ENABLE_MESSAGE: parseBoolean(process.env.ENABLE_MESSAGE || 'false')
+    ENABLE_MESSAGE: parseBoolean(process.env.ENABLE_MESSAGE || 'false'),
+
+    PORT: process.env.PORT || 8080
 
 }
 

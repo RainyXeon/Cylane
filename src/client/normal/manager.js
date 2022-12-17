@@ -7,7 +7,7 @@ const { I18n } = require("@hammerhq/localization")
 const Spotify = require('kazagumo-spotify');
 const Deezer = require('kazagumo-deezer');
 const Nico = require('kazagumo-nico');
-require("dotenv").config();
+const WebSocket = require('ws')
 
 class Manager extends Client {
     constructor() {
@@ -32,6 +32,7 @@ class Manager extends Client {
     if(!this.token) this.token = this.config.TOKEN;
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
+    this.wss = new WebSocket.Server({ port: 8080 });
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
@@ -59,7 +60,7 @@ class Manager extends Client {
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
     ["slash", "premiums"].forEach(x => this[x] = new Collection());
-    ["loadCommand", "loadEvent", "loadDatabase", "loadNodeEvents", "loadPlayer"].forEach(x => require(`../../handlers/${x}`)(this));
+    ["loadCommand", "loadEvent", "loadDatabase", "loadNodeEvents", "loadPlayer", "loadWebSocket"].forEach(x => require(`../../handlers/${x}`)(this));
 
 
     const client = this;

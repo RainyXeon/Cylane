@@ -8,6 +8,7 @@ const Spotify = require('kazagumo-spotify');
 const Cluster = require('discord-hybrid-sharding');
 const Deezer = require('kazagumo-deezer');
 const Nico = require('kazagumo-nico');
+const WebSocket = require('ws')
 
 class Manager extends Client {
     constructor() {
@@ -18,7 +19,9 @@ class Manager extends Client {
                 parse: ["roles", "users", "everyone"],
                 repliedUser: false
             },
-            intents: [
+            intents: require("../../plugins/config.js").ENABLE_MESSAGE ? [
+                32768, 128, 512, 1
+            ] : [
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildVoiceStates,
                 GatewayIntentBits.GuildMessages,
@@ -31,6 +34,7 @@ class Manager extends Client {
     if(!this.token) this.token = this.config.TOKEN;
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
+    this.wss = new WebSocket.Server({ port: this.config.PORT });
 
     this.manager = new Kazagumo({
         defaultSearchEngine: "youtube", 

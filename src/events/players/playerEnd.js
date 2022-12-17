@@ -37,4 +37,5 @@ const db = require("../../plugins/schemas/autoreconnect")
 
 	if(channel) channel.send({ embeds: [embed] });
 	player.destroy();
+	if (client.websocket) client.websocket.send(JSON.stringify({ player_status: 0, guild: player.guildId }))
 }

@@ -30,7 +30,6 @@ module.exports = async (client, player, track) => {
   let data = await Setup.findOne({ guild: channel.guild.id });
   if (player.textChannel === data.channel) return;
 
-  if (Control.playerControl === 'disable') return
 
 	let guildModel = await GLang.findOne({
 		guild: channel.guild.id,
@@ -47,6 +46,53 @@ module.exports = async (client, player, track) => {
     const position = player.shoukaku.position
 
   const TotalDuration = QueueDuration(player)
+
+  if (client.websocket) {
+    let webqueue = []
+
+    player.queue.forEach(track => {
+      webqueue.push(
+        {
+          title: track.title,
+          uri: track.uri,
+          length: track.length,
+          thumbnail: track.thumbnail,
+          author: track.author,
+          requester: track.requester // Just case can push
+        }
+      )
+    })
+
+    await client.websocket.send(
+      JSON.stringify(
+        { 
+          player_status: 2, 
+          guild: player.guildId,
+          current: {
+            title: song.title,
+            uri: song.uri,
+            length: song.length,
+            thumbnail: song.thumbnail,
+            author: song.author,
+            requester: song.requester
+          },
+          duration: formatduration(TotalDuration)
+        }
+      )
+    )
+
+    await client.websocket.send(
+      JSON.stringify(
+        {           
+          player_status: 2, 
+          guild: player.guildId, 
+          queue: webqueue
+        }
+      )
+    )
+  }
+
+  if (Control.playerControl === 'disable') return
   
   const embeded = new EmbedBuilder()
     .setAuthor({ name: `${client.i18n.get(language, "player", "track_title")}`, iconURL: `${client.i18n.get(language, "player", "track_icon")}` })
