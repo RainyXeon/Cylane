@@ -314,12 +314,14 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 4: Resumed tracks
 5: Skiped track
 6: Return to prevoius track
+7: Added to playlist
 ```
 
 - Error code:
 ```
 0x100: No player on this guild
 0x105: No previous track
+0x110: Only 1 - 2 params
 ```
 </p>
 </details>

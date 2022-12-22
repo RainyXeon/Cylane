@@ -5,6 +5,9 @@ module.exports = {
     ws.on('message', (message) => {
       Function(client, message, ws)
     })
+    ws.on('error', (error) => {
+      ws.send(JSON.stringify({ error: error }))
+    })
     client.websocket = ws
   }
 }

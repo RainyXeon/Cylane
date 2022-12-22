@@ -7,6 +7,7 @@ module.exports = {
     categories: "Music",
     premium: false,
     run: async (interaction, client, language) => {
+        await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "resume_loading")}`);
 
         const player = client.manager.players.get(interaction.guild.id);
@@ -16,6 +17,15 @@ module.exports = {
         
         await player.pause(false)
         const uni = player.paused ? `${client.i18n.get(language, "music", "resume_switch_pause")}` : `${client.i18n.get(language, "music", "resume_switch_resume")}`;
+
+        await client.websocket.send(
+            JSON.stringify(
+              {           
+                player_status: player.paused ? 3 : 4, 
+                guild: interaction.guild.id
+              }
+            )
+          )
 
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "music", "resume_msg", {

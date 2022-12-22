@@ -76,16 +76,7 @@ module.exports = async (client, player, track) => {
             author: song.author,
             requester: song.requester
           },
-          duration: formatduration(TotalDuration)
-        }
-      )
-    )
-
-    await client.websocket.send(
-      JSON.stringify(
-        {           
-          player_status: 2, 
-          guild: player.guildId, 
+          duration: formatduration(TotalDuration),
           queue: webqueue
         }
       )
@@ -188,6 +179,15 @@ module.exports = async (client, player, track) => {
         await player.pause(!player.paused);
         const uni = player.paused ? `${client.i18n.get(language, "player", "switch_pause")}` : `${client.i18n.get(language, "player", "switch_resume")}`;
 
+        await client.websocket.send(
+          JSON.stringify(
+            {           
+              player_status: player.paused ? 3 : 4, 
+              guild: player.guildId
+            }
+          )
+        )
+
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "player", "pause_msg", {
               pause: uni,
@@ -201,6 +201,15 @@ module.exports = async (client, player, track) => {
         }
         await player.skip();
 
+        await client.websocket.send(
+          JSON.stringify(
+            {           
+              player_status: 5, 
+              guild: player.guildId
+            }
+          )
+        )
+
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "player", "skip_msg")}`)
             .setColor(client.color);
@@ -211,6 +220,15 @@ module.exports = async (client, player, track) => {
         if(!player) {
           collector.stop();
         }
+
+        await client.websocket.send(
+          JSON.stringify(
+            {           
+              player_status: 0, 
+              guild: player.guildId
+            }
+          )
+        )
 
         await player.destroy();
 
