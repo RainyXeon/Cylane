@@ -1,10 +1,9 @@
 const { readdirSync } = require('fs');
 
 module.exports = async (client) => {
-  const events = readdirSync(`./src/events/websocket/`).filter(d => d.endsWith('.js'));
-  for (let file of events) {
-    const evt = require(`../events/websocket/${file}`);
-    const eName = file.split('.')[0];
-    client.wss.on(eName, (ws) => evt.run(client, ws));
-  }
+  readdirSync("./src/events/websocket/").forEach(file => {
+    const event = require(`../events/websocket/${file}`);
+    let eventName = file.split(".")[0];
+    client.wss.on(eventName, event.bind(null, client));
+  });
 }

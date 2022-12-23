@@ -35,6 +35,7 @@ class Manager extends Client {
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
     this.wss = new WebSocket.Server({ port: this.config.PORT });
+    this.wss.message = new Collection()
 
     this.manager = new Kazagumo({
         defaultSearchEngine: "youtube", 

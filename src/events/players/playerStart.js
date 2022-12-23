@@ -77,7 +77,7 @@ module.exports = async (client, player, track) => {
             requester: song.requester
           },
           duration: formatduration(TotalDuration),
-          queue: webqueue
+          queue: webqueue || []
         }
       )
     )
