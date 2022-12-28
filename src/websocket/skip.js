@@ -6,11 +6,11 @@ module.exports = {
 
     if (player.queue.size == 0) {
       player.destroy()
-      return ws.send(JSON.stringify({ guild: player.guildId, player_status: 0 }))
+      return ws.send(JSON.stringify({ guild: player.guildId, op: 0 }))
     }
     player.skip()
 
-    ws.send(JSON.stringify({ guild: player.guildId, player_status: 5 }))
+    ws.send(JSON.stringify({ guild: player.guildId, op: 5 }))
     client.logger.info(`Skipped player via websockets @ ${json.guild}`)
   }
 }

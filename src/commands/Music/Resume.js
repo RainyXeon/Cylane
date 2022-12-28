@@ -21,7 +21,7 @@ module.exports = {
         await client.websocket.send(
             JSON.stringify(
               {           
-                player_status: player.paused ? 3 : 4, 
+                op: player.paused ? 3 : 4, 
                 guild: interaction.guild.id
               }
             )

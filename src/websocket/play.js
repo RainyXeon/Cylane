@@ -8,7 +8,7 @@ module.exports = {
     if (player.playing) return
     if (player.queue.size == 0) {
       player.destroy()
-      return ws.send(JSON.stringify({ guild: player.guildId, player_status: 0 }))
+      return ws.send(JSON.stringify({ guild: player.guildId, op: 0 }))
     }
 
     if (!player.playing) player.play()

@@ -66,7 +66,7 @@ module.exports = async (client, player, track) => {
     await client.websocket.send(
       JSON.stringify(
         { 
-          player_status: 2, 
+          op: 2, 
           guild: player.guildId,
           current: {
             title: song.title,
@@ -182,7 +182,7 @@ module.exports = async (client, player, track) => {
         await client.websocket.send(
           JSON.stringify(
             {           
-              player_status: player.paused ? 3 : 4, 
+              op: player.paused ? 3 : 4, 
               guild: player.guildId
             }
           )
@@ -204,7 +204,7 @@ module.exports = async (client, player, track) => {
         await client.websocket.send(
           JSON.stringify(
             {           
-              player_status: 5, 
+              op: 5, 
               guild: player.guildId
             }
           )
@@ -224,7 +224,7 @@ module.exports = async (client, player, track) => {
         await client.websocket.send(
           JSON.stringify(
             {           
-              player_status: 0, 
+              op: 0, 
               guild: player.guildId
             }
           )

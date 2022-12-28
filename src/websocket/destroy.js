@@ -6,7 +6,7 @@ module.exports = {
     
     player.destroy()
 
-    ws.send(JSON.stringify({ guild: player.guildId, player_status: 0 }))
+    ws.send(JSON.stringify({ guild: player.guildId, op: 0 }))
     client.logger.info(`Destroyed player via websockets @ ${json.guild}`)
   }
 }

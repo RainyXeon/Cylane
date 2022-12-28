@@ -305,7 +305,7 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 <details><summary>🕸️ Websocket enum</summary>
 <p>
 
-- Player create:
+- OP (Player Status):
 ```
 0: Destroyed
 1: Created
@@ -317,6 +317,8 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 7: Added to playlist
 8: Looped queue
 9: Unlooped queue
+10: Searched queue or track
+11: Shuffled tracks
 ```
 
 - Error code:
