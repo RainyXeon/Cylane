@@ -59,8 +59,16 @@ class Manager extends Client {
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
-    ["slash", "premiums"].forEach(x => this[x] = new Collection());
-    ["loadCommand", "loadEvent", "loadDatabase", "loadNodeEvents", "loadPlayer"].forEach(x => require(`../../handlers/${x}`)(this));
+    ["slash", "premiums", "interval"].forEach(x => this[x] = new Collection());
+    [
+        "loadCommand",
+        "loadEvent",
+        "loadDatabase",
+        "loadNodeEvents",
+        "loadPlayer",
+        "loadWebSocket",
+        "loadWsMessage"
+    ].forEach(x => require(`../../handlers/${x}`)(this));
 
     this.cluster = new Cluster.Client(this);
 

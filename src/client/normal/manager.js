@@ -60,7 +60,7 @@ class Manager extends Client {
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
-    ["slash", "premiums"].forEach(x => this[x] = new Collection());
+    ["slash", "premiums", "interval"].forEach(x => this[x] = new Collection());
     [
         "loadCommand",
         "loadEvent",

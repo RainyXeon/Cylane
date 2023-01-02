@@ -79,7 +79,9 @@ run: async (interaction, client, language) => {
                     const SetupChannel = await Setup.findOne({ guild: interaction.guild.id });
 
                     const embed = new EmbedBuilder()
-                        .setDescription(`${client.i18n.get(language, "setup", "setup_deleted")}`)
+                    .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
+                        channel: fetchedTextChannel,
+                      })}`)
                         .setColor(client.color);
 
                     if (!SetupChannel) return interaction.editReply({ embeds: [embed] });
