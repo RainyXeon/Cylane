@@ -17,3 +17,6 @@ redeem_invalid: "**โค้ดไม่ถูกต้อง โปรดลอ
 remove_mention: "โปรดแท็กสมาชิก!"
 remove_already: "**สมาชิก %{user} ได้ทุกลบไปแล้ว**"
 remove_desc: "**ตุณได้ลบสมาชิกสำเร็จ %{user}**"
+remove_no_params: "คุณต้องระบุรหัสหรือพูดถึง!"
+remove_only_params: "คุณต้องระบุเพียง 1 id หรือพูดถึง!"
+remove_404: "ไม่พบผู้ใช้ %{userid} ในฐานข้อมูล!"

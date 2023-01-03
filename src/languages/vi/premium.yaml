@@ -17,3 +17,6 @@ redeem_invalid: "**Mã sẩn phẩm không hợp lệ. Vui lòng thử lại mã
 remove_mention: "Vui lòng đề cập (mention) đến thành viên!"
 remove_already: "**Đã loại bỏ! %{user}**"
 remove_desc: "**Bạn đã loại bỏ thành công! %{user}**"
+remove_no_params: "Bạn phải cung cấp id hoặc đề cập (mention)!"
+remove_only_params: "Bạn chỉ được cung cấp 1 id hoặc 1 đề cập (mention)!"
+remove_404: "Không tìm thấy người dùng %{userid} trong cơ sở dữ liệu!"
