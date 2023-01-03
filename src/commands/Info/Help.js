@@ -5,7 +5,6 @@ module.exports = {
     name: ["help"],
     description: "Displays all commands that the bot has.",
     categories: "Info",
-    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

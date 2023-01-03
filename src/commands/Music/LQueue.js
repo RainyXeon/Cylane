@@ -5,7 +5,6 @@ module.exports = {
     name: ["loopall"],
     description: "Loop all songs in queue!",
     categories: "Music",
-    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const loop_mode = {

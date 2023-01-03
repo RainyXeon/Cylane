@@ -5,7 +5,6 @@ module.exports = {
     name: ["filter", "nightcore"],
     description: "Turning on nightcore filter",
     categories: "Filter",
-    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

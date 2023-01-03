@@ -5,7 +5,6 @@ module.exports = {
     name: ["playlist", "remove"],
     description: "Remove a song from a playlist",
     categories: "Playlist",
-    premium: false,
     options: [
         {
             name: "name",

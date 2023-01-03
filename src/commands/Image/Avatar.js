@@ -4,7 +4,6 @@ module.exports = {
     name: ["avatar"],
     description: "Show your or someone else's profile picture",
     categories: "Image",
-    premium: false,
     options: [
       {
           name: "user",

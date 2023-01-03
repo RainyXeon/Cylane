@@ -6,7 +6,6 @@ module.exports = {
   name: ["settings", "status"],
   description: "Create bot status channel",
   categories: "Utils",
-  premium: false,
   options: [
       {
           name: "type",

@@ -4,7 +4,6 @@ module.exports = {
     name: ["invite"],
     description: "Shows the invite information of the Bot",
     categories: "Info",
-    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
                 const invite = new EmbedBuilder()

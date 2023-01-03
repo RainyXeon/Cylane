@@ -4,7 +4,6 @@ module.exports = {
     name: ["Loop"],
     type:  ApplicationCommandType.Message,
     categories: "Context",
-    premium: false,
     /**
      * @param {ContextMenuInteraction} interaction
      */

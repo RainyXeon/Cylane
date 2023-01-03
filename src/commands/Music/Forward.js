@@ -7,7 +7,6 @@ module.exports = {
     name: ["forward"],
     description: "Forward timestamp in the song!",
     categories: "Music",
-    premium: false,
     options: [
         {
             name: "seconds",

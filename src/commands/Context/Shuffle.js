@@ -4,7 +4,6 @@ module.exports = {
     name: ["Shuffle"],
     type: ApplicationCommandType.Message,
     categories: "Context",
-    premium: false,
     /**
      * @param {ContextMenuInteraction} interaction
      */

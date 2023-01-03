@@ -7,7 +7,6 @@ module.exports = {
     name: ["playlist", "save", "queue"],
     description: "Save the current queue to a playlist",
     category: "Playlist",
-    premium: false,
     options: [
         {
             name: "name",

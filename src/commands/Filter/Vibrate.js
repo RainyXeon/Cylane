@@ -5,7 +5,6 @@ module.exports = {
     name: ["filter", "vibrate"],
     description: "Turning on vibrate filter",
     categories: "Filter",
-    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

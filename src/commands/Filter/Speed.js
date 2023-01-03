@@ -5,7 +5,6 @@ module.exports = {
     name: ["filter", "speed"],
     description: "Sets the speed of the song.",
     categories: "Filter",
-    premium: false,
     options: [
         {
             name: "amount",

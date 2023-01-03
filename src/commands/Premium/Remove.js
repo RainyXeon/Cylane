@@ -5,23 +5,37 @@ module.exports = {
     name: ["premium", "remove"],
     description: "Remove premium from members!",
     category: "Premium",
-    premium: false,
+    owner: true,
     options: [
         {
             name: "target",
             description: "Mention a user want to remove!",
-            required: true,
+            required: false,
             type: ApplicationCommandOptionType.User,
+        },
+        {
+            name: "id",
+            description: "The user id you want to remove!",
+            required: false,
+            type: ApplicationCommandOptionType.String,
         }
     ],
     run: async (interaction, client, language) => {
-        await interaction.deferReply({ ephemeral: false });
+        let db
 
-        if(interaction.user.id != client.owner) return interaction.editReply({ content: `${client.i18n.get(language, "interaction", "owner_only")}` });
+        await interaction.deferReply({ ephemeral: false });
         
         const mentions = interaction.options.getUser("target");
-        
-        const db = await Premium.findOne({ Id: mentions.id });
+
+        const id = interaction.options.getString("id");
+
+
+        if (!id && !mentions) return interaction.editReply({ content: `${client.i18n.get(language, "premium", "remove_no_params",)}` });
+        if (id && mentions) return interaction.editReply({ content: `${client.i18n.get(language, "premium", "remove_only_params",)}` });
+        if (id && !mentions) db = await Premium.findOne({ Id: id });
+        if (mentions && !id) db = await Premium.findOne({ Id:  mentions.id });
+
+        if (!db) return interaction.editReply({ content: `${client.i18n.get(language, "premium", "remove_404", { userid: id })}` })
 
         if (db.isPremium) {
 
@@ -33,7 +47,7 @@ module.exports = {
 
           const done = await db.save().catch(() => {})
 
-          await client.premiums.set(interaction.user.id, done)
+          await client.premiums.set(id || mentions.id, done)
 
             const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "premium", "remove_desc", {

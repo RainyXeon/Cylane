@@ -5,7 +5,6 @@ module.exports = {
     name: ["anime", "face", "palm"],
     description: "Post the random face palm",
     categories: "Anime",
-    premium: false,
     options: [
         {
             name: "user",

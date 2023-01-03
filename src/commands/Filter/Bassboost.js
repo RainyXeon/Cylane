@@ -5,7 +5,6 @@ module.exports = {
     name: ["filter", "bassboost"],
     description: 'Turning on bassboost filter',
     categories: "Filter",
-    premium: false,
     options: [
         {
             name: 'amount',

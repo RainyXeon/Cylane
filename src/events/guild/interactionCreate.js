@@ -83,6 +83,8 @@ module.exports = async(client, interaction) => {
 
     client.logger.info(`${msg_cmd.join(" ")}`);
 
+    if(command.owner && interaction.user.id != client.owner) return interaction.reply(`${client.i18n.get(language, "interaction", "owner_only")}`);
+
     const user = interaction.client.premiums.get(interaction.user.id)
 
     try {
@@ -111,13 +113,13 @@ module.exports = async(client, interaction) => {
     if (!command) return;
     if (command) {
       try {
-          command.run(interaction, client, language);
+        command.run(interaction, client, language);
       } catch (error) {
         client.logger.log({
           level: 'error',
           message: error
         })
-        await interaction.reply({ content: `${client.i18n.get(language, "interaction", "error")}`, ephmeral: true });
+        return interaction.editReply({ content: `${client.i18n.get(language, "interaction", "error")}`, ephmeral: true });
       }}
     }
 }

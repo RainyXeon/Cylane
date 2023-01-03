@@ -7,7 +7,6 @@ module.exports = {
     name: ["playlist", "import"],
     description: "Import a playlist to queue.",
     categories: "Playlist",
-    premium: false,
     options: [
         {
             name: "name",

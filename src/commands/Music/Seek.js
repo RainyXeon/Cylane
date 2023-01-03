@@ -6,7 +6,6 @@ module.exports = {
     name: ["seek"],
     description: "Seek timestamp in the song!",
     categories: "Music",
-    premium: false,
     options: [
         {
             name: "seconds",

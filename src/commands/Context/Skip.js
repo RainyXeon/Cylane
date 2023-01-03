@@ -4,7 +4,6 @@ module.exports = {
     name: ["Skip"],
     type: ApplicationCommandType.Message,
     categories: "Context",
-    premium: false,
     /**
      * @param {ContextMenuInteraction} interaction
      */

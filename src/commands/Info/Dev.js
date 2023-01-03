@@ -5,7 +5,6 @@ module.exports = {
     name: ["developer"],
     description: "Shows the developer information of the Bot (Credit)",
     categories: "Info",
-    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
           const xeondex = new EmbedBuilder()

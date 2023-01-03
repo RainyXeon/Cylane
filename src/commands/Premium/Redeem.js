@@ -7,7 +7,6 @@ module.exports = {
     name: ["redeem"],
     description: "Redeem your premium!",
     category: "Premium",
-    premium: false,
     options: [
         {
             name: "code",
@@ -66,6 +65,7 @@ module.exports = {
             member.premium.plan = premium.plan
 
             member = await member.save();
+            await client.premiums.set(interaction.user.id, member)
             await premium.deleteOne();
 
             return interaction.editReply({ embeds: [embed] });

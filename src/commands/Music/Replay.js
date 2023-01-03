@@ -5,7 +5,6 @@ module.exports = {
     name: ["replay"],
     description: "Replay the current song!",
     categories: "Music",
-    premium: false,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "replay_loading")}`);

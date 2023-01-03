@@ -7,7 +7,7 @@ module.exports = {
     name: ["premium", "generate"],
     description: "Generate a premium code!",
     category: "Premium",
-    premium: false,
+    owner: true,
     options: [
         {
             name: "plan",
@@ -42,8 +42,6 @@ module.exports = {
     ],
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
-        
-        if(interaction.user.id != client.owner) return interaction.editReply({ content: `${client.i18n.get(language, "interaction", "owner_only")}` });
 
         const name = interaction.options.getString("plan");
         const camount = interaction.options.getString("amount");

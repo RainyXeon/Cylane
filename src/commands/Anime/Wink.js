@@ -5,7 +5,6 @@ module.exports = {
     name: ["anime", "wink"],
     description: "Post the random wink",
     categories: "Anime",
-    premium: false,
     run: async (interaction, client, language) => {
         let link = ""
         await interaction.deferReply({ ephemeral: false });

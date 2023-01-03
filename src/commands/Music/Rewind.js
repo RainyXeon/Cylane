@@ -7,7 +7,6 @@ module.exports = {
     name: ["rewind"],
     description: "Rewind timestamp in the song!",
     categories: "Music",
-    premium: false,
     options: [
         {
             name: "seconds",

@@ -5,7 +5,6 @@ module.exports = {
     name: ["Play"],
     type: ApplicationCommandType.Message,
     categories: "Context",
-    premium: false,
     /**
      * @param {ContextMenuInteraction} interaction
      */

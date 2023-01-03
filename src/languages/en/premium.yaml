@@ -1,4 +1,3 @@
-
 ##### Generate command #####
 provide_plan: "Please provide plan: %{plans}"
 plan_invalid: "Invalid Plan, available plans: %{plans}"
@@ -21,3 +20,6 @@ redeem_invalid: "**The code is invalid. Please try again using valid one!**"
 remove_mention: "Please mention member!"
 remove_already: "**Already removed! %{user}**"
 remove_desc: "**You have successfully removed! %{user}s** premium"
+remove_no_params: "You must provide id or mention!"
+remove_only_params: "You must provide only 1 id or mention!"
+remove_404: "User %{userid} now found in database!"

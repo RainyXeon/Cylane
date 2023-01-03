@@ -11,7 +11,6 @@ module.exports = {
     name: ["playlist", "edit"],
     description: "Edit the playlist infomation",
     categories: "Playlist",
-    premium: false,
     options: [
       {
         name: "name",

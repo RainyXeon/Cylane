@@ -9,7 +9,6 @@ module.exports = {
     name: ["playlist", "add"],
     description: "Add song to a playlist",
     categories: "Playlist",
-    premium: false,
     options: [
         {
             name: "name",

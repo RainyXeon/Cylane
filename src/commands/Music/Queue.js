@@ -8,7 +8,6 @@ module.exports = {
     name: ["queue"],
     description: "Show the queue of songs.",
     categories: "Music",
-    premium: false,
     options: [
         {
             name: "page",
