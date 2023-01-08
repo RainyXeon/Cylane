@@ -48,17 +48,14 @@ module.exports = {
     ],
 
     SHOUKAKU_OPTIONS: {
-      moveOnDisconnect: false,
+      moveOnDisconnect: true,
       resumable: true,
       resumableTimeout: 600,
       reconnectTries: Infinity,
       restTimeout: 3000
     },
-
     ENABLE_MESSAGE: parseBoolean(process.env.ENABLE_MESSAGE || 'false'),
-
     PORT: process.env.PORT || 8080
-
 }
 
 

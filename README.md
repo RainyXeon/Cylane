@@ -319,6 +319,8 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 9: Unlooped queue
 10: Searched queue or track
 11: Shuffled tracks
+12: Member joined
+13: Member leaved
 ```
 
 - Error code:
@@ -326,6 +328,8 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 0x100: No player on this guild
 0x105: No previous track
 0x110: Only 1 - 2 params
+0x115: No user's id provided
+0x120: No guild's id provided
 ```
 </p>
 </details>

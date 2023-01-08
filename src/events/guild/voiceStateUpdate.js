@@ -5,6 +5,13 @@ const db = require("../../plugins/schemas/autoreconnect")
 
 module.exports = async (client, oldState, newState) => {
 	let data = await db.findOne({ guild: newState.guild.id })
+
+	if(oldState.channel === null && oldState.id !== client.user.id) {
+		if (client.websocket) client.websocket.send(JSON.stringify({ guild: newState.guild.id, op: 12 }))
+	}
+	if (newState.channel === null && newState.id !== client.user.id) {
+		if (client.websocket) client.websocket.send(JSON.stringify({ guild: newState.guild.id, op: 13 }))
+	}
 	
 	let guildModel = await GLang.findOne({
 		guild: newState.guild.id,
@@ -52,10 +59,10 @@ module.exports = async (client, oldState, newState) => {
 					})}`)
 					.setColor(client.color)
 				try {
-		            if (leaveEmbed) leaveEmbed.send({ embeds: [TimeoutEmbed] });
-		        } catch (error) {
-		            console.log(error);
-		        }
+		      if (leaveEmbed) leaveEmbed.send({ embeds: [TimeoutEmbed] });
+		    } catch (error) {
+		      console.log(error);
+		    }
 			}
 		}
 	}
