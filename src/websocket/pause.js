@@ -6,7 +6,7 @@ module.exports = {
 
     player.pause(true)
 
-    ws.send(JSON.stringify({ guild: player.guildId, op: 3 }))
+    ws.send(JSON.stringify({ guild: player.guildId, op: "pause_track" }))
     client.logger.info(`Paused player via websockets @ ${json.guild}`)
   }
 }

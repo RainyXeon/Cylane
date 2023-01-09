@@ -8,9 +8,9 @@ module.exports = {
     const Member = await Guild.members.fetch(json.user);
 
     if (!Member.voice.channel || !Member.voice) { // Checking if the member is connected to a VoiceChannel.
-      ws.send(JSON.stringify({ guild: json.guild, op: 13 }))
+      ws.send(JSON.stringify({ guild: json.guild, op: "voice_state_update_leave" }))
     } else {
-      ws.send(JSON.stringify({ guild: json.guild, op: 12 }))
+      ws.send(JSON.stringify({ guild: json.guild, op: "voice_state_update_join" }))
     };
   }
 }

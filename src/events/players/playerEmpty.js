@@ -10,5 +10,5 @@ module.exports = async (client, player, track, playload) => {
   }
   client.logger.info(`Player Empty in @ ${guild.name} / ${player.guildId}`);
   await player.destroy()
-  if (client.websocket) client.websocket.send(JSON.stringify({ op: 0, guild: player.guildId }))
+  if (client.websocket) client.websocket.send(JSON.stringify({ op: "player_destroy", guild: player.guildId }))
 }

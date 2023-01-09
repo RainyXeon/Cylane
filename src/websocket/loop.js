@@ -9,13 +9,13 @@ module.exports = {
 
       await player.setLoop("none")
 
-      ws.send(JSON.stringify({ guild: player.guildId, op: 9 }))
+      ws.send(JSON.stringify({ guild: player.guildId, op: "unloop_queue" }))
       return client.logger.info(`Unlooped player via websockets @ ${json.guild}`)
     } else if (player.loop === "none") {
 
       await player.setLoop("queue")
 
-      ws.send(JSON.stringify({ guild: player.guildId, op: 8 }))
+      ws.send(JSON.stringify({ guild: player.guildId, op: "loop_queue" }))
       client.logger.info(`Looped player via websockets @ ${json.guild}`)
     }
   }

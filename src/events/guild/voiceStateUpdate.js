@@ -7,10 +7,10 @@ module.exports = async (client, oldState, newState) => {
 	let data = await db.findOne({ guild: newState.guild.id })
 
 	if(oldState.channel === null && oldState.id !== client.user.id) {
-		if (client.websocket) client.websocket.send(JSON.stringify({ guild: newState.guild.id, op: 12 }))
+		if (client.websocket) client.websocket.send(JSON.stringify({ op: "voice_state_update_join", guild: newState.guild.id, }))
 	}
 	if (newState.channel === null && newState.id !== client.user.id) {
-		if (client.websocket) client.websocket.send(JSON.stringify({ guild: newState.guild.id, op: 13 }))
+		if (client.websocket) client.websocket.send(JSON.stringify({ op: "voice_state_update_leave", guild: newState.guild.id }))
 	}
 	
 	let guildModel = await GLang.findOne({

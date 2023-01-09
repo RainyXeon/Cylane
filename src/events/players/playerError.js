@@ -35,6 +35,6 @@ module.exports = async (client, player, track, payload) => {
 
   client.logger.error(`Track Error in ${guild.name} / ${player.guildId}. Auto-Leaved!`);
   await player.destroy(guild);
-  if (client.websocket) client.websocket.send(JSON.stringify({ op: 0, guild: player.guildId }))
+  if (client.websocket) client.websocket.send(JSON.stringify({ op: "player_destroy", guild: player.guildId }))
 
 }

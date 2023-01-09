@@ -5,5 +5,5 @@ module.exports = async (client, player, track, message) => {
   if (!channel && !guild) return;
   await client.UpdateMusic(player);
   await player.destroy(guild);
-  if (client.websocket) client.websocket.send(JSON.stringify({ op: 0, guild: player.guildId }))
+  if (client.websocket) client.websocket.send(JSON.stringify({ op: "player_destroy", guild: player.guildId }))
 };

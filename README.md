@@ -305,23 +305,21 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 <details><summary>🕸️ Websocket enum</summary>
 <p>
 
-- OP (Player Status):
-```
-0: Destroyed
-1: Created
-2: Started tracks
-3: Paused tracks
-4: Resumed tracks
-5: Skiped track
-6: Return to prevoius track
-7: Added to playlist
-8: Looped queue
-9: Unlooped queue
-10: Searched queue or track
-11: Shuffled tracks
-12: Member joined
-13: Member leaved
-```
+- OP Code (Player Status):
+   + 0: `player_destroy`
+   + 1: `player_create`
+   + 2: `player_start`
+   + 3: `pause_track`
+   + 4: `resume_track`
+   + 5: `skip_track`
+   + 6: `previous_track`
+   + 7: `add` (later)
+   + 8: `loop_queue`
+   + 9: `unloop_queue`
+   + 10: `search` (queue or track)
+   + 11: `shuffle_queue`
+   + 12: `voice_state_update_join`
+   + 13: `voice_state_update_leave`
 
 - Error code:
 ```

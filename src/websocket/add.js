@@ -37,7 +37,7 @@ module.exports = {
       const song = player.queue.current
 
       ws.send(JSON.stringify({ 
-        op: 2, 
+        op: "player_start", 
         guild: json.guild, 
         current: {
           title: song.title,
@@ -73,7 +73,7 @@ module.exports = {
       const song = player.queue.current
 
       ws.send(JSON.stringify({ 
-        op: 2, 
+        op: "player_start", 
         guild: json.guild, 
         current: {
           title: song.title,

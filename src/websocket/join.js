@@ -13,7 +13,7 @@ module.exports = {
       deaf: true,
     });
 
-    ws.send(JSON.stringify({ guild: json.guild, op: 1 }))
+    ws.send(JSON.stringify({ guild: json.guild, op: "player_create" }))
     client.logger.info(`Joined player via websockets @ ${json.guild}`)
   }
 }

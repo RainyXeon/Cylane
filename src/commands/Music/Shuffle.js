@@ -6,6 +6,7 @@ module.exports = {
     description: "Shuffle song in queue!",
     categories: "Music",
     run: async (interaction, client, language) => {
+        await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "shuffle_loading")}`);
 
         const player = client.manager.players.get(interaction.guild.id);

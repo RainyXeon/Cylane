@@ -6,7 +6,7 @@ module.exports = {
 
     if (player.queue.size == 0) {
       player.destroy()
-      return ws.send(JSON.stringify({ guild: player.guildId, op: 0 }))
+      return ws.send(JSON.stringify({ guild: player.guildId, op: "player_destroy" }))
     }
 
     if (!player.queue.previous) return ws.send(JSON.stringify({ error: "0x105", message: "No previous track" }))
@@ -14,7 +14,7 @@ module.exports = {
     player.queue.unshift(player.queue.previous);
     player.skip()
     
-    ws.send(JSON.stringify({ guild: player.guildId, op: 6 }))
+    ws.send(JSON.stringify({ guild: player.guildId, op: "previous_track" }))
     client.logger.info(`Previous player via websockets @ ${json.guild}`)
   }
 }

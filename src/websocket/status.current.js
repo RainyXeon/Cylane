@@ -22,7 +22,7 @@ module.exports = {
     })
 
     return ws.send(JSON.stringify({ 
-      op: 2, 
+      op: "player_start", 
       guild: player.guildId, 
       current: {
         title: song.title,
