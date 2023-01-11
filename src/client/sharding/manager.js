@@ -8,34 +8,46 @@ const Spotify = require('kazagumo-spotify');
 const Cluster = require('discord-hybrid-sharding');
 const Deezer = require('kazagumo-deezer');
 const Nico = require('kazagumo-nico');
+const delay = require('delay')
 const WebSocket = require('ws')
 
 class Manager extends Client {
     constructor() {
         super({
-            shards: Cluster.data.SHARD_LIST === undefined ? 'auto' : Cluster.data.SHARD_LIST,
-            shardCount: !Cluster.data.TOTAL_SHARDS ? 'auto' : Cluster.data.TOTAL_SHARDS,
+            shards: Cluster.data.SHARD_LIST,
+            shardCount: Cluster.data.TOTAL_SHARDS,
             allowedMentions: {
                 parse: ["roles", "users", "everyone"],
                 repliedUser: false
             },
             intents: require("../../plugins/config.js").ENABLE_MESSAGE ? [
-                32768, 128, 512, 1
+                GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildVoiceStates,
+                GatewayIntentBits.GuildMessages,
+                GatewayIntentBits.MessageContent,
             ] : [
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildVoiceStates,
                 GatewayIntentBits.GuildMessages,
             ]
         });
+
     this.config = require("../../plugins/config.js");
+    
+    if (this.config.WEBSOCKET){
+        logger.error("You cannot enable websocket on advanced shard system! To use ws, please run the bot in normal mode by type `npm run start:normal` or `npm start`")
+        process.exit()
+    }
+
     this.owner = this.config.OWNER_ID;
     this.dev = this.config.DEV_ID;
     this.color = this.config.EMBED_COLOR;
     if(!this.token) this.token = this.config.TOKEN;
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
-    this.wss = new WebSocket.Server({ port: this.config.PORT });
-    this.wss.message = new Collection()
+
+    process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }))
+    process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }))
 
     this.manager = new Kazagumo({
         defaultSearchEngine: "youtube", 
@@ -60,14 +72,13 @@ class Manager extends Client {
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
     ["slash", "premiums", "interval"].forEach(x => this[x] = new Collection());
+    
     [
         "loadCommand",
         "loadEvent",
         "loadDatabase",
         "loadNodeEvents",
         "loadPlayer",
-        "loadWebSocket",
-        "loadWsMessage"
     ].forEach(x => require(`../../handlers/${x}`)(this));
 
     this.cluster = new Cluster.Client(this);
@@ -75,7 +86,8 @@ class Manager extends Client {
     const client = this;
 
 	}
-		connect() {
+		
+    connect() {
         return super.login(this.token);
     };
 };

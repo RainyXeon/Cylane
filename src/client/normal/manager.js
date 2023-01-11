@@ -18,7 +18,10 @@ class Manager extends Client {
             repliedUser: false
         },
         intents: require("../../plugins/config.js").ENABLE_MESSAGE ? [
-            32768, 128, 512, 1
+            GatewayIntentBits.Guilds,
+            GatewayIntentBits.GuildVoiceStates,
+            GatewayIntentBits.GuildMessages,
+            GatewayIntentBits.MessageContent,
         ] : [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildVoiceStates,
@@ -32,8 +35,8 @@ class Manager extends Client {
     if(!this.token) this.token = this.config.TOKEN;
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
-    this.wss = new WebSocket.Server({ port: 8080 });
-    this.wss.message = new Collection()
+    this.wss = this.config.WEBSOCKET ? new WebSocket.Server({ port: this.config.PORT }) : undefined
+    this.config.WEBSOCKET ? this.wss.message = new Collection() : undefined
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
@@ -61,7 +64,8 @@ class Manager extends Client {
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
     ["slash", "premiums", "interval"].forEach(x => this[x] = new Collection());
-    [
+
+    const loadFile = [
         "loadCommand",
         "loadEvent",
         "loadDatabase",
@@ -69,7 +73,14 @@ class Manager extends Client {
         "loadPlayer",
         "loadWebSocket",
         "loadWsMessage"
-    ].forEach(x => require(`../../handlers/${x}`)(this));
+    ]
+    
+    if (!this.config.WEBSOCKET){
+        loadFile.splice(loadFile.indexOf('loadWebSocket'), 1);
+        loadFile.splice(loadFile.indexOf('loadWsMessage'), 1);
+    } 
+
+    loadFile.forEach(x => require(`../../handlers/${x}`)(this));
 
 
     const client = this;

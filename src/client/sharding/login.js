@@ -9,9 +9,6 @@ client.on("error", (err) => {
     })
 });
 
-process.on('unhandledRejection', error => client.logger.log({ level: 'error', message: error }));
-process.on('uncaughtException', error => client.logger.log({ level: 'error', message: error }));
-
 // client.manager.on("debug", (deb) => {
 //   console.log(deb)
 // })

@@ -34,10 +34,12 @@
     "youtube-sr": "^4.3.4"
   },
   "scripts": {
-    "start": "node ./src/client/sharding/index.js",
+    "start": "node ./src/client/normal/index.js",
+    "start:shard": "node ./src/client/sharding/index.js",
     "start:normal": "node ./src/client/normal/index.js",
-    "dev": "nodemon ./src/client/sharding/index.js",
+    "dev": "nodemon ./src/client/normal/index.js",
     "dev:normal": "nodemon ./src/client/normal/index.js",
+    "dev:shard": "nodemon ./src/client/sharding/index.js",
     "deploy:global": "node deploySlash.js global",
     "deploy:global:clear": "node deploySlash.js global clear"
   },

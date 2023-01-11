@@ -55,7 +55,9 @@ module.exports = {
       restTimeout: 3000
     },
     ENABLE_MESSAGE: parseBoolean(process.env.ENABLE_MESSAGE || 'false'),
-    PORT: process.env.PORT || 8080
+    PORT: process.env.PORT || 8080,
+    WEBSOCKET: parseBoolean(process.env.WEBSOCKET || 'false'),
+    WS_URL: process.env.WS_URL || `ws://localhost:${process.env.PORT}`
 }
 
 

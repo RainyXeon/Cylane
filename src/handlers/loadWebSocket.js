@@ -6,4 +6,5 @@ module.exports = async (client) => {
     let eventName = file.split(".")[0];
     client.wss.on(eventName, event.bind(null, client));
   });
+  client.logger.info(`Websocket Event Loaded!`);
 }
