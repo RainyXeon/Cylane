@@ -7,6 +7,7 @@ const db  = require("../../plugins/schemas/autoreconnect")
 	client.logger.info(`Player Destroy in @ ${guild.name} / ${player.guildId}`);
 	if (client.websocket) client.websocket.send(JSON.stringify({ op: "player_destroy", guild: player.guildId }))
 	const channel = client.channels.cache.get(player.textId);
+	client.sent_queue.set(player.guildId, false)
 	let data = await db.findOne({ guild: player.guildId })
 
 	if (!channel) return;

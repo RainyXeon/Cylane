@@ -16,7 +16,7 @@ module.exports = {
     ],
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
-        const value = interaction.options.getInteger("seconds");
+        const value = interaction.options.getNumber("seconds");
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "seek_loading")}`);
         
         const player = client.manager.players.get(interaction.guild.id);

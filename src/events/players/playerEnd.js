@@ -5,6 +5,29 @@ const db = require("../../plugins/schemas/autoreconnect")
  module.exports = async (client, player) => {
 	const guild = await client.guilds.cache.get(player.guildId)
 	client.logger.info(`Player End in @ ${guild.name} / ${player.guildId}`);
+
+	if (client.websocket) {
+		const song = player.queue.previous
+
+		await client.websocket.send(
+      JSON.stringify(
+        { 
+          op: "player_end", 
+          guild: player.guildId,
+          track: song ? {
+            title: song.title,
+            uri: song.uri,
+            length: song.length,
+            thumbnail: song.thumbnail,
+            author: song.author,
+            requester: song.requester
+          } : null,
+        }
+      )
+    )
+
+	}
+
 	let data = await db.findOne({ guild: player.guildId })
 	const channel = client.channels.cache.get(player.textChannel);
 	if (!channel) return;

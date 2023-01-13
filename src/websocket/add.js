@@ -1,7 +1,6 @@
 module.exports = {
   name: "add",
   run: async (client, json, ws) => {
-    let webqueue = []
     if (!json.user) return ws.send(JSON.stringify({ error: "0x115", message: "No user's id provided" }))
     if (!json.guild) return ws.send(JSON.stringify({ error: "0x120", message: "No guild's id provided" }))
     if (json.tracks && json.query) return ws.send(JSON.stringify({ error: "0x110", message: "Only 1 - 2 params" }))
@@ -21,19 +20,6 @@ module.exports = {
       else player.play(res.tracks[0]);
       if (!player.playing) await player.play();
 
-      player.queue.forEach(track => {
-        webqueue.push(
-          {
-            title: track.title,
-            uri: track.uri,
-            length: track.length,
-            thumbnail: track.thumbnail,
-            author: track.author,
-            requester: track.requester // Just case can push
-          }
-        )
-      })
-
       const song = player.queue.current
 
       ws.send(JSON.stringify({ 
@@ -47,7 +33,6 @@ module.exports = {
           author: song.author,
           requester: song.requester
         }, 
-        queue: webqueue 
       }))
       
       return client.logger.info(`Added player tracks via websockets [tracks params] @ ${json.guild}`)
@@ -57,19 +42,6 @@ module.exports = {
 
       if (!player.playing && !player.paused) player.play();
 
-      player.queue.forEach(track => {
-        webqueue.push(
-          {
-            title: track.title,
-            uri: track.uri,
-            length: track.length,
-            thumbnail: track.thumbnail,
-            author: track.author,
-            requester: track.requester // Just case can push
-          }
-        )
-      })
-
       const song = player.queue.current
 
       ws.send(JSON.stringify({ 
@@ -83,7 +55,6 @@ module.exports = {
           author: song.author,
           requester: song.requester
         }, 
-        queue: webqueue 
       }))
       
       client.logger.info(`Added player tracks via websockets [query params] @ ${json.guild}`)

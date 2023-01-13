@@ -313,7 +313,7 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
    + 2: `player_start`
    + 3: `pause_track`
    + 4: `resume_track`
-   + 5: `skip_track`
+   + 5: `skiped_track`
    + 6: `previous_track`
    + 7: `add` (later)
    + 8: `loop_queue`
@@ -322,6 +322,8 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
    + 11: `shuffle_queue`
    + 12: `voice_state_update_join`
    + 13: `voice_state_update_leave`
+   + 15: `player_queue`
+   + 16: `player_end`
 
 - Error code:
 ```

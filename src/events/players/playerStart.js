@@ -63,6 +63,15 @@ module.exports = async (client, player, track) => {
       )
     })
 
+    await webqueue.unshift({
+      title: song.title,
+      uri: song.uri,
+      length: song.length,
+      thumbnail: song.thumbnail,
+      author: song.author,
+      requester: song.requester
+    })
+
     await client.websocket.send(
       JSON.stringify(
         { 
@@ -76,11 +85,21 @@ module.exports = async (client, player, track) => {
             author: song.author,
             requester: song.requester
           },
-          duration: formatduration(TotalDuration),
-          queue: webqueue || []
         }
       )
     )
+
+    if (!client.sent_queue.get(player.guildId)) {
+      client.websocket.send(
+        JSON.stringify({
+          op: "player_queue",
+          guild: player.guildId,
+          queue: webqueue || []
+        })
+      )
+      client.sent_queue.set(player.guildId, true)
+    }
+
   }
 
   if (Control.playerControl === 'disable') return

@@ -13,6 +13,7 @@ module.exports = {
         if (!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
         const { channel } = interaction.member.voice;
         if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
+        const current = player.queue.current
 
         if (player.queue.size == 0) {
             await player.destroy();
