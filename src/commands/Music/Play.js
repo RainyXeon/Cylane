@@ -19,6 +19,7 @@ module.exports = {
         try {
             if (interaction.options.getString("search")) {
                 await interaction.deferReply({ ephemeral: false });
+                let player = client.manager.players.get(interaction.guild.id)
                 const value = interaction.options.get("search").value;
                 const msg = await interaction.editReply(`${client.i18n.get(language, "music", "play_loading", {
                     result: interaction.options.get("search").value
@@ -29,7 +30,7 @@ module.exports = {
                 if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.Flags.Connect)) return msg.edit(`${client.i18n.get(language, "music", "play_join")}`);
                 if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.Flags.Speak)) return msg.edit(`${client.i18n.get(language, "music", "play_speak")}`);
         
-                const player = await client.manager.createPlayer({
+                if (!player) player = await client.manager.createPlayer({
                     guildId: interaction.guild.id,
                     voiceId: interaction.member.voice.channel.id,
                     textId: interaction.channel.id,
@@ -41,6 +42,7 @@ module.exports = {
         
                 if (!result.tracks.length) return msg.edit({ content: `${client.i18n.get(language, "music", "play_match")}` });
                 if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track) 
+                else if (player.playing) for (let track of tracks) player.queue.add(track)
                 else player.play(tracks[0]);
 
                 const TotalDuration = StartQueueDuration(tracks)
