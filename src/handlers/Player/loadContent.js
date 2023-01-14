@@ -263,5 +263,7 @@ module.exports = async (client) => {
                 })}`)
             msg.reply({ content: " ", embeds: [embed] });
         }
+        
+        await client.UpdateQueueMsg(player);
     });
 };
