@@ -130,23 +130,28 @@ module.exports = async (client) => {
 
                     case "sloop":
                         {
-                            if (!channel) {
-                                return interaction.reply(`${client.i18n.get(language, "noplayer", "no_voice")}`);
-                            } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                                return interaction.reply(`${client.i18n.get(language, "noplayer", "no_voice")}`);
-                            } else if (!player) {
-                                return interaction.reply(`${client.i18n.get(language, "noplayer", "no_player")}`);
-                            } else {
-                                await player.setLoop(!player.loop);
-                                const uni = player.loop ? `${client.i18n.get(language, "player", "switch_enable")}` : `${client.i18n.get(language, "player", "switch_disable")}`;
+                            if (!player) {
+                                collector.stop();
+                            }
+                            const loop_mode = {
+                                none: "none",
+                                track: "track",
+                                queue: "queue"
+                            }
 
-                                const embed = new EmbedBuilder()
-                                    .setDescription(`${client.i18n.get(language, "player", "repeat_msg", {
-                                        loop: uni,
-                                    })}`)
+                            if (player.loop === "queue") {
+                                await player.setLoop(loop_mode.none)
+
+                                const unloopall = new EmbedBuilder()
+                                    .setDescription(`${client.i18n.get(language, "music", "unloopall")}`)
                                     .setColor(client.color);
-
-                                interaction.reply({ embeds: [embed] });
+                                return await interaction.reply({ content: ' ', embeds: [unloopall] });
+                            } else if (player.loop === "none") {
+                                await player.setLoop(loop_mode.queue)
+                                const loopall = new EmbedBuilder()
+                                    .setDescription(`${client.i18n.get(language, "music", "loopall")}`)
+                                    .setColor(client.color);
+                                return await interaction.reply({ content: ' ', embeds: [loopall] });
                             }
                         }
                         break;
