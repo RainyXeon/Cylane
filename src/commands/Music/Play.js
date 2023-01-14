@@ -41,8 +41,9 @@ module.exports = {
                 const tracks = result.tracks;
         
                 if (!result.tracks.length) return msg.edit({ content: `${client.i18n.get(language, "music", "play_match")}` });
-                if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track) 
-                else if (player.playing) for (let track of tracks) player.queue.add(track)
+                if (result.type === 'PLAYLIST') for (let track of tracks) player.queue.add(track)
+                else if (player.playing && result.type === 'SEARCH') player.queue.add(tracks[0])
+                else if (player.playing && result.type !== 'SEARCH') for (let track of tracks) player.queue.add(track)
                 else player.play(tracks[0]);
 
                 const TotalDuration = StartQueueDuration(tracks)
