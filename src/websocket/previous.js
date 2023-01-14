@@ -9,12 +9,27 @@ module.exports = {
       return ws.send(JSON.stringify({ guild: player.guildId, op: "player_destroy" }))
     }
 
-    if (!player.queue.previous) return ws.send(JSON.stringify({ error: "0x105", message: "No previous track" }))
+    const song = player.queue.previous
 
-    player.queue.unshift(player.queue.previous);
+    if (!song) return ws.send(JSON.stringify({ error: "0x105", message: "No previous track" }))
+
+    player.queue.unshift(song);
     player.skip()
+
+
     
-    ws.send(JSON.stringify({ guild: player.guildId, op: "previous_track" }))
+    ws.send(JSON.stringify({
+      op: "previous_track",
+      guild: player.guildId,
+      track: {
+        title: song.title,
+        uri: song.uri,
+        length: song.length,
+        thumbnail: song.thumbnail,
+        author: song.author,
+        requester: song.requester
+      }
+    }))
     client.logger.info(`Previous player via websockets @ ${json.guild}`)
   }
 }
