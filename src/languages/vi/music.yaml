@@ -119,7 +119,7 @@ search_fail: "Lỗi không tải được nhạc"
 search_match: "Lỗi không tìm được bài hát"
 ### Seek command!
 seek_loading: "Đang tải, vui lòng chờ..."
-seek_invalid: "Số không hợp lệ. Vui lòng cung cấp một số theo đơn vị giây.\nCách sử dụng đúng: `%{prefix}seek <giây>`"
+seek_invalid: "Định dạng không hợp lệ. Vui lòng cung cấp dấu thời gian.\nVí dụ: `%{prefix}seek 0:59 hoặc 120:00`"
 seek_beyond: "Không thể quay lại quá thời lương của nhạc."
 seek_msg: "`⏭` | *Quay lại lúc:* `%{duration}`"
 ### Shuffle command!

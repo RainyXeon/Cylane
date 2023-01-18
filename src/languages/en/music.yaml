@@ -150,7 +150,7 @@ search_match: "Error song not matches"
 
 ### Seek command!
 seek_loading: "Loading please wait..."
-seek_invalid: "Invalid number. Please provide a number in seconds.\nCorrect Usage: `%{prefix}seek <seconds>`"
+seek_invalid: "Invalid format. Please provide a timestamp.\nExample: `%{prefix}seek 0:59 or 120:00`"
 seek_beyond: "Cannot seek beyond length of song."
 seek_msg: "`⏭` | **Seeked to:** `%{duration}`"
 
