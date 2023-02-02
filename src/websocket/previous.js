@@ -11,7 +11,7 @@ module.exports = {
 
     const song = player.queue.previous
 
-    if (!song) return ws.send(JSON.stringify({ error: "0x105", message: "No previous track" }))
+    if (!song) return ws.send(JSON.stringify({ error: "0x105", message: "No previous track", guild: player.guildId }))
 
     player.queue.unshift(song);
     player.skip()

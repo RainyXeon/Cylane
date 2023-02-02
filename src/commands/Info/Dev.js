@@ -6,7 +6,18 @@ module.exports = {
     description: "Shows the developer information of the Bot (Credit)",
     categories: "Info",
     run: async (interaction, client, language) => {
+      let command_array = []
         await interaction.deferReply({ ephemeral: false });
+        const command = await client.slash
+        command.map((c) => {
+          command_array.push({
+            name: c.name.join(' '),
+            description: c.description,
+            categories: c.categories,
+            code: c.name.join(''),
+          })
+        })
+        console.log(command_array)
           const xeondex = new EmbedBuilder()
               .setTitle(`${client.i18n.get(language, "info", "dev_title")}`)
               .setDescription(`${client.i18n.get(language, "info", "dev_desc")}`)

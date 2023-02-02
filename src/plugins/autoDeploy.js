@@ -131,6 +131,7 @@ module.exports = async (client) => {
     }
     return all;
   }, []);
+
   command = command.map(i => ApplicationCommandManager.transformCommand(i));
 
   if (command.length === 0) return client.logger.info("No interactions loaded. Exiting auto deploy...")
