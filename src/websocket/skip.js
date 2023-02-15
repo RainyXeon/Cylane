@@ -13,6 +13,25 @@ module.exports = {
 
     player.skip()
 
+    const song = player.queue.current;
+
+    await client.websocket.send(
+      JSON.stringify(
+        {
+          op: "player_start",
+          guild: player.guildId,
+          current: {
+            title: song.title,
+            uri: song.uri,
+            length: song.length,
+            thumbnail: song.thumbnail,
+            author: song.author,
+            requester: song.requester
+          },
+        }
+      )
+    )
+
     client.logger.info(`Skipped player via websockets @ ${json.guild}`)
   }
 }
