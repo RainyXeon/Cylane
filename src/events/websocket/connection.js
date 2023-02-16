@@ -5,13 +5,13 @@ module.exports = async (client, ws, request) => {
 
   if (client.config.AUTHENICATOR && !client.config.TRUSTED_ORIGIN.includes(verificationOrigin)){
     ws.close()
-    client.logger.info(`Disconnected to client ${verificationOrigin} beacuse it's not in trusted list!`)
+    client.logger.info(`Disconnected to client (${verificationOrigin}) beacuse it's not in trusted list!`)
     return
   } 
 
-  if (!client.config.AUTHENICATOR) client.logger.info(`[UNSECURE] Connected to client ${verificationOrigin}`)
+  if (!client.config.AUTHENICATOR) client.logger.warn(`[UNSECURE] Connected to client (${verificationOrigin})`)
 
-  if (client.config.AUTHENICATOR) client.logger.info(`Connected to client ${verificationOrigin}`)
+  if (client.config.AUTHENICATOR) client.logger.info(`Connected to client (${verificationOrigin})`)
 
   ws.on('message', (message) => {
     const json = JSON.parse(message)
