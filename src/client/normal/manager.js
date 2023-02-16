@@ -48,7 +48,7 @@ class Manager extends Client {
             const guild = this.guilds.cache.get(guildId);
             if (guild) guild.shard.send(payload);
         },
-        plugins: [
+        plugins: this.config.ENABLE_SPOTIFY ? [
             new Spotify({
               clientId: this.config.SPOTIFY_ID,
               clientSecret: this.config.SPOTIFY_SECRET,
@@ -57,6 +57,10 @@ class Manager extends Client {
               searchLimit: 10, // optional ( track search limit. Max 50 )
               searchMarket: 'US', // optional || default: US ( Enter the country you live in. [ Can only be of 2 letters. For eg: US, IN, EN ] )//
             }),
+            new Deezer(),
+            new Nico({ searchLimit: 10 }),
+            new Plugins.PlayerMoved(this)
+          ] : [
             new Deezer(),
             new Nico({ searchLimit: 10 }),
             new Plugins.PlayerMoved(this)

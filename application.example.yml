@@ -1,0 +1,54 @@
+# Cylane config file via .yaml
+
+bot:
+  TOKEN: Your token
+  EMBED_COLOR: "Your color. Example: #ffffff"
+  OWNER_ID: "Your id"
+
+  # Realtime now playing bar
+  NP_REALTIME: false
+  LEAVE_TIMEOUT: 100
+  LANGUAGE: en
+
+  # Your id or friend id (disable global command)
+  DEV_ID: []
+
+  # Your mongo_uri, you can get it from here: https://www.mongodb.com/
+  MONGO_URI: mongodb://127.0.0.1:27017/dreamvast
+
+  ENABLE_MESSAGE: false
+  AUTO_DEPLOY: true
+
+lavalink:
+  # Your spotify id and secret, you can get it from here: https://developer.spotify.com/
+  # If you don't have or don't want, you can disable it
+  ENABLE_SPOTIFY: false
+  SPOTIFY_ID: Your spotify id
+  SPOTIFY_SECRET: Your spotify secret
+
+  DEFAULT: ["yorushika", "yoasobi", "tuyu", "hinkik"]
+  
+  # You can add more lavalink server!
+  NODES: [
+    {
+      url: lava1.horizxon.studio:80,
+      name: Node_1,
+      auth: horizxon.studio,
+      secure: false,
+    },
+  ]
+  SHOUKAKU_OPTIONS: {
+    moveOnDisconnect: true,
+    resumable: true,
+    resumableTimeout: 600,
+    reconnectTries: Infinity,
+    restTimeout: 3000
+  }
+
+
+websocket:
+  PORT: 8080
+  WEBSOCKET: true
+  # If you enable authenicator, you have to put your origin link to TRUSTED_ORIGIN
+  AUTHENICATOR: true
+  TRUSTED_ORIGIN: ['http://localhost:3000']

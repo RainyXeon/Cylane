@@ -49,37 +49,63 @@ Start.bat
 
 ## 📄 Configuration
 
-Copy or Rename `.env.example` to `.env` and fill out the values:
+Copy or Rename `application.example.yml` to `application.yml` and fill out the values:
 
-```.env
-# Bot
-TOKEN=REPLACE_HERE
-NP_REALTIME=false
-LEAVE_TIMEOUT=120000
-LANGUAGE=en
-EMBED_COLOR=#000001
-AUTO_DEPLOY=true
-ENABLE_MESSAGE=false
-PORT=8080
-WEBSOCKET=false
+```yaml
+# Cylane config file via .yaml
 
-# Devloper
-OWNER_ID=REPLACE_HERE
+bot:
+  TOKEN: Your token
+  EMBED_COLOR: "Your color. Example: #ffffff"
+  OWNER_ID: "Your id"
 
-# Database
-MONGO_URI=mongodb://127.0.0.1:27017/dreamvast
-LIMIT_TRACK=50
-LIMIT_PLAYLIST=10
+  # Realtime now playing bar
+  NP_REALTIME: false
+  LEAVE_TIMEOUT: 100
+  LANGUAGE: en
 
-# Spotify
-SPOTIFY_ID=asdkjdoiuwdjaslkjdlksaajdlas
-SPOTIFY_SECRET=fjwhuoefhnjksanheufidnwiudlhsjanwjdli
+  # Your id or friend id (disable global command)
+  DEV_ID: []
 
-# Lavalink
-NODE_URL=localhost:2333
-NODE_NAME=MAIN
-NODE_AUTH=123456
-NODE_SECURE=false
+  # Your mongo_uri, you can get it from here: https://www.mongodb.com/
+  MONGO_URI: mongodb://127.0.0.1:27017/dreamvast
+
+  ENABLE_MESSAGE: false
+  AUTO_DEPLOY: true
+
+lavalink:
+  # Your spotify id and secret, you can get it from here: https://developer.spotify.com/
+  # If you don't have or don't want, you can disable it
+  ENABLE_SPOTIFY: false
+  SPOTIFY_ID: Your spotify id
+  SPOTIFY_SECRET: Your spotify secret
+
+  DEFAULT: ["yorushika", "yoasobi", "tuyu", "hinkik"]
+  
+  # You can add more lavalink server!
+  NODES: [
+    {
+      url: lava1.horizxon.studio:80,
+      name: Node_1,
+      auth: horizxon.studio,
+      secure: false,
+    },
+  ]
+  SHOUKAKU_OPTIONS: {
+    moveOnDisconnect: true,
+    resumable: true,
+    resumableTimeout: 600,
+    reconnectTries: Infinity,
+    restTimeout: 3000
+  }
+
+
+websocket:
+  PORT: 8080
+  WEBSOCKET: true
+  # If you enable authenicator, you have to put your origin link to TRUSTED_ORIGIN
+  AUTHENICATOR: true
+  TRUSTED_ORIGIN: ['http://localhost:3000']
 ```
 After installation or finishes all you can use `npm start` to start the bot. or `Run Start.bat`
 
@@ -258,35 +284,7 @@ docker rm [container id]
 
 ### Installation
 
-**1. Make sure you config the .env file or the config.js file in ./src/plugins/config.js**
-
-**Example of .env file for docker hosting:**
-
-```
-# Bot
-TOKEN=REPLACE_HERE
-NP_REALTIME=false
-LEAVE_TIMEOUT=120000
-LANGUAGE=en
-EMBED_COLOR=#000001
-AUTO_DEPLOY=true
-ENABLE_MESSAGE=false
-PORT=8080
-WEBSOCKET=false
-
-# Devloper
-OWNER_ID=REPLACE_HERE
-
-# Database
-LIMIT_TRACK=50
-LIMIT_PLAYLIST=10
-
-# Spotify
-SPOTIFY_ID=asdkjdoiuwdjaslkjdlksaajdlas
-SPOTIFY_SECRET=fjwhuoefhnjksanheufidnwiudlhsjanwjdli
-```
-
-**2. Use this command and you're done!**
+**Use this command and you're done! (Make sure you have edited application.yml file)**
 ```
 docker-compose up -d --build
 ```
@@ -304,7 +302,7 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 </p>
 </details>
 
-<details><summary>🕸️ Websocket enum</summary>
+<details><summary>🕸️ Websocket enum [UNFINISHED]</summary>
 <p>
 
 - OP Code (Player Status):

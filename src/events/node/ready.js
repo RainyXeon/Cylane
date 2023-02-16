@@ -1,7 +1,7 @@
 const db  = require("../../plugins/schemas/autoreconnect")
 
 module.exports = async (client, name) => {
-    client.logger.info(`Lavalink ${name} connected.`);
+    client.logger.info(`Lavalink [${name}] connected.`);
     client.logger.info("Auto ReConnect Collecting player 24/7 data");
     const maindata = await db.find()
     client.logger.info(`Auto ReConnect found in ${maindata.length} servers!`);

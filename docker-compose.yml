@@ -41,28 +41,6 @@ services:
     depends_on:
       - lavalink
       - mongodb
-    environment:
-      # Bot
-      - TOKEN=${TOKEN}
-      - NP_REALTIME=${NP_REALTIME}
-      - LEAVE_TIMEOUT=${LEAVE_TIMEOUT}
-      - LANGUAGE=${LANGUAGE}
-      - EMBED_COLOR=${EMBED_COLOR}
-
-      # Devloper
-      - OWNER_ID=${OWNER_ID}
-
-      # Database
-      - MONGO_URI=mongodb://cylane:cylake@mongodb:27017/streamhatchet?directConnection=true&authSource=admin&replicaSet=replicaset&retryWrites=true
-
-      # Spotify
-      - SPOTIFY_ID=${SPOTIFY_ID}
-      - SPOTIFY_SECRET=${SPOTIFY_SECRET}
-
-      # Lavalink
-      - NODE_HOST=lavalink
-      - NODE_PORT=2333
-      - NODE_PASSWORD=dreamvast
 
 networks:
   lavalink-net:
