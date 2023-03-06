@@ -20,3 +20,5 @@ help_desc: "Vui lòng chọn một danh mục!"
 help_category_desc: "Vui lòng chon danh mục %{category} để thấy tất cả các lệnh."
 help_category: "%{category}"
 help_timeout: "```Menu trợ giúp đã hết hiệu lực, vui lòng dùng lệnh %{prefix}help để xem lại lần nữa.```"
+
+arg_error: "Vui lòng cho một `%{text}`!"

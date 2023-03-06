@@ -30,4 +30,4 @@ prefix_change: "`🔧` | *Prefix has been change to:* `%{prefix}`"
 prefix_error: "An error occured while setting the prefix!"
 
 
-arg_error: "Please specify a %{text}!"
+arg_error: "Please specify a `%{text}`!"

@@ -20,3 +20,5 @@ help_desc: "โปรดเลือกหัวข้อ"
 help_category_desc: "เลือก %{category} เพื่อดูคำสั่งทั้งหมด"
 help_category: "%{category}"
 help_timeout: "```การดูคำสั่งบอทหมดเวลาแล้ว พิมพ์ %{prefix}help เพื่อดูอีกครั้ง```"
+
+arg_error: "โปรดระบุ `%{text}`!"

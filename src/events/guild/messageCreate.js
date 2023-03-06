@@ -19,8 +19,6 @@ module.exports = async (client, message) => {
     const GuildPrefix = await GPrefix.findOne({ guild: message.guild.id });
     if(GuildPrefix && GuildPrefix.prefix) PREFIX = GuildPrefix.prefix;
 
-    console.log(message.content)
-
     if (message.content.match(mention)) {
       const embed = new EmbedBuilder()
         .setColor(client.color)

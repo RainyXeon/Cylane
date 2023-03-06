@@ -13,7 +13,7 @@ run: async (client, message, args, language, prefix) => {
 
     let option = ["create", "delete"]
     if (!message.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return message.channel.send(`${client.i18n.get(language, "utilities", "lang_perm")}`);
-    if (!args[0] || !option.includes(args[0])) return message.channel.send(`${client.i18n.get(language, "utilities", "arg_error", { text: "choice (create or delete)"})}`);
+    if (!args[0] || !option.includes(args[0])) return message.channel.send(`${client.i18n.get(language, "utilities", "arg_error", { text: "(create or delete)"})}`);
 
     const choose = args[0]
         
