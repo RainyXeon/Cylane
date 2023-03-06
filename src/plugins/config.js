@@ -27,6 +27,7 @@ module.exports = {
     MONGO_URI: doc.bot.MONGO_URI || "YOUR_MONGO_URI", // your mongo uri
     ENABLE_MESSAGE: doc.bot.ENABLE_MESSAGE || false,
     AUTO_DEPLOY: doc.bot.AUTO_DEPLOY || true,
+    PREFIX: doc.bot.PREFIX || "d!",
 
   // Lavalink config
     SPOTIFY_ID: doc.lavalink.SPOTIFY_ID,

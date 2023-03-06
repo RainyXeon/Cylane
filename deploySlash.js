@@ -22,7 +22,7 @@ const { ApplicationCommandOptionType, REST, Routes, ApplicationCommandManager } 
   }
 
   if (!cleared) {
-    let interactionsFolder = path.resolve("./src/commands");
+    let interactionsFolder = path.resolve("./src/commands/slash");
 
     await makeSureFolderExists(interactionsFolder);
 

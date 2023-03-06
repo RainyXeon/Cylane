@@ -11,7 +11,7 @@ module.exports = async (client) => {
 
   if (!client.config.AUTO_DEPLOY) return client.logger.info("Auto deploy disabled. Exiting auto deploy...")
 
-  let interactionsFolder = path.resolve("./src/commands");
+  let interactionsFolder = path.resolve("./src/commands/slash");
 
   await makeSureFolderExists(interactionsFolder);
 

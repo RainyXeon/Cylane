@@ -37,6 +37,7 @@ class Manager extends Client {
     this.logger = logger
     this.wss = this.config.WEBSOCKET ? new WebSocket.Server({ port: this.config.PORT }) : undefined
     this.config.WEBSOCKET ? this.wss.message = new Collection() : undefined
+    this.prefix = this.config.PREFIX
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
@@ -67,7 +68,11 @@ class Manager extends Client {
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
-    ["slash", "premiums", "interval", "sent_queue"].forEach(x => this[x] = new Collection());
+    const loadCollection = ["slash", "commands", "premiums", "interval", "sent_queue", "aliases"]
+
+    if (!this.config.ENABLE_MESSAGE) loadCollection.splice(loadCollection.indexOf('commands'), 1);
+
+    loadCollection.forEach(x => this[x] = new Collection());
 
     const loadFile = [
         "loadCommand",
@@ -76,13 +81,16 @@ class Manager extends Client {
         "loadNodeEvents",
         "loadPlayer",
         "loadWebSocket",
-        "loadWsMessage"
+        "loadWsMessage",
+        "loadPrefixCommand"
     ]
     
     if (!this.config.WEBSOCKET){
         loadFile.splice(loadFile.indexOf('loadWebSocket'), 1);
         loadFile.splice(loadFile.indexOf('loadWsMessage'), 1);
     } 
+
+    if (!this.config.ENABLE_MESSAGE) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
 
     loadFile.forEach(x => require(`../../handlers/${x}`)(this));
 

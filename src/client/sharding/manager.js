@@ -45,6 +45,7 @@ class Manager extends Client {
     if(!this.token) this.token = this.config.TOKEN;
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
+    this.prefix = this.config.PREFIX
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }))
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }))
@@ -71,7 +72,11 @@ class Manager extends Client {
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
-    ["slash", "premiums", "interval"].forEach(x => this[x] = new Collection());
+    const loadCollection = ["slash", "commands", "premiums", "interval", "sent_queue", "aliases"]
+
+    if (!this.config.ENABLE_MESSAGE) loadCollection.splice(loadCollection.indexOf('commands'), 1);
+    
+    loadCollection.forEach(x => this[x] = new Collection());
     
     [
         "loadCommand",
@@ -79,6 +84,7 @@ class Manager extends Client {
         "loadDatabase",
         "loadNodeEvents",
         "loadPlayer",
+        "prefix_command",
     ].forEach(x => require(`../../handlers/${x}`)(this));
 
     this.cluster = new Cluster.Client(this);

@@ -119,7 +119,7 @@ module.exports = async(client, interaction) => {
           level: 'error',
           message: error
         })
-        return interaction.editReply({ content: `${client.i18n.get(language, "interaction", "error")}`, ephmeral: true });
+        return interaction.editReply({ content: `${client.i18n.get(language, "interaction", "error")}\n ${error}`, ephmeral: true });
       }}
     }
 }
