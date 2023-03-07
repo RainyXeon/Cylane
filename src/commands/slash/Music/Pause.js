@@ -15,7 +15,7 @@ module.exports = {
             
             await player.pause(true);
             const uni = player.paused ? `${client.i18n.get(language, "music", "pause_switch_pause")}` : `${client.i18n.get(language, "music", "pause_switch_resume")}`;
-            await client.websocket.send(
+            if (client.websocket) await client.websocket.send(
                 JSON.stringify(
                   {           
                     op: player.paused ? 3 : 4, 

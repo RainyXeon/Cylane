@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 module.exports = {
     name: "avatar",
@@ -21,8 +21,8 @@ module.exports = {
           await message.channel.send({ embeds: [embed] });
       } else {
           const embed = new EmbedBuilder()
-              .setTitle(message.user.username + " " + message.user.discriminator)
-              .setImage(`https://cdn.discordapp.com/avatars/${message.user.id}/${message.user.avatar}.jpeg?size=300`)
+              .setTitle(message.author.username + " " + message.author.discriminator)
+              .setImage(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg?size=300`)
               .setColor(client.color)
               .setFooter({ text: `© ${message.guild.members.me.displayName}`, iconURL: client.user.displayAvatarURL({ dynamic: true })})
           await message.channel.send({ embeds: [embed] });

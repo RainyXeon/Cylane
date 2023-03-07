@@ -38,6 +38,27 @@ module.exports = async (client, message) => {
     if(!message.guild.members.me.permissions.has(PermissionsBitField.Flags.SendMessages)) return await message.author.dmChannel.send(`${client.i18n.get(language, "interaction", "no_perms")}`);
     if(!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ViewChannel)) return;
     if(!message.guild.members.me.permissions.has(PermissionsBitField.Flags.EmbedLinks)) return await message.channel.send(`${client.i18n.get(language, "interaction", "no_perms")}`);
+
+    if(command.owner && message.author.id != client.owner) return message.channel.send(`${client.i18n.get(language, "interaction", "owner_only")}`);
+
+    const user = client.premiums.get(message.author.id)
+
+    try {
+      if (user) {
+        if (command.premium && !user.isPremium) {
+          const embed = new EmbedBuilder()
+            .setAuthor({ name: `${client.i18n.get(language, "nopremium", "premium_author")}`, iconURL: client.user.displayAvatarURL() })
+            .setDescription(`${client.i18n.get(language, "nopremium", "premium_desc")}`)
+            .setColor(client.color)
+            .setTimestamp()
+    
+          return interaction.reply({ content: " ", embeds: [embed] });
+        }
+      }
+    } catch (err) {
+        console.log(err)
+        interaction.editReply({ content: `${client.i18n.get(language, "nopremium", "premium_error")}` })
+    }
     
     if (command) {
       try {

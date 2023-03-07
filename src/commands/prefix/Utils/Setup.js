@@ -1,4 +1,4 @@
-const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
 const Setup = require('../../../plugins/schemas/setup.js')
 
 module.exports = { 

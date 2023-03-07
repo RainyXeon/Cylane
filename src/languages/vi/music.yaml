@@ -23,6 +23,7 @@ leave_loading: "Đang tải, vui lòng chờ..."
 leave_msg: "`🚫` | *Đã rời:* | `%{channel}`"
 ### Loop command!
 loop_loading: "Đang tải, vui lòng chờ..."
+loop_invalid: "Chế độ vòng lặp không hợp lệ, chỉ được phép sử dụng: %{mode}"
 loop_current: "`🔁` | *Nhạc được lặp lại ở chế độ:* `Bài hát hiện tại`"
 unloop_current: "`🔁` | *Nhạc được ngừng lặp lại ở chế độ:* `Bài hát hiện tại`"
 loop_all: "`🔁` | *Nhạc được lặp lại ở chế độ:* `Toàn bộ hàng đợi`"
@@ -183,3 +184,5 @@ searchtop_result: "**Đã thay đổi • [%{title}](%{url})** `%{duration}` •
 searchtop_playlist: "**Đã thay đổi • [%{title}](%{url})** `%{duration}` (%{songs} tracks) • %{request}"
 searchtop_fail: "Lỗi không tải được nhạc"
 searchtop_match: "Lỗi không tìm được bài hát"
+
+number_invalid: "Đối số không hợp lệ, phải là một số."

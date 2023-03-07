@@ -1,4 +1,4 @@
-const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField, ChannelType, version } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ChannelType, version } = require('discord.js');
 const Status = require('../../../plugins/schemas/status.js')
 const ms = require('pretty-ms');
 

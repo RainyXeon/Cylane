@@ -29,6 +29,7 @@ leave_msg: "`🚫` | **Left:** | `%{channel}`"
 
 ### Loop command!
 loop_loading: "Loading please wait..."
+loop_invalid: "Invalid loop mode, only %{mode}"
 loop_current: "`🔁` | **Song is loop:** `Current`"
 unloop_current: "`🔁` | **Song is unloop:** `Current`"
 loop_all: "`🔁` | **Song is loop:** `All`"
@@ -187,3 +188,5 @@ radio_match: "This radio has been down, link error or broken. Please report this
 ### Stop command!
 stop_loading: "Loading please wait..."
 stop_msg: "`⏯` | **Stopped and clear the queue.**"
+
+number_invalid: "Invalid argument, must be a number."

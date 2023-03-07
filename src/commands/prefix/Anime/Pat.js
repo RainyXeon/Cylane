@@ -1,4 +1,4 @@
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch')
 
 module.exports = {

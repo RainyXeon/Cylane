@@ -1,23 +1,28 @@
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const moment = require('moment');
 const voucher_codes = require('voucher-code-generator');
 const Redeem = require("../../../plugins/schemas/redeem.js");
 
 module.exports = {
-    name: ["premium", "generate"],
+    name: "premium-generate",
     description: "Generate a premium code!",
     categories: "Premium",
+    usage: "<type> <number>",
+    aliases: ["pg"],
     owner: true,
-    run: async (interaction, client, language) => {
-        await interaction.deferReply({ ephemeral: false });
+    run: async (client, message, args, language, prefix) => {
+        
+        const plans = ['daily', 'weekly', 'monthly', 'yearly'];
 
-        const name = interaction.options.getString("plan");
-        const camount = interaction.options.getString("amount");
+        const name = args[0]
+        const camount = args[1]
+
+        if (!name || !plans.includes(name)) return message.channel.send(`${client.i18n.get(language, "utilities", "arg_error", { text: plans.join(", ") })}`);
+        if (!camount) return message.channel.send(`${client.i18n.get(language, "utilities", "arg_error", { text: "number" })}`);
 
         let codes = [];
 
         const plan = name;
-        const plans = ['daily', 'weekly', 'monthly', 'yearly'];
 
         let time;
         if (plan === 'daily') time = Date.now() + 86400000;
@@ -57,10 +62,10 @@ module.exports = {
             })}`)
             .setTimestamp()
             .setFooter({ text: `${client.i18n.get(language, "premium", "gen_footer", {
-                prefix: "/"
-            })}`, iconURL: interaction.user.displayAvatarURL() })
+                prefix: prefix
+            })}`, iconURL: message.author.displayAvatarURL() })
 
-        interaction.editReply({ embeds: [embed] })
+        message.channel.send({ embeds: [embed] })
         
     }
 }
