@@ -72,7 +72,15 @@ class Manager extends Client {
           ],
     }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
 
-    const loadCollection = ["slash", "commands", "premiums", "interval", "sent_queue", "aliases"]
+    const loadCollection = [
+        "slash", 
+        "commands", 
+        "premiums", 
+        "interval", 
+        "sent_queue", 
+        "aliases",
+        "pl_editing"
+    ]
 
     if (!this.config.ENABLE_MESSAGE) loadCollection.splice(loadCollection.indexOf('commands'), 1);
     

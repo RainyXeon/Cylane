@@ -1,0 +1,28 @@
+const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const Playlist = require("../../../plugins/schemas/playlist.js");
+
+module.exports = {
+    name: "playlist-delete",
+    description: "Delete a playlist",
+    categories: "Playlist",
+    usage: "<playlist_name>",
+    aliases: ["pl-delete"],
+
+    run: async (client, message, args, language, prefix) => {
+
+        const value = args[0]
+        const Plist = value.replace(/_/g, ' ');
+        const playlist = await Playlist.findOne({ name: Plist, owner: message.author.id });
+
+        if(!playlist) return message.channel.send(`${client.i18n.get(language, "playlist", "delete_notfound")}`);
+        if(playlist.owner !== message.author.id) return message.channel.send(`${client.i18n.get(language, "playlist", "delete_owner")}`);
+
+        await playlist.delete();
+        const embed = new EmbedBuilder()
+            .setDescription(`${client.i18n.get(language, "playlist", "delete_deleted", {
+                name: Plist
+                })}`)
+            .setColor(client.color)
+        message.channel.send({ embeds: [embed] });
+    }
+}

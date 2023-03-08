@@ -15,7 +15,7 @@ module.exports = {
             type: ApplicationCommandOptionType.String,
         }
     ],
-    run: async (interaction, client, user, language) => {
+    run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
 
         const value = interaction.options.getString("name");
