@@ -18,6 +18,7 @@ bot:
 
   ENABLE_MESSAGE: false
   AUTO_DEPLOY: true
+  PREFIX: "d!"
 
 lavalink:
   # Your spotify id and secret, you can get it from here: https://developer.spotify.com/
@@ -27,6 +28,9 @@ lavalink:
   SPOTIFY_SECRET: Your spotify secret
 
   DEFAULT: ["yorushika", "yoasobi", "tuyu", "hinkik"]
+
+  # Enable this if you want to use lavalink info from .env files
+  ENV_NODE: false
   
   # You can add more lavalink server!
   NODES: [

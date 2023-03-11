@@ -35,7 +35,7 @@ class Manager extends Client {
     this.config = require("../../plugins/config.js");
     
     if (this.config.WEBSOCKET){
-        logger.error("You cannot enable websocket on advanced shard system! To use ws, please run the bot in normal mode by type `npm run start:normal` or `npm start`")
+        logger.error("You cannot enable websocket on advanced shard system! To use ws, please run the bot in normal mode by type `npm run start:normal` or `npm start`\n To disable, use WEBSOCKET: false in application.yml files")
         process.exit()
     }
 

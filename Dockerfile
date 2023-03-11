@@ -7,4 +7,4 @@ RUN npm install
 COPY . /main/bot
 LABEL name="cylane" version="1.5"
 # Start the bot.
-CMD ["node", "./src/index.js"]
+CMD ["npm", "run", "start"]
