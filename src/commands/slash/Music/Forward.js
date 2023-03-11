@@ -6,7 +6,7 @@ const fastForwardNum = 10;
 module.exports = { 
     name: ["forward"],
     description: "Forward timestamp in the song!",
-    categories: "Music",
+    category: "Music",
     options: [
         {
             name: "seconds",

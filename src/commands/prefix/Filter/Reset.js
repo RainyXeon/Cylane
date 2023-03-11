@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "reset",
     description: "Reset filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

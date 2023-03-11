@@ -4,7 +4,7 @@ const { convertTime } = require("../../../structures/ConvertTime.js");
 module.exports = {
     name: "mp3",
     description: "Play the music file for the bot",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: ["file", "f"],
 

@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = { 
     name: "skip",
     description: "Skips the song currently playing.",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: [],
     

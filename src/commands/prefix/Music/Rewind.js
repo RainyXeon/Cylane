@@ -6,7 +6,7 @@ const rewindNum = 10;
 module.exports = { 
     name: "rewind",
     description: "Rewind timestamp in the song!",
-    categories: "Music",
+    category: "Music",
     usage: "<seconds>",
     aliases: [],
     run: async (client, message, args, language, prefix) => {

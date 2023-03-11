@@ -5,7 +5,7 @@ const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
 module.exports = {
     name: "lofi",
     description: "Play a lofi radio station",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: [],
 

@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: ["filter", "doubletime"],
     description: "Turning on doubletime filter",
-    categories: "Filter",
+    category: "Filter",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

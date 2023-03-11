@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = { 
     name: ["skip"],
     description: "Skips the song currently playing.",
-    categories: "Music",
+    category: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "skip_loading")}`);

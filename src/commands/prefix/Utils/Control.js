@@ -5,7 +5,7 @@ module.exports = {
     name: "control",
     aliases: ["setcontrol"],
     usage: "<input>",
-    categories: "Utilities",
+    category: "Utils",
     description: "Change the player mode for the bot",
     accessableby: "Members",
     

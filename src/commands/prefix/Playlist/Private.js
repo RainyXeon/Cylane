@@ -4,7 +4,7 @@ const Playlist = require("../../../plugins/schemas/playlist.js");
 module.exports = {
     name: "playlist-private",
     description: "Private a playlist",
-    categories: "Playlist",
+    category: "Playlist",
     usage: "<playlist_name",
     aliases: ["pl-private"],
 

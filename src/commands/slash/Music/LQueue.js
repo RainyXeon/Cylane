@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = { 
     name: ["loopall"],
     description: "Loop all songs in queue!",
-    categories: "Music",
+    category: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         const loop_mode = {

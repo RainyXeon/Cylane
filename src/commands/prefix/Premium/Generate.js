@@ -6,7 +6,7 @@ const Redeem = require("../../../plugins/schemas/redeem.js");
 module.exports = {
     name: "premium-generate",
     description: "Generate a premium code!",
-    categories: "Premium",
+    category: "Premium",
     usage: "<type> <number>",
     aliases: ["pg"],
     owner: true,

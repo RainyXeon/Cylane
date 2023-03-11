@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 module.exports = {
     name: ["anime", "pat"],
     description: "Post the random pat",
-    categories: "Anime",
+    category: "Anime",
     options: [
         {
             name: "user",

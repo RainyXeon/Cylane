@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: ["filter", "chipmunk"],
     description: "Turning on chipmunk filter",
-    categories: "Filter",
+    category: "Filter",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

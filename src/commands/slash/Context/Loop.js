@@ -3,7 +3,7 @@ const { ContextMenuInteraction, EmbedBuilder,  ApplicationCommandType } = requir
 module.exports = {
     name: ["Loop"],
     type:  ApplicationCommandType.Message,
-    categories: "Context",
+    category: "Context",
     /**
      * @param {ContextMenuInteraction} interaction
      */

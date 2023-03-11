@@ -4,7 +4,7 @@ const Premium = require("../../../plugins/schemas/premium.js");
 module.exports = {
     name: ["premium", "remove"],
     description: "Remove premium from members!",
-    categories: "Premium",
+    category: "Premium",
     owner: true,
     options: [
         {

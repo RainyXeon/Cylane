@@ -6,7 +6,7 @@ const rewindNum = 10;
 module.exports = { 
     name: ["rewind"],
     description: "Rewind timestamp in the song!",
-    categories: "Music",
+    category: "Music",
     options: [
         {
             name: "seconds",

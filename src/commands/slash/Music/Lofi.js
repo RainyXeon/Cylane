@@ -5,7 +5,7 @@ const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
 module.exports = {
     name: ["lofi"],
     description: "Play a lofi radio station",
-    categories: "Music",
+    category: "Music",
     run: async (interaction, client, language) => {
       await interaction.deferReply({ ephemeral: false });
       const msg = await interaction.editReply(`${client.i18n.get(language, "music", "radio_loading")}`);

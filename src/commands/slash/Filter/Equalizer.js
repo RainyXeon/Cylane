@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: ["filter", "equalizer"],
     description: 'Custom Equalizer!',
-    categories: "Filter",
+    category: "Filter",
     options: [
         {
             name: 'bands',

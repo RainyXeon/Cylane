@@ -10,7 +10,7 @@ const TrackAdd = [];
 module.exports = {
     name: ["playlist", "edit"],
     description: "Edit the playlist infomation",
-    categories: "Playlist",
+    category: "Playlist",
     options: [
       {
         name: "name",

@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = { 
     name: "clear",
     description: "Clear song in queue!",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: [],
 

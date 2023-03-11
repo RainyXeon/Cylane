@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "television",
     description: "Turning on television filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

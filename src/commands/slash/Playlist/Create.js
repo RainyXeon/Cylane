@@ -5,7 +5,7 @@ var id = require('voucher-code-generator');
 module.exports = {
     name: ["playlist", "create"],
     description: "Create a new playlist",
-    categories: "Playlist",
+    category: "Playlist",
     options: [
         {
             name: "name",

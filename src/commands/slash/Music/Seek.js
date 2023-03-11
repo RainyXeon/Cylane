@@ -6,7 +6,7 @@ const time_regex = /(^[0-9][\d]{0,3}):(0[0-9]{1}$|[1-5]{1}[0-9])/
 module.exports = { 
     name: ["seek"],
     description: "Seek timestamp in the song!",
-    categories: "Music",
+    category: "Music",
     options: [
         {
             name: "time",

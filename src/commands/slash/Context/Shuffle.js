@@ -3,7 +3,7 @@ const { ContextMenuInteraction, EmbedBuilder,  ApplicationCommandType } = requir
 module.exports = { 
     name: ["Shuffle"],
     type: ApplicationCommandType.Message,
-    categories: "Context",
+    category: "Context",
     /**
      * @param {ContextMenuInteraction} interaction
      */

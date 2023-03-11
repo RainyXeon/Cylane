@@ -5,7 +5,7 @@ const lyricsfinder = require('lyrics-finder');
 module.exports = { 
     name: "lyrics",
     description: "Display lyrics of a song.",
-    categories: "Music",
+    category: "Music",
     usage: "<song_name>",
     aliases: [],
 

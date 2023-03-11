@@ -10,7 +10,7 @@ let info
 module.exports = {
     name: "playlist-info",
     description: "Check the playlist infomation",
-    categories: "Playlist",
+    category: "Playlist",
     usage: "<playlist_name_or_id>",
     aliases: ["pl-info"],
 

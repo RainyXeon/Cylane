@@ -7,7 +7,7 @@ const { SlashPage } = require('../../../structures/PageQueue.js');
 module.exports = { 
     name: ["queue"],
     description: "Show the queue of songs.",
-    categories: "Music",
+    category: "Music",
     options: [
         {
             name: "page",

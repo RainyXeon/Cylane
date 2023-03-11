@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 module.exports = {
     name: ["anime", "wink"],
     description: "Post the random wink",
-    categories: "Anime",
+    category: "Anime",
     run: async (interaction, client, language) => {
         let link = ""
         await interaction.deferReply({ ephemeral: false });

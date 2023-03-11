@@ -3,7 +3,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ApplicationCommandOptionT
 module.exports = {
     name: ["avatar"],
     description: "Show your or someone else's profile picture",
-    categories: "Image",
+    category: "Image",
     options: [
       {
           name: "user",

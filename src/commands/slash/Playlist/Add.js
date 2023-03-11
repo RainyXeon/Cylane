@@ -8,7 +8,7 @@ const TrackAdd = [];
 module.exports = {
     name: ["playlist", "add"],
     description: "Add song to a playlist",
-    categories: "Playlist",
+    category: "Playlist",
     options: [
         {
             name: "name",

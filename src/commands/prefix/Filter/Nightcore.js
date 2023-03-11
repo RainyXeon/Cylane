@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "nightcore",
     description: "Turning on nightcore filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
     

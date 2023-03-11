@@ -5,7 +5,7 @@ const ms = require('pretty-ms');
 module.exports = { 
   name: ["settings", "status"],
   description: "Create bot status channel",
-  categories: "Utils",
+  category: "Utils",
   options: [
       {
           name: "type",

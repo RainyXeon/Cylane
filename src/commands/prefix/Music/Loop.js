@@ -3,7 +3,7 @@ const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 module.exports = {
     name: "loop",
     description: "Loop song in queue type all/current!",
-    categories: "Music",
+    category: "Music",
     usage: "<mode>",
     aliases: [],
 

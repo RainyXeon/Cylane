@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "china",
     description: "Turning on china filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
     

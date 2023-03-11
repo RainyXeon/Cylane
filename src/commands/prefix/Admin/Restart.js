@@ -2,7 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = { 
   name: "restart",
   description: "Shuts down the client!",
-  categories: "Admin",
+  category: "Admin",
   accessableby: "Owner",
   owner: true,
   usage: "",

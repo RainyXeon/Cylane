@@ -3,7 +3,7 @@ const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = requ
 module.exports = {
     name: ["loop"],
     description: "Loop song in queue type all/current!",
-    categories: "Music",
+    category: "Music",
     options: [
         {
             name: "type",

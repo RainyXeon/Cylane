@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = { 
     name: "join",
     description: "Make the bot join the voice channel.",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: [],
 

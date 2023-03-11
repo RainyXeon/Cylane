@@ -6,7 +6,7 @@ const Playlist = require("../../../plugins/schemas/playlist.js");
 module.exports = {
     name: "playlist-detail",
     description: "Detail a playlist",
-    categories: "Playlist",
+    category: "Playlist",
     usage: "<playlist_name> <number>",
     aliases: ["pl-detail"],
 

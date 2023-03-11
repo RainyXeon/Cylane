@@ -5,7 +5,7 @@ const { QueueDuration } = require("../../../structures/QueueDuration.js");
 module.exports = { 
     name: "nowplaying",
     description: "Display the song currently playing.",
-    categories: "Music",
+    category: "Music",
     run: async (client, message, args, language, prefix) => {
         
         const realtime = client.config.NP_REALTIME;

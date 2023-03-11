@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: ["filter", "bassboost"],
     description: 'Turning on bassboost filter',
-    categories: "Filter",
+    category: "Filter",
     options: [
         {
             name: 'amount',

@@ -12,7 +12,7 @@ module.exports = async (client, message) => {
     const language = LANGUAGE;
 
 
-    let prefix = client.prefix;
+    let PREFIX = client.prefix;
 
     const mention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     
@@ -22,11 +22,11 @@ module.exports = async (client, message) => {
     if (message.content.match(mention)) {
       const embed = new EmbedBuilder()
         .setColor(client.color)
-        .setDescription(`**My prefix is \`${prefix}\`**`);
+        .setDescription(`**My prefix is \`${PREFIX}\`**`);
        return message.channel.send({ embeds: [embed] })
     };
     const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`);
+    const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(PREFIX)})\\s*`);
     if (!prefixRegex.test(message.content)) return;
     const [ matchedPrefix ] = message.content.match(prefixRegex);
     const args = message.content.slice(matchedPrefix.length).trim().split(/ +/g);
@@ -62,7 +62,7 @@ module.exports = async (client, message) => {
     
     if (command) {
       try {
-          command.run(client, message, args, language, prefix)
+          command.run(client, message, args, language, PREFIX)
           // const remove = new EmbedBuilder()
           // .setTitle("Dear all of my users!")
           // .setDescription(`First, thank you for using our bot as well as using our service. 

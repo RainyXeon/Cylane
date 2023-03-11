@@ -3,7 +3,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, version } = require('disc
 module.exports = {
     name: "invite",
     description: "Shows the invite information of the Bot",
-    categories: "Info",
+    category: "Info",
     usage: "",
     aliases: [],
     run: async (client, message, args, language, prefix) => {

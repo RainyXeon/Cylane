@@ -4,7 +4,7 @@ const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
 module.exports = { 
     name: ["Play"],
     type: ApplicationCommandType.Message,
-    categories: "Context",
+    category: "Context",
     /**
      * @param {ContextMenuInteraction} interaction
      */

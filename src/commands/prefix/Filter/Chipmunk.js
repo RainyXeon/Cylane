@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "chipmunk",
     description: "Turning on chipmunk filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

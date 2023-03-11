@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "bass",
     description: "Turning on bass filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

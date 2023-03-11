@@ -4,7 +4,7 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 module.exports = { 
     name: ["volume"],
     description: "Adjusts the volume of the bot.",
-    categories: "Music",
+    category: "Music",
     options: [
         {
             name: "amount",

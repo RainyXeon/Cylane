@@ -3,7 +3,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, version } = require('disc
 module.exports = {
     name: ["ping"],
     description: "Shows the ping information of the Bot",
-    categories: "Info",
+    category: "Info",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         console.log(client.cluster)

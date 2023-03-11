@@ -4,7 +4,7 @@ const ms = require('pretty-ms');
 module.exports = {
     name: "developer",
     description: "Shows the developer information of the Bot (Credit)",
-    categories: "Info",
+    category: "Info",
     usage: "",
     aliases: ["dev"],
     run: async (client, message, args, language, prefix) => {

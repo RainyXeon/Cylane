@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "earrape",
     description: "Destroy your ear!",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
     

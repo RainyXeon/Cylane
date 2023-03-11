@@ -5,7 +5,7 @@ const Premium = require("../../../plugins/schemas/premium.js");
 module.exports = {
     name: ["profile"],
     description: "View your premium profile!",
-    categories: "Premium",
+    category: "Premium",
     premium: true,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });

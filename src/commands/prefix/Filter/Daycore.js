@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "daycore",
     description: "Turning on daycore filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
     

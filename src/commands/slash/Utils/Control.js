@@ -3,7 +3,7 @@ const GControl = require('../../../plugins/schemas/control.js');
 module.exports = { 
   name: ["settings", "control"],
   description: "Enable or disable the player control",
-  categories: "Utils",
+  category: "Utils",
   options: [
       {
           name: "type",

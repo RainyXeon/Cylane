@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "3d",
     description: "Turning on 3d filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

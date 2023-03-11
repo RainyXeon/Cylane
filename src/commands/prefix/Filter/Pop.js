@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "pop",
     description: "Turning on pop filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

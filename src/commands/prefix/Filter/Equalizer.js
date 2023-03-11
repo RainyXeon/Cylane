@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "equalizer",
     description: 'Custom Equalizer!',
-    categories: "Filter",
+    category: "Filter",
     usage: "<number>",
     aliases: [],
     run: async (client, message, args, language, prefix) => {

@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "vaporwave",
     description: "Turning on vaporwave filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
     

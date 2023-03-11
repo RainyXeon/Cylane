@@ -4,7 +4,7 @@ const Setup = require('../../../plugins/schemas/setup.js')
 module.exports = { 
   name: "setup",
   description: "Setup channel song request",
-  categories: "Utils",
+  category: "Utils",
   aliases: ["setup-channel"],
   usage: "<create or delete>",
 

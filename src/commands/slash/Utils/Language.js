@@ -3,7 +3,7 @@ const GLang = require('../../../plugins/schemas/language.js');
 module.exports = { 
   name: ["settings", "language"],
   description: "Change the language for the bot",
-  categories: "Utils",
+  category: "Utils",
   options: [
       {
           name: "input",

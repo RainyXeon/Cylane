@@ -5,7 +5,7 @@ module.exports = {
     name: "language",
     aliases: ["setlang", "lang"],
     usage: "<language>",
-    categories: "Utilities",
+    category: "Utils",
     description: "Change the language for the bot",
     accessableby: "Members",
 

@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: ["filter", "speed"],
     description: "Sets the speed of the song.",
-    categories: "Filter",
+    category: "Filter",
     options: [
         {
             name: "amount",

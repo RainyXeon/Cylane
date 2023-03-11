@@ -7,7 +7,7 @@ const { NormalPage } = require('../../../structures/MessagePageQueue.js');
 module.exports = { 
     name: "queue",
     description: "Show the queue of songs.",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: [],
 

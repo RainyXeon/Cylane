@@ -3,7 +3,7 @@ const Setup = require('../../../plugins/schemas/setup.js')
 module.exports = { 
   name: ["settings", "setup"],
   description: "Setup channel song request",
-  categories: "Utils",
+  category: "Utils",
   options: [
       {
           name: "type",

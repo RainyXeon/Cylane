@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "soft",
     description: "Turning on soft filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

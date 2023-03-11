@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "pitch",
     description: 'Sets the pitch of the song.',
-    categories: "Filter",
+    category: "Filter",
     usage: "<number>",
     aliases: [],
 

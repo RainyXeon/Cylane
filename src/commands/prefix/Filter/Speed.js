@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "speed",
     description: "Sets the speed of the song.",
-    categories: "Filter",
+    category: "Filter",
     usage: "<number>",
     aliases: [],
     run: async (client, message, args, language, prefix) => {

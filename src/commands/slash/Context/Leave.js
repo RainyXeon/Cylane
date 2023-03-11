@@ -3,7 +3,7 @@ const { ContextMenuInteraction, EmbedBuilder, ApplicationCommandType } = require
 module.exports = { 
     name: ["Stop"],
     type: ApplicationCommandType.Message,
-    categories: "Context",
+    category: "Context",
     /**
      * @param {ContextMenuInteraction} interaction
      */

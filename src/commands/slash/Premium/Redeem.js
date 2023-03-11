@@ -6,7 +6,7 @@ const Redeem = require("../../../plugins/schemas/redeem.js");
 module.exports = {
     name: ["redeem"],
     description: "Redeem your premium!",
-    categories: "Premium",
+    category: "Premium",
     options: [
         {
             name: "code",

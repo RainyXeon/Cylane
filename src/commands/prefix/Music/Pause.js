@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = { 
     name: "pause",
     description: "Pause the music!",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: [],
 

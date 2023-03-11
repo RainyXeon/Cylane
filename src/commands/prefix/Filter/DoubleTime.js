@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "doubletime",
     description: "Turning on doubletime filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

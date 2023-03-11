@@ -4,7 +4,7 @@ const ms = require('pretty-ms');
 module.exports = {
     name: ["developer"],
     description: "Shows the developer information of the Bot (Credit)",
-    categories: "Info",
+    category: "Info",
     run: async (interaction, client, language) => {
       let command_array = []
         await interaction.deferReply({ ephemeral: false });
@@ -13,7 +13,7 @@ module.exports = {
           command_array.push({
             name: c.name.join(' '),
             description: c.description,
-            categories: c.categories,
+            category: c.category,
             code: c.name.join(''),
           })
         })

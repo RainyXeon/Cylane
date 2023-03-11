@@ -4,7 +4,7 @@ const Playlist = require("../../../plugins/schemas/playlist.js");
 module.exports = {
     name: ["playlist", "remove"],
     description: "Remove a song from a playlist",
-    categories: "Playlist",
+    category: "Playlist",
     options: [
         {
             name: "name",

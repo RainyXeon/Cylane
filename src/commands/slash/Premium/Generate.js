@@ -6,7 +6,7 @@ const Redeem = require("../../../plugins/schemas/redeem.js");
 module.exports = {
     name: ["premium", "generate"],
     description: "Generate a premium code!",
-    categories: "Premium",
+    category: "Premium",
     owner: true,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });

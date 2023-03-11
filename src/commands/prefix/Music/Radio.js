@@ -5,7 +5,7 @@ const { convertTime } = require("../../../structures/ConvertTime.js");
 module.exports = { 
     name: "radio",
     description: "Play radio in voice channel",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: [],
 

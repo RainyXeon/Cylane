@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "slowmotion",
     description: "Turning on slowmotion filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

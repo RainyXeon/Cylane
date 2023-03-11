@@ -4,7 +4,7 @@ const delay = require("delay");
 module.exports = {
     name: "vibrato",
     description: "Turning on vibrato filter",
-    categories: "Filter",
+    category: "Filter",
     usage: "",
     aliases: [],
 

@@ -10,7 +10,7 @@ let info
 module.exports = {
     name: ["playlist", "info"],
     description: "Check the playlist infomation",
-    categories: "Playlist",
+    category: "Playlist",
     options: [
         {
           name: "name",

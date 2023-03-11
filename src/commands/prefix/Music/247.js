@@ -3,7 +3,7 @@ const db = require("../../../plugins/schemas/autoreconnect")
 module.exports = {
     name: "247",
     description: "24/7 in voice channel",
-    categories: "Music",
+    category: "Music",
     usage: "",
     aliases: [],
     run: async (client, message, args, language, prefix) => {

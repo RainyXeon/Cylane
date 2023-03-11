@@ -5,7 +5,7 @@ const Premium = require("../../../plugins/schemas/premium.js");
 module.exports = {
     name: "profile",
     description: "View your premium profile!",
-    categories: "Premium",
+    category: "Premium",
     usage: "",
     aliases: [],
     premium: true,
