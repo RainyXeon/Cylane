@@ -1,9 +1,9 @@
 const { readdirSync } = require('fs');
 
 module.exports = async (client) => {
-  const events = readdirSync(`./src/websocket/`).filter(d => d.endsWith('.js'));
+  const events = readdirSync(`./src/commands/websocket/`).filter(d => d.endsWith('.js'));
   for (let file of events) {
-    const evt = require(`../websocket/${file}`);
+    const evt = require(`../commands/websocket/${file}`);
     client.wss.message.set(evt.name, evt)
   }
   if (client.wss.message.size) {
