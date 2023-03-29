@@ -28,6 +28,7 @@ module.exports = {
     ENABLE_MESSAGE: doc.bot.ENABLE_MESSAGE || false,
     AUTO_DEPLOY: doc.bot.AUTO_DEPLOY || true,
     PREFIX: doc.bot.PREFIX || "d!",
+    DASHBOARD: doc.bot.DASHBOARD || false,
 
   // Lavalink config
     SPOTIFY_ID: doc.lavalink.SPOTIFY_ID,

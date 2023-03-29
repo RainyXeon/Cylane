@@ -19,6 +19,7 @@ bot:
   ENABLE_MESSAGE: false
   AUTO_DEPLOY: true
   PREFIX: "d!"
+  DASHBOARD: false
 
 lavalink:
   # Your spotify id and secret, you can get it from here: https://developer.spotify.com/

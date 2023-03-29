@@ -102,6 +102,7 @@ class Manager extends Client {
 
     loadFile.forEach(x => require(`../../handlers/${x}`)(this));
 
+    if (this.config.DASHBOARD) require('../../dashboard/index.js')
 
     const client = this;
 

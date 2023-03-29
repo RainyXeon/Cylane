@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const users_1 = require("../../controllers/users");
+const middlewares_1 = require("../../utils/middlewares");
+const router = (0, express_1.Router)();
+router.get('/@me', middlewares_1.isAuthenticated, users_1.getUserController);
+router.get('/:id/playlist', users_1.getUserIdPlaylistController);
+router.get('/@me/playlist', middlewares_1.isAuthenticated, users_1.getUserMePlaylistController);
+exports.default = router;
