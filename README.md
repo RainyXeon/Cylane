@@ -72,6 +72,8 @@ bot:
 
   ENABLE_MESSAGE: false
   AUTO_DEPLOY: true
+  PREFIX: "d!"
+  DASHBOARD: false
 
 lavalink:
   # Your spotify id and secret, you can get it from here: https://developer.spotify.com/
@@ -81,6 +83,9 @@ lavalink:
   SPOTIFY_SECRET: Your spotify secret
 
   DEFAULT: ["yorushika", "yoasobi", "tuyu", "hinkik"]
+
+  # Enable this if you want to use lavalink info from .env files
+  ENV_NODE: false
   
   # You can add more lavalink server!
   NODES: [
@@ -106,6 +111,21 @@ websocket:
   # If you enable authenicator, you have to put your origin link to TRUSTED_ORIGIN
   AUTHENICATOR: true
   TRUSTED_ORIGIN: ['http://localhost:3000']
+
+dash:
+  PORT: 3000
+  # If you change the PORT, you have to change this to! Ex: `PORT: 9999, DISCORD_REDIRECT_URL: http://localhost:9999/api/auth/discord/redirect`
+  REDIRECT: http://localhost:3000/menu
+  SIGNATURE: cylane/a69c29e2f989c7d06f98b6e462c835a4 # Type anything you want
+  # Discord Auth App
+  DISCORD_CLIENT_ID: "Your bot id"
+  DISCORD_CLIENT_SECRET: "Your bot secret"
+  
+  # You have to add the redirect url in your discord developer portal, remove the <>
+  # Link: https://discord.com/developers/applications/<your_bot_id>/oauth2/general
+  # If you change the PORT, you have to change this to! Ex: `PORT: 9999, DISCORD_REDIRECT_URL: http://localhost:9999/api/auth/discord/redirect`
+  DISCORD_REDIRECT_URL: http://localhost:3000/api/auth/discord/redirect 
+  DISCORD_API_URL: https://discord.com/api/v10
 ```
 After installation or finishes all you can use `npm start` to start the bot. or `Run Start.bat`
 
