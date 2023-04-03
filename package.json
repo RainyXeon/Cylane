@@ -1,6 +1,6 @@
 {
   "name": "cylane",
-  "version": "2.5",
+  "version": "2.5.0",
   "description": "A discord lavalink bot using shokaku/kazagumo",
   "main": "index.js",
   "dependencies": {
