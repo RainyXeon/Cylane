@@ -14,13 +14,14 @@ try {
 
 
 module.exports = {
-  PORT: doc.dash.PORT || process.env.PORT,
-  TOKEN: doc.bot.TOKEN || process.env.TOKEN,
+  PORT: process.env.PORT || doc.dash.PORT,
+  TOKEN: process.env.TOKEN || doc.bot.TOKEN,
   REDIRECT: doc.dash.REDIRECT,
   MONGO_URI: doc.bot.MONGO_URI,
-  SIGNATURE: doc.dash.SIGNATURE,
+  SIGNATURE: process.env.SIGNATURE || doc.dash.SIGNATURE,
   DISCORD_CLIENT_ID: doc.dash.DISCORD_CLIENT_ID,
-  DISCORD_CLIENT_SECRET: doc.dash.DISCORD_CLIENT_SECRET || process.env.DISCORD_CLIENT_SECRET,
+  DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET || doc.dash.DISCORD_CLIENT_SECRET,
   DISCORD_REDIRECT_URL: doc.dash.DISCORD_REDIRECT_URL,
   DISCORD_API_URL: doc.dash.DISCORD_API_URL,
+  SECURE: doc.dash.SECURE,
 }

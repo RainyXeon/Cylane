@@ -51,7 +51,9 @@ class Manager {
         saveUninitialized: false,
         cookie: { 
           maxAge: 60000 * 60 * 24 * 3,
-          // secure: true
+          secure: this.config.SECURE || false,
+          httpOnly: this.config.SECURE,
+          sameSite: 'lax',
         },
         store: store.create({ 
           mongoUrl: this.config.MONGO_URI

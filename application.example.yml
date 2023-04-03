@@ -72,3 +72,5 @@ dash:
   # If you change the PORT, you have to change this to! Ex: `PORT: 9999, DISCORD_REDIRECT_URL: http://localhost:9999/api/auth/discord/redirect`
   DISCORD_REDIRECT_URL: http://localhost:3000/api/auth/discord/redirect 
   DISCORD_API_URL: https://discord.com/api/v10
+  # If you use https, you have to enable SECURE
+  SECURE: false

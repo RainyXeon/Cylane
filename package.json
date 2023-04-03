@@ -28,7 +28,7 @@
     "kazagumo-spotify": "^1.1.5",
     "lyrics-finder": "^21.7.0",
     "moment": "^2.29.4",
-    "mongoose": "^6.7.1",
+    "mongoose": "^6.10.4",
     "node-cron": "^3.0.2",
     "passport": "^0.6.0",
     "passport-discord": "^0.1.4",
