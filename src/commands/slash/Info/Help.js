@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, SelectMenuOptionBuilder } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require("discord.js");
 const { readdirSync } = require("fs");
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         
-        const category = readdirSync("./src/commands/")
+        const category = readdirSync("./src/commands/slash")
 
         const embed = new EmbedBuilder()
             .setAuthor({ name: `${interaction.guild.members.me.displayName} Help Command!`, iconURL: interaction.guild.iconURL({ dynamic: true })})
@@ -21,7 +21,7 @@ module.exports = {
             const dir = client.slash.filter(c => c.category === category)
             const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
             try {
-                embed.addFields({ name: `❯ ${capitalise} [${dir.size}]:`, value: dir.map(c => `\`${c.name.at(-1)}\``).join(", ") })
+                embed.addFields({ name: `❯ ${capitalise} [${dir.size}]`, value: ` ` })
             } catch(e) {
                 console.log(e)
             }
@@ -29,14 +29,14 @@ module.exports = {
 
         const row = new ActionRowBuilder()
             .addComponents([
-                new SelectMenuBuilder()
+                new StringSelectMenuBuilder()
                     .setCustomId("help-category")
                     .setPlaceholder(`${client.i18n.get(language, "utilities", "help_desc")}`)
                     .setMaxValues(1)
                     .setMinValues(1)
                     /// Map the category to the select menu
                     .setOptions(category.map(category => {
-                        return new SelectMenuOptionBuilder()
+                        return new StringSelectMenuOptionBuilder()
                             .setLabel(category)
                             .setValue(category)
                         }
