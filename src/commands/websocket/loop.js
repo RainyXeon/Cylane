@@ -9,19 +9,16 @@ module.exports = {
     if (json.status == "none") {
       await player.setLoop("track")
       ws.send(JSON.stringify({ guild: player.guildId, op: "loop_queue", status: "track" }))
-      client.logger.info(`Looped player track via websockets @ ${json.guild}`)
     } 
 
     if (json.status == "track") {
       await player.setLoop("queue")
       ws.send(JSON.stringify({ guild: player.guildId, op: "loop_queue", status: "queue" }))
-      client.logger.info(`Looped player queue via websockets @ ${json.guild}`)
     } 
 
     if (json.status == "queue") {
       await player.setLoop("none")
       ws.send(JSON.stringify({ guild: player.guildId, op: "loop_queue", status: "none" }))
-      client.logger.info(`Unlooped player track via websockets @ ${json.guild}`)
     } 
   }
 }

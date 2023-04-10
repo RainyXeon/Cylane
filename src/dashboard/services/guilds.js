@@ -7,14 +7,14 @@ const Language = require('../schemas/Language')
 const Setup = require('../schemas/Setup')
 
 async function getBotGuildsService() {
-  return axios.get(`${config.DISCORD_API_URL}/users/@me/guilds`, {
+  return axios.get(`${config.API_URL}/users/@me/guilds`, {
     headers: { Authorization: `Bot ${config.TOKEN}` }
   })
 }
 async function getUserGuildsService(id) {
   const user = await User.findById(id)
   if (!user) throw new Error('No user found')
-  return axios.get(`${config.DISCORD_API_URL}/users/@me/guilds`, {
+  return axios.get(`${config.API_URL}/users/@me/guilds`, {
     headers: { Authorization: `Bearer ${user.accessToken}` }
   })
 }
@@ -42,7 +42,7 @@ async function getMutualGuildsService(id) {
 }
 
 async function getGuildService(id) {
-  return axios.get(`${config.DISCORD_API_URL}/guilds/${id}`, {
+  return axios.get(`${config.API_URL}/guilds/${id}`, {
     headers: { Authorization: `Bot ${config.TOKEN}` }
   })
 }

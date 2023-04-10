@@ -30,6 +30,5 @@ module.exports = {
         requester: song.requester
       }
     }))
-    client.logger.info(`Previous player via websockets @ ${json.guild}`)
   }
 }

@@ -19,6 +19,7 @@ module.exports = async (client, ws, request) => {
     
     if(!req) return;
     if (req) {
+      client.logger.info(`Used [${json.message}] req by ${json.guild}`)
       try {
         req.run(client, json, ws);
       } catch (error) {

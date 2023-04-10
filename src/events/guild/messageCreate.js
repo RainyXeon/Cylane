@@ -41,23 +41,24 @@ module.exports = async (client, message) => {
 
     if(command.owner && message.author.id != client.owner) return message.channel.send(`${client.i18n.get(language, "interaction", "owner_only")}`);
 
-    const user = client.premiums.get(message.author.id)
+    
 
     try {
-      if (user) {
-        if (command.premium && !user.isPremium) {
+      if (command.premium) {
+        const user = client.premiums.get(message.author.id)
+        if (!user || !user.isPremium) {
           const embed = new EmbedBuilder()
             .setAuthor({ name: `${client.i18n.get(language, "nopremium", "premium_author")}`, iconURL: client.user.displayAvatarURL() })
             .setDescription(`${client.i18n.get(language, "nopremium", "premium_desc")}`)
             .setColor(client.color)
             .setTimestamp()
     
-          return interaction.reply({ content: " ", embeds: [embed] });
+          return message.channel.send({ content: " ", embeds: [embed] });
         }
       }
     } catch (err) {
         console.log(err)
-        interaction.editReply({ content: `${client.i18n.get(language, "nopremium", "premium_error")}` })
+        return message.channel.send({ content: `${client.i18n.get(language, "nopremium", "premium_error")}` })
     }
     
     if (command) {

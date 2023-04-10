@@ -22,6 +22,7 @@
     "express-session": "^1.17.3",
     "humanize-duration": "^3.27.3",
     "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^9.0.0",
     "kazagumo": "^2.3.1",
     "kazagumo-deezer": "^1.2.2",
     "kazagumo-nico": "^1.1.5",

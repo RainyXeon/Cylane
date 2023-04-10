@@ -20,9 +20,9 @@ passport.deserializeUser(async (id, done) => {
     
 passport.use(
   new Strategy({
-    clientID: config.DISCORD_CLIENT_ID,
-    clientSecret: config.DISCORD_CLIENT_SECRET,
-    callbackURL: config.DISCORD_REDIRECT_URL,
+    clientID: config.CLIENT_ID,
+    clientSecret: config.CLIENT_SECRET,
+    callbackURL: config.REDIRECT_URL,
     scope: ['identify', 'guilds']
   }, async (accessToken, refreshToken, profile, done) => 
     {

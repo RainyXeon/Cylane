@@ -7,6 +7,5 @@ module.exports = {
     player.queue.shuffle();
 
     ws.send(JSON.stringify({ guild: player.guildId, op: "shuffle_queue" }))
-    client.logger.info(`Shuffled player via websockets @ ${json.guild}`)
   }
 }

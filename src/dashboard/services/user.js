@@ -6,7 +6,7 @@ const config = require('../plugins/config')
 async function getUserService(id) {
   const user = await User.findById(id)
   if (!user) throw new Error('No user found')
-  return axios.get(`${config.DISCORD_API_URL}/users/@me`, {
+  return axios.get(`${config.API_URL}/users/@me`, {
     headers: { Authorization: `Bearer ${user.accessToken}` }
   })
 }

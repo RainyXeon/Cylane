@@ -31,7 +31,5 @@ module.exports = {
         }
       )
     )
-
-    client.logger.info(`Skipped player via websockets @ ${json.guild}`)
   }
 }

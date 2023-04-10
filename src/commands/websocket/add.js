@@ -35,7 +35,7 @@ module.exports = {
         }, 
       }))
       
-      return client.logger.info(`Added player tracks via websockets [tracks params] @ ${json.guild}`)
+      return
     } else if (json.query) {
       const res = await player.search(json.query, { requester: Member })
       if (res.type === 'PLAYLIST' || res.type === 'SEARCH') for (let track of res.tracks) player.queue.add(track)
@@ -56,8 +56,6 @@ module.exports = {
           requester: song.requester
         }, 
       }))
-      
-      client.logger.info(`Added player tracks via websockets [query params] @ ${json.guild}`)
     }
   }
 }

@@ -85,21 +85,22 @@ module.exports = async(client, interaction) => {
 
     if(command.owner && interaction.user.id != client.application.owner) return interaction.reply(`${client.i18n.get(language, "interaction", "owner_only")}`);
 
-    const user = interaction.client.premiums.get(interaction.user.id)
-
     try {
-      if (command.premium && !user.isPremium) {
-        const embed = new EmbedBuilder()
-          .setAuthor({ name: `${client.i18n.get(language, "nopremium", "premium_author")}`, iconURL: client.user.displayAvatarURL() })
-          .setDescription(`${client.i18n.get(language, "nopremium", "premium_desc")}`)
-          .setColor(client.color)
-          .setTimestamp()
-  
-        return interaction.reply({ content: " ", embeds: [embed] });
+      if (command.premium) {
+        const user = client.premiums.get(interaction.user.id)
+        if (!user || !user.isPremium) {
+          const embed = new EmbedBuilder()
+            .setAuthor({ name: `${client.i18n.get(language, "nopremium", "premium_author")}`, iconURL: client.user.displayAvatarURL() })
+            .setDescription(`${client.i18n.get(language, "nopremium", "premium_desc")}`)
+            .setColor(client.color)
+            .setTimestamp()
+    
+          return interaction.reply({ content: " ", embeds: [embed] });
+        }
       }
     } catch (err) {
         console.log(err)
-        interaction.editReply({ content: `${client.i18n.get(language, "nopremium", "premium_error")}` })
+        return interaction.reply({ content: `${client.i18n.get(language, "nopremium", "premium_error")}` })
     }
 
     if(!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.SendMessages)) return interaction.user.dmChannel.send(`${client.i18n.get(language, "interaction", "no_perms")}`);

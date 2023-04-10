@@ -17,8 +17,6 @@ module.exports = {
         guild: player.guildId,
         uri: removed.uri
       }))
-  
-      client.logger.info(`Removed track via websockets @ ${json.guild}`)
     }
   }
 }

@@ -19,9 +19,10 @@ module.exports = {
   REDIRECT: doc.dash.REDIRECT,
   MONGO_URI: doc.bot.MONGO_URI,
   SIGNATURE: process.env.SIGNATURE || doc.dash.SIGNATURE,
-  DISCORD_CLIENT_ID: doc.dash.DISCORD_CLIENT_ID,
-  DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET || doc.dash.DISCORD_CLIENT_SECRET,
-  DISCORD_REDIRECT_URL: doc.dash.DISCORD_REDIRECT_URL,
-  DISCORD_API_URL: doc.dash.DISCORD_API_URL,
+  CLIENT_ID: doc.dash.CLIENT_ID,
+  CLIENT_SECRET: process.env.CLIENT_SECRET || doc.dash.CLIENT_SECRET,
+  REDIRECT_URL: doc.dash.REDIRECT_URL,
+  API_URL: doc.dash.API_URL,
   SECURE: doc.dash.SECURE,
+  all: doc
 }

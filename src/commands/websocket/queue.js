@@ -38,6 +38,5 @@ module.exports = {
       })
     )
 
-    client.logger.info(`Destroyed player via websockets @ ${json.guild}`)
   }
 }

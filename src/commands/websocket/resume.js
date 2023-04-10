@@ -7,6 +7,5 @@ module.exports = {
     player.pause(false)
 
     ws.send(JSON.stringify({ guild: player.guildId, op: "resume_track" }))
-    client.logger.info(`Resumed player via websockets @ ${json.guild}`)
   }
 }

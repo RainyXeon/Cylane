@@ -72,7 +72,9 @@ module.exports = {
     PORT: doc.websocket.PORT || 8080,
     WEBSOCKET:doc.websocket.WEBSOCKET || false,
     AUTHENICATOR: doc.websocket.AUTHENICATOR || false,
-    TRUSTED_ORIGIN: doc.websocket.TRUSTED_ORIGIN || ['http://localhost:3000']
+    TRUSTED_ORIGIN: doc.websocket.TRUSTED_ORIGIN || ['http://localhost:3000'],
+
+    all: doc
 }
 
 function parseBoolean(value){
