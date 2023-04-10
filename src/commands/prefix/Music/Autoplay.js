@@ -24,7 +24,7 @@ module.exports = {
             player.data.set('requester', null)
             await player.queue.clear();
 
-            const off = new MessageEmbed()
+            const off = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "music", "autoplay_off")}`)
             .setColor(client.color);
 
