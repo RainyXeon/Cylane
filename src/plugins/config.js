@@ -28,7 +28,7 @@ module.exports = {
     ENABLE_MESSAGE: doc.bot.ENABLE_MESSAGE || false,
     AUTO_DEPLOY: doc.bot.AUTO_DEPLOY || true,
     PREFIX: doc.bot.PREFIX || "d!",
-    DASHBOARD: doc.bot.DASHBOARD || false,
+    // DASHBOARD: doc.bot.DASHBOARD || false,
 
   // Lavalink config
     SPOTIFY_ID: doc.lavalink.SPOTIFY_ID,
@@ -73,7 +73,6 @@ module.exports = {
     WEBSOCKET:doc.websocket.WEBSOCKET || false,
     AUTHENICATOR: doc.websocket.AUTHENICATOR || false,
     TRUSTED_ORIGIN: doc.websocket.TRUSTED_ORIGIN || ['http://localhost:3000'],
-
     all: doc
 }
 
