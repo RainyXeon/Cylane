@@ -58,6 +58,7 @@ savequeue_arg: "Vui lòng cung cấp tên danh sách phát. Ví dụ:%{prefix}sa
 savequeue_notfound: "Tên danh sách phát không hợp lệ."
 savequeue_owner: "Bạn không lưu bài hát này vào danh sách phát này."
 savequeue_saved: "`📦` | *Đã lưu* • (Bài %{tracks}) vào `%{name}`"
+savequeue_no_new_saved: "Không có bản nhạc mới nào được lưu trong danh sách phát `%{name}`"
 ##### Private command #####
 private_arg: "Vui lòng cung cấp tên danh sách phát. Ví dụ:%{prefix}private <tên danh sách phát>"
 private_notfound: "Tên danh sách phát không hợp lệ."

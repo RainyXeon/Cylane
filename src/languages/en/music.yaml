@@ -131,6 +131,14 @@ rewind_msg: "`⏮` | **Rewind to:** `%{duration}`"
 rewind_beyond: "Cannot rewind beyond the song's duration."
 rewind_invalid: "Invalid argument, must be a number.\nCorrect Usage: `%{prefix}rewind <seconds>`"
 
+### RemoveTrack command!
+removetrack_loading: "Loading please wait..."
+
+removetrack_already: "Cannot remove a song that is already playing."
+removetrack_notfound: "Song not found."
+
+removetrack_desc: "**Removed • [%{name}](%{url})** `%{duration}` • %{request}"
+
 ### Search command!
 search_loading: "Loading please wait..."
 search_invoice: "You need to be in a voice channel to use command."

@@ -132,6 +132,14 @@ rewind_msg: "`⏮` | *ย้อนไปยัง:* `%{duration}`"
 rewind_beyond: "ไม่สามารถ ย้อน เกินระยะเวลาของเพลง"
 rewind_invalid: "โปรดใช้ตัวเลข\nการใช้งานที่ถูกต้อง: `%{prefix}rewind <วินาที>`"
 
+### RemoveTrack command!
+removetrack_loading: "กำลังโหลด โปรดรอสักครู่..."
+
+removetrack_already: "ไม่สามารถลบเพลงที่กำลังเล่นอยู่"
+removetrack_notfound: "ไม่พบเพลง"
+
+removetrack_desc: "**ลบแล้ว • [%{name}](%{url})** `%{duration}` • %{request}"
+
 ### Search command!
 search_loading: "กำลังโหลด โปรดรอสักครู่..."
 search_invoice: "คุณต้องอยู่ในห้องเสียงเพื่อใช้คำสั่"

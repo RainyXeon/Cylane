@@ -65,6 +65,7 @@ remove_removed: "`📦` | *Removed* • position `%{position}` in `%{name}`"
 savequeue_arg: "Please provide a playlist name. Example: %{prefix}savequeue <playlist name>"
 savequeue_notfound: "The playlist name is invalid."
 savequeue_owner: "You can't save song to this playlist."
+savequeue_no_new_saved: "No new track saved in `%{name}` playlist"
 savequeue_saved: "`📦` | *Saved* • (%{tracks} tracks) to `%{name}`"
 
 ##### Private command #####
