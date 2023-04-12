@@ -38,6 +38,7 @@ class Manager extends Client {
     this.wss = this.config.WEBSOCKET ? new WebSocket.Server({ port: this.config.PORT }) : undefined
     this.config.WEBSOCKET ? this.wss.message = new Collection() : undefined
     this.prefix = this.config.PREFIX
+    if (this.config.all.bot.ALIVE_SERVER) require("../../plugins/alive_server.js")
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));

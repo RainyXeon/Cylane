@@ -19,6 +19,10 @@ bot:
   ENABLE_MESSAGE: false
   AUTO_DEPLOY: true
   PREFIX: "d!"
+
+  # Use alive server for replit
+  ALIVE_SERVER: true
+  ALIVE_SERVER_PORT: 3000
   # DASHBOARD: false
 
 lavalink:
