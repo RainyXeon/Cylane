@@ -186,3 +186,5 @@ searchtop_fail: "Lỗi không tải được nhạc"
 searchtop_match: "Lỗi không tìm được bài hát"
 
 number_invalid: "Đối số không hợp lệ, phải là một số."
+
+removetrack_duplicate_desc: "Đã xóa `%{removed}` bản nhạc từ hàng đợi \n Trước: `%{original}` | Sau: `%{new}`"

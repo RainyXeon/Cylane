@@ -139,6 +139,9 @@ removetrack_notfound: "Song not found."
 
 removetrack_desc: "**Removed • [%{name}](%{url})** `%{duration}` • %{request}"
 
+### RemoveTrack command!
+removetrack_duplicate_desc: "Removed `%{removed}` tracks from queue \n Before: `%{original}` | After: `%{new}`"
+
 ### Search command!
 search_loading: "Loading please wait..."
 search_invoice: "You need to be in a voice channel to use command."
