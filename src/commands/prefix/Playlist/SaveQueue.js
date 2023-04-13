@@ -2,6 +2,8 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const Playlist = require("../../../plugins/schemas/playlist.js");
 
 const TrackAdd = [];
+const TrackExist = []
+let Result = null
 
 module.exports = {
     name: "playlist-save-queue",
@@ -31,6 +33,27 @@ module.exports = {
 
         TrackAdd.push(current);
         TrackAdd.push(...queue);
+
+        if (!playlist && playlist.tracks.length === 0) Result = TrackAdd
+
+        if (playlist.tracks) {
+            for (let i = 0; i < playlist.tracks.length; i++) 
+            {
+                const element = playlist.tracks[i].uri
+                TrackExist.push(element)
+            }
+            Result = TrackAdd.filter(track => !TrackExist.includes(track.uri))
+        }
+
+        if (Result.length == 0) 
+        {
+            const embed = new EmbedBuilder()
+                .setDescription(`${client.i18n.get(language, "playlist", "savequeue_no_new_saved", {
+                    name: Plist
+                    })}`)
+                .setColor(client.color)
+            return message.channel.send({ embeds: [embed] });
+        }
         
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "playlist", "savequeue_saved", {
@@ -38,7 +61,7 @@ module.exports = {
                 tracks: queue.length + 1
                 })}`)
             .setColor(client.color)
-        message.channel.send({ embeds: [embed] });
+        await message.channel.send({ embeds: [embed] });
 
         TrackAdd.forEach(track => {
             playlist.tracks.push(
@@ -52,8 +75,10 @@ module.exports = {
               }
             )
         });
-        playlist.save().then(() => {
+        await playlist.save().then(() => {
             TrackAdd.length = 0;
+            TrackExist.length = 0
+            Result = null
         });
     }
 }
