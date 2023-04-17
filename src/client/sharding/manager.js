@@ -86,13 +86,14 @@ class Manager extends Client {
     
     loadCollection.forEach(x => this[x] = new Collection());
     
+    
     [
         "loadCommand",
+        "loadPrefixCommand",
         "loadEvent",
         "loadDatabase",
-        "loadNodeEvents",
         "loadPlayer",
-        "prefix_command",
+        "loadNodeEvents"
     ].forEach(x => require(`../../handlers/${x}`)(this));
 
     this.cluster = new Cluster.Client(this);

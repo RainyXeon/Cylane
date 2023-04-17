@@ -22,4 +22,6 @@ module.exports = async (client, name) => {
             }
             
         ), index * 5000}
+
+        client.count = 0
 };

@@ -83,7 +83,7 @@ module.exports = async(client, interaction) => {
 
     client.logger.info(`${msg_cmd.join(" ")}`);
 
-    if(command.owner && interaction.user.id != client.application.owner) return interaction.reply(`${client.i18n.get(language, "interaction", "owner_only")}`);
+    if(command.owner && interaction.user.id != client.owner) return interaction.reply(`${client.i18n.get(language, "interaction", "owner_only")}`);
 
     try {
       if (command.premium) {
