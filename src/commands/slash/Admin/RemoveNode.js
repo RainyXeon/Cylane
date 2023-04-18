@@ -34,6 +34,8 @@ module.exports = {
       .setColor(client.color)
       
     await interaction.reply({ embeds: [embed] })
+
+    desc_data.length = 0
     
     
   }
