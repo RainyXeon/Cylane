@@ -5,9 +5,20 @@ const config = require("./config")
 
 const port = config.all.bot.ALIVE_SERVER_PORT
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
+app.use(require('express-status-monitor')({
+  title: 'Dreamvast Realtime Status',  // Default title
+  path: '/',
+  chartVisibility: {
+  cpu: true,
+  mem: true,
+  load: false,
+  eventLoop: false,
+  heap: true,
+  responseTime: false,
+  rps: false,
+  statusCodes: false
+},
+}));
 
 app.listen(port)
 
