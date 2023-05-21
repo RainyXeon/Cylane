@@ -47,7 +47,7 @@ module.exports = async (client, player, track) => {
 
   const TotalDuration = QueueDuration(player)
 
-  if (client.websocket) {
+  if (client.websocket || client.config.WEBSOCKET) {
     let webqueue = []
 
     player.queue.forEach(track => {
@@ -72,7 +72,7 @@ module.exports = async (client, player, track) => {
       requester: song.requester
     })
 
-    await client.websocket.send(
+    if (client.websocket || client.config.WEBSOCKET) await client.websocket.send(
       JSON.stringify(
         {
           op: "player_start",
