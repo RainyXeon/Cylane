@@ -21,7 +21,7 @@ const GuildConfigSchema = new mongoose.Schema({
 	prefix: {
 		type: mongoose.SchemaTypes.String,
 		required: true,
-		default: doc.bot.PREFIX || "d!",
+		default: doc.features.MESSAGE_CONTENT.prefix || "d!",
 	},
 })
 

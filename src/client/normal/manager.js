@@ -17,7 +17,7 @@ class Manager extends Client {
             parse: ["roles", "users", "everyone"],
             repliedUser: false
         },
-        intents: require("../../plugins/config.js").ENABLE_MESSAGE ? [
+        intents: require("../../plugins/config.js").features.MESSAGE_CONTENT.enable ? [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildVoiceStates,
             GatewayIntentBits.GuildMessages,
@@ -35,11 +35,11 @@ class Manager extends Client {
     if(!this.token) this.token = this.config.TOKEN;
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
-    this.wss = this.config.WEBSOCKET ? new WebSocket.Server({ port: this.config.PORT }) : undefined
-    this.config.WEBSOCKET ? this.wss.message = new Collection() : undefined
-    this.prefix = this.config.PREFIX
+    this.wss = this.config.features.WEBSOCKET.enable ? new WebSocket.Server({ port: this.config.features.WEBSOCKET.port }) : undefined
+    this.config.features.WEBSOCKET.enable ? this.wss.message = new Collection() : undefined
+    this.prefix = this.config.features.MESSAGE_CONTENT.prefix
     this.count = 0
-    if (this.config.all.bot.ALIVE_SERVER) require("../../plugins/alive_server.js")
+    if (this.config.features.get.ALIVE_SERVER.enable) require("../../plugins/alive_server.js")
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
@@ -80,7 +80,7 @@ class Manager extends Client {
         "pl_editing"
     ]
 
-    if (!this.config.ENABLE_MESSAGE) loadCollection.splice(loadCollection.indexOf('commands'), 1);
+    if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
 
     loadCollection.forEach(x => this[x] = new Collection());
 
@@ -95,12 +95,12 @@ class Manager extends Client {
         "loadWsMessage"
     ]
     
-    if (!this.config.WEBSOCKET){
+    if (!this.config.features.WEBSOCKET.enable){
         loadFile.splice(loadFile.indexOf('loadWebSocket'), 1);
         loadFile.splice(loadFile.indexOf('loadWsMessage'), 1);
     } 
 
-    if (!this.config.ENABLE_MESSAGE) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
+    if (!this.config.features.MESSAGE_CONTENT.enable) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
 
     loadFile.forEach(x => require(`../../handlers/${x}`)(this));
 

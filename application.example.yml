@@ -4,45 +4,34 @@ bot:
   TOKEN: Your token
   EMBED_COLOR: "Your color. Example: #ffffff"
   OWNER_ID: "Your id"
-
-  # Realtime now playing bar
-  NP_REALTIME: false
-  LEAVE_TIMEOUT: 100
-  LANGUAGE: en
-
-  # Your id or friend id (disable global command)
-  DEV_ID: []
-
+  LANGUAGE: en # You can set it to vi, en, th,...
+  LIMIT_TRACK: 50 # The number of tracks you want to limit
+  LIMIT_PLAYLIST: 20 # The number of playlist you want to limit
   # Your mongo_uri, you can get it from here: https://www.mongodb.com/
   MONGO_URI: mongodb://127.0.0.1:27017/dreamvast
 
-  ENABLE_MESSAGE: false
-  AUTO_DEPLOY: true
-  PREFIX: "d!"
-
-  # Use alive server for replit
-  ALIVE_SERVER: true
-  ALIVE_SERVER_PORT: 3000
-  # DASHBOARD: false
-
 lavalink:
-  # Your spotify id and secret, you can get it from here: https://developer.spotify.com/
-  # If you don't have or don't want, you can disable it
-  ENABLE_SPOTIFY: false
-  SPOTIFY_ID: Your spotify id
-  SPOTIFY_SECRET: Your spotify secret
+
+  SPOTIFY:
+    # Your spotify id and secret, you can get it from here: https://developer.spotify.com/
+    # If you don't have or don't want, you can disable it
+    enable: true
+    id: a98a98s9a89as98a9s8a98
+    secret: a98a98s9a89as98a9s8a98
 
   DEFAULT: ["yorushika", "yoasobi", "tuyu", "hinkik"]
-
-  # Enable this if you want to use lavalink info from .env files
-  ENV_NODE: false
   
+  ENV_NODE: false # Enable this if you want to use lavalink info from .env files
+  NP_REALTIME: false # Enable this if you want to use realtime duation in nowplaying command
+
+  LEAVE_TIMEOUT: 100 # The number of leave time you want
+
   # You can add more lavalink server!
   NODES: [
     {
-      url: lava1.horizxon.studio:80,
-      name: Node_1,
-      auth: horizxon.studio,
+      url: "narco.buses.rocks:2269",
+      name: "Node_1",
+      auth: "glasshost1984",
       secure: false,
     },
   ]
@@ -54,13 +43,26 @@ lavalink:
     restTimeout: 3000
   }
 
+features:
+  MESSAGE_CONTENT:
+    enable: true
+    prefix: "d!" # The prefix you want
+  
+  AUTO_DEPLOY: true
+  AUTO_REMOVE_DUPLICATE: true
 
-websocket:
-  PORT: 8080
-  WEBSOCKET: true
-  # If you enable authenicator, you have to put your origin link to TRUSTED_ORIGIN
-  AUTHENICATOR: true
-  TRUSTED_ORIGIN: ['http://localhost:3000']
+  ALIVE_SERVER:
+    enable: false
+    port: 3000
+
+  WEBSOCKET:
+    enable: true
+    port: 8080
+    auth: true
+    trusted: ['http://localhost:3000']
+
+  # Your id or friend id (disable global command)
+  DEV_ID: []
 
 # dash:
 #   PORT: 3000

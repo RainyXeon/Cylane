@@ -7,10 +7,10 @@ process.on('uncaughtException', error => logger.log({ level: 'error', message: e
 
 async function run() {
     const manager = new Cluster.Manager(`${__dirname}/login.js`, {
-        totalShards: 'auto', // you can set to every number you want but for save mode, use 'auto' option
-        totalClusters: 'auto', // you can set to every number you want but for save mode, use 'auto' option
+        totalShards: 3, // you can set to every number you want but for save mode, use 'auto' option
+        totalClusters: 1, // you can set to every number you want but for save mode, use 'auto' option
         shardsPerClusters: 2,
-        mode: 'process', // you can also choose "worker"
+        mode: 'worker', // you can also choose "worker"
         token: config.TOKEN,
     });
     

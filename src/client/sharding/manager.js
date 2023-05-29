@@ -20,7 +20,7 @@ class Manager extends Client {
                 parse: ["roles", "users", "everyone"],
                 repliedUser: false
             },
-            intents: require("../../plugins/config.js").ENABLE_MESSAGE ? [
+            intents: require("../../plugins/config.js").features.MESSAGE_CONTENT.enable ? [
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildVoiceStates,
                 GatewayIntentBits.GuildMessages,
@@ -34,7 +34,7 @@ class Manager extends Client {
 
     this.config = require("../../plugins/config.js");
     
-    if (this.config.WEBSOCKET || this.config.all.bot.ALIVE_SERVER){
+    if (this.config.features.WEBSOCKET.enable || this.config.get.features.ALIVE_SERVER.enable){
         logger.error("You cannot enable this feature on advanced shard system! To use ws, please run the bot in normal mode by type `npm run start:normal` or `npm start`\n To disable, use <feature_name>: false in application.yml files")
         process.exit()
     }
@@ -45,7 +45,7 @@ class Manager extends Client {
     if(!this.token) this.token = this.config.TOKEN;
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
-    this.prefix = this.config.PREFIX
+    this.prefix = this.config.features.MESSAGE_CONTENT.prefix
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }))
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }))
@@ -82,7 +82,7 @@ class Manager extends Client {
         "pl_editing"
     ]
 
-    if (!this.config.ENABLE_MESSAGE) loadCollection.splice(loadCollection.indexOf('commands'), 1);
+    if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
     
     loadCollection.forEach(x => this[x] = new Collection());
     
