@@ -1,7 +1,7 @@
 const { EmbedBuilder, ApplicationCommandOptionType, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
 const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
-const Playlist = require("../../../plugins/schemas/playlist.js");
+const Playlist = require("../../../schemas/playlist.js");
 const { stripIndents } = require("common-tags");
 const humanizeDuration = require('humanize-duration');
 const remove_regex = /[^0] - [^0]/

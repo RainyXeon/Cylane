@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField } = require('discord.js');
-const GLang = require('../../../plugins/schemas/language.js'); 
+const GLang = require('../../../schemas/language.js'); 
 module.exports = { 
   name: ["settings", "language"],
   description: "Change the language for the bot",

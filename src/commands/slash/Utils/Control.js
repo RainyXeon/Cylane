@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField } = require('discord.js');
-const GControl = require('../../../plugins/schemas/control.js');
+const GControl = require('../../../schemas/control.js');
 module.exports = { 
   name: ["settings", "control"],
   description: "Enable or disable the player control",

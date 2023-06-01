@@ -1,5 +1,5 @@
 const { EmbedBuilder, PermissionsBitField, ChannelType, version } = require('discord.js');
-const Status = require('../../../plugins/schemas/status.js')
+const Status = require('../../../schemas/status.js')
 const ms = require('pretty-ms');
 
 module.exports = { 

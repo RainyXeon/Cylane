@@ -1,6 +1,6 @@
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
-const GPrefix = require('../../plugins/schemas/prefix.js');
-const GLang = require("../../plugins/schemas/language.js");
+const GPrefix = require('../../schemas/prefix.js');
+const GLang = require("../../schemas/language.js");
 
 module.exports = async (client, message) => { 
     if(message.author.bot || message.channel.type === "dm") return;

@@ -1,5 +1,5 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const GPrefix = require('../../../plugins/schemas/prefix.js');
+const GPrefix = require('../../../schemas/prefix.js');
 
 module.exports = {
     name: "prefix",

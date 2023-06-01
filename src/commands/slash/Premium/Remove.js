@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
-const Premium = require("../../../plugins/schemas/premium.js");
+const Premium = require("../../../schemas/premium.js");
 
 module.exports = {
     name: ["premium", "remove"],

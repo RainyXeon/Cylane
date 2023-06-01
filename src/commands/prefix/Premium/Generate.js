@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const moment = require('moment');
 const voucher_codes = require('voucher-code-generator');
-const Redeem = require("../../../plugins/schemas/redeem.js");
+const Redeem = require("../../../schemas/redeem.js");
 
 module.exports = {
     name: "premium-generate",

@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
-const GLang = require("../../plugins/schemas/language.js");
+const GLang = require("../../schemas/language.js");
 
 module.exports = async (client, player, track, payload) => {
   const guild = await client.guilds.cache.get(player.guildId)

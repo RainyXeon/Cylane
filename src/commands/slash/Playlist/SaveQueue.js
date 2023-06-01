@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
-const Playlist = require("../../../plugins/schemas/playlist.js");
+const Playlist = require("../../../schemas/playlist.js");
 
 const TrackAdd = [];
 const TrackExist = []

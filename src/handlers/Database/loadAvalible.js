@@ -1,5 +1,5 @@
 const cron = require('node-cron')
-const Avalible = require("../../plugins/schemas/avalible.js");
+const Avalible = require("../../schemas/avalible.js");
 
 module.exports = async (client) => {
   const avalible_language = client.i18n.getLocales();

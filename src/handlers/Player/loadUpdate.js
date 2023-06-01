@@ -1,8 +1,8 @@
 const { Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const formatDuration = require("../../structures/FormatDuration.js");
 const { QueueDuration } = require("../../structures/QueueDuration.js");
-const GLang = require("../../plugins/schemas/language.js");
-const Setup = require("../../plugins/schemas/setup.js");
+const GLang = require("../../schemas/language.js");
+const Setup = require("../../schemas/setup.js");
   
 module.exports = async (client) => {
     const file = new AttachmentBuilder('../../../assets/banner.jpg');

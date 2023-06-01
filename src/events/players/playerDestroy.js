@@ -1,6 +1,6 @@
 const { EmbedBuilder, Client } = require("discord.js");
-const GLang = require("../../plugins/schemas/language.js");
-const db  = require("../../plugins/schemas/autoreconnect")
+const GLang = require("../../schemas/language.js");
+const db  = require("../../schemas/autoreconnect")
 
  module.exports = async (client, player) => {
 	const guild = await client.guilds.cache.get(player.guildId)

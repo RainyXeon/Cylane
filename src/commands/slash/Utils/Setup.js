@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
-const Setup = require('../../../plugins/schemas/setup.js')
+const Setup = require('../../../schemas/setup.js')
 module.exports = { 
   name: ["settings", "setup"],
   description: "Setup channel song request",

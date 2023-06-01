@@ -1,7 +1,7 @@
 const delay = require("delay");
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
-const GLang = require("../../plugins/schemas/language.js")
-const db = require("../../plugins/schemas/autoreconnect")
+const GLang = require("../../schemas/language.js")
+const db = require("../../schemas/autoreconnect")
 
 module.exports = async (client, oldState, newState) => {
 	let data = await db.findOne({ guild: newState.guild.id })

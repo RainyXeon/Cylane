@@ -1,6 +1,6 @@
 const { EmbedBuilder, Client, Message } = require("discord.js");
-const Setup = require("../../plugins/schemas/setup.js");
-const GLang = require("../../plugins/schemas/language.js");
+const Setup = require("../../schemas/setup.js");
+const GLang = require("../../schemas/language.js");
 const { convertTime } = require("../../structures/ConvertTime.js");
 const delay = require("delay");
 

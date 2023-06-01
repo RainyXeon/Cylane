@@ -1,4 +1,4 @@
-const db  = require("../../plugins/schemas/autoreconnect")
+const db  = require("../../schemas/autoreconnect")
 
 module.exports = async (client, player, track, playload) => {
   const guild = await client.guilds.cache.get(player.guildId)

@@ -1,6 +1,6 @@
 const { PermissionsBitField, InteractionType, CommandInteraction, EmbedBuilder } = require("discord.js");
-const GLang = require("../../plugins/schemas/language.js");
-const Premium = require("../../plugins/schemas/premium.js");
+const GLang = require("../../schemas/language.js");
+const Premium = require("../../schemas/premium.js");
 
  /**
   * @param {CommandInteraction} interaction

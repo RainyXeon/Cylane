@@ -1,5 +1,5 @@
 const cron = require('node-cron')
-const Premium = require("../../plugins/schemas/premium.js");
+const Premium = require("../../schemas/premium.js");
 
 module.exports = async (client) => {
   cron.schedule('*/60 * * * * *', async () => {

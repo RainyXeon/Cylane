@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
-const db = require("../../../plugins/schemas/autoreconnect")
+const db = require("../../../schemas/autoreconnect")
 module.exports = {
     name: ["247"],
     description: "24/7 in voice channel",

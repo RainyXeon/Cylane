@@ -39,7 +39,7 @@ class Manager extends Client {
     this.config.features.WEBSOCKET.enable ? this.wss.message = new Collection() : undefined
     this.prefix = this.config.features.MESSAGE_CONTENT.prefix
     this.count = 0
-    if (this.config.features.get.ALIVE_SERVER.enable) require("../../plugins/alive_server.js")
+    if (this.config.get.features.ALIVE_SERVER.enable) require("../../plugins/alive_server.js")
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));

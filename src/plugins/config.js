@@ -69,7 +69,6 @@ module.exports = {
     get: doc,
 
     features: {
-      get: doc.features,
 
       MESSAGE_CONTENT: {
         enable: doc.features.MESSAGE_CONTENT.enable || false,

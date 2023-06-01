@@ -1,7 +1,7 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const formatDuration = require('../../../structures/FormatDuration.js');
 const { SlashPage } = require('../../../structures/PageQueue.js');
-const Playlist = require("../../../plugins/schemas/playlist.js");
+const Playlist = require("../../../schemas/playlist.js");
 
 module.exports = {
     name: "playlist-detail",

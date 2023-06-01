@@ -1,5 +1,5 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const GLang = require('../../../plugins/schemas/language.js'); 
+const GLang = require('../../../schemas/language.js'); 
 
 module.exports = {
     name: "language",

@@ -1,7 +1,7 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const moment = require('moment');
-const Premium = require("../../../plugins/schemas/premium.js");
-const Redeem = require("../../../plugins/schemas/redeem.js");
+const Premium = require("../../../schemas/premium.js");
+const Redeem = require("../../../schemas/redeem.js");
 
 module.exports = {
     name: ["redeem"],

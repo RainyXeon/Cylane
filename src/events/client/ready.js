@@ -1,5 +1,5 @@
-const Premium = require("../../plugins/schemas/premium.js");
-const Status = require('../../plugins/schemas/status.js')
+const Premium = require("../../schemas/premium.js");
+const Status = require('../../schemas/status.js')
 const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField, ChannelType, version } = require('discord.js');
 const ms = require('pretty-ms');
 const { stripIndents } = require("common-tags");

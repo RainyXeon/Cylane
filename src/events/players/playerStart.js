@@ -1,9 +1,9 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, } = require("discord.js");
 const formatduration = require('../../structures/FormatDuration.js');
 const { QueueDuration } = require("../../structures/QueueDuration.js");
-const GControl = require("../../plugins/schemas/control.js")
-const GLang = require("../../plugins/schemas/language.js")
-const Setup = require("../../plugins/schemas/setup.js")
+const GControl = require("../../schemas/control.js")
+const GLang = require("../../schemas/language.js")
+const Setup = require("../../schemas/setup.js")
 
 module.exports = async (client, player, track) => {
   const guild = await client.guilds.cache.get(player.guildId)

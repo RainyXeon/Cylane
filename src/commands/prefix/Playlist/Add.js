@@ -1,7 +1,7 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
 const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
-const Playlist = require("../../../plugins/schemas/playlist.js");
+const Playlist = require("../../../schemas/playlist.js");
 
 const TrackAdd = [];
 
