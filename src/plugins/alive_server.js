@@ -3,7 +3,7 @@ const app = express()
 const logger = require("./logger")
 const config = require("./config")
 
-const port = config.get.features.ALIVE_SERVER.pỏt
+const port = config.get.features.ALIVE_SERVER.port
 
 app.use(require('express-status-monitor')({
   title: 'Dreamvast Realtime Status',  // Default title
