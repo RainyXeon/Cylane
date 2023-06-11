@@ -168,7 +168,7 @@ module.exports = async (client) => {
         let database = await client.db.get(`setup.guild_${message.guild.id}`)
         let player = client.manager.players.get(message.guild.id)
 
-        if (!database) client.db.set(`setup.guild_${message.guild.id}`, {
+        if (!database) await client.db.set(`setup.guild_${message.guild.id}`, {
             enable: false,
             channel: "",
             playmsg: "",
@@ -176,7 +176,9 @@ module.exports = async (client) => {
             category: ""
         })
 
-        if (database.enable === false) return;
+        database = await client.db.get(`setup.guild_${message.guild.id}`)
+
+        if (!database.enable) return;
 
         let channel = await message.guild.channels.cache.get(database.channel);
         if (!channel) return;

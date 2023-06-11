@@ -1,5 +1,4 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
-const Playlist = require("../../../schemas/playlist.js");
 var id = require('voucher-code-generator');
 
 module.exports = {
@@ -29,17 +28,43 @@ module.exports = {
         const PlaylistName = value.replace(/_/g, ' ');
         const msg = await interaction.editReply(`${client.i18n.get(language, "playlist", "create_loading")}`);
 
-        const Limit = await Playlist.find({ owner: interaction.user.id }).countDocuments();
-        const Exist = await Playlist.findOne({ name: PlaylistName, owner: interaction.user.id });
+        let fullList = await client.db.get("playlist")
+        if (!fullList) await client.db.set(`playlist.pid_thedreamvastghost0923849084`, {
+            id: "thedreamvastghost0923849084",
+            name: "TheDreamvastGhost",
+            owner: client.owner,
+            tracks: [],
+            private: true,
+            created: Date.now(),
+            description: null,
+        })
+        fullList = await client.db.get("playlist")
+        
+        const Limit = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == interaction.user.id;
+          // to cast back from an array of keys to the object, with just the passing ones
+          }).reduce(function(obj, key){
+            obj[key] = fullList[key];
+            return obj;
+          }, {});;
 
-        if(Exist) { msg.edit(`${client.i18n.get(language, "playlist", "create_name_exist")}`); return; }
-        if(Limit >= client.config.LIMIT_PLAYLIST) { msg.edit(`${client.i18n.get(language, "playlist", "create_limit_playlist", {
+        const Exist = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == interaction.user.id && fullList[key].name == PlaylistName;
+          // to cast back from an array of keys to the object, with just the passing ones
+          }).reduce(function(obj, key){
+            obj[key] = fullList[key];
+            return obj;
+          }, {});
+
+
+        if(Object.keys(Exist).length !== 0) return msg.edit(`${client.i18n.get(language, "playlist", "create_name_exist")}`);
+        if(Object.keys(Limit).length >= client.config.LIMIT_PLAYLIST) { msg.edit(`${client.i18n.get(language, "playlist", "create_limit_playlist", {
             limit: client.config.LIMIT_PLAYLIST
         })}`); return; }
 
         const idgen = id.generate({ length: 8, prefix: "playlist-", });
 
-        const CreateNew = new Playlist({
+        await client.db.set(`playlist.pid_${idgen}`, {
             id: idgen[0],
             name: PlaylistName,
             owner: interaction.user.id,
@@ -47,15 +72,14 @@ module.exports = {
             private: true,
             created: Date.now(),
             description: des ? des : null,
-        });
+        })
 
-        CreateNew.save().then(() => {
-            const embed = new EmbedBuilder()
-            .setDescription(`${client.i18n.get(language, "playlist", "create_created", {
-                playlist: PlaylistName
-                })}`)
-            .setColor(client.color)
-        msg.edit({ content: " ", embeds: [embed] });
-        });
+        const embed = new EmbedBuilder()
+        .setDescription(`${client.i18n.get(language, "playlist", "create_created", {
+            playlist: PlaylistName
+            })}`)
+        .setColor(client.color)
+        return msg.edit({ content: " ", embeds: [embed] });
+
     }
 }
