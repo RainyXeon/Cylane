@@ -1,6 +1,4 @@
 const { EmbedBuilder, Client, Message } = require("discord.js");
-const Setup = require("../../schemas/setup.js");
-const GLang = require("../../schemas/language.js");
 const { convertTime } = require("../../structures/ConvertTime.js");
 const delay = require("delay");
 
@@ -22,15 +20,12 @@ module.exports = async (client) => {
                 const playChannel = client.channels.cache.get(player.textId);
                 if (!playChannel) return;
 
-                let guildModel = await GLang.findOne({ guild: player.guildId });
+                let guildModel = await client.db.get(`language.guild_${player.guildId}`)
                 if (!guildModel) {
-                    guildModel = await GLang.create({
-                        guild: player.guildId,
-                        language: "en",
-                    });
+                    guildModel = await client.db.set(`language.guild_${player.guildId}`, client.config.get.bot.LANGUAGE)
                 }
 
-                const { language } = guildModel;
+                const language = guildModel;
 
                 switch (customId) {
                     case "sprevious":
@@ -170,17 +165,17 @@ module.exports = async (client) => {
 
     client.on("messageCreate", async (message) => {
         if (!message.guild || !message.guild.available) return;
-        let database = await Setup.findOne({ guild: message.guild.id });
+        let database = await client.db.get(`setup.guild_${message.guild.id}`)
         let player = client.manager.players.get(message.guild.id)
 
-        if (!database) return Setup.create({
-            guild: message.guild.id,
+        if (!database) client.db.set(`setup.guild_${message.guild.id}`, {
             enable: false,
             channel: "",
             playmsg: "",
             voice: "",
             category: ""
-        });
+        })
+
         if (database.enable === false) return;
 
         let channel = await message.guild.channels.cache.get(database.channel);
@@ -188,15 +183,13 @@ module.exports = async (client) => {
 
         if (database.channel != message.channel.id) return;
 
-        let guildModel = await GLang.findOne({ guild: message.guild.id });
+        let guildModel = await client.db.get(`language.guild_${message.guild.id}`)
         if (!guildModel) {
-            guildModel = await GLang.create({
-                guild: message.guild.id,
-                language: "en",
-            });
+            guildModel = await client.db.set(`language.guild_${message.guild.id}`, "en")
         }
 
-        const { language } = guildModel;
+
+        const language = guildModel;
 
         if (message.author.id === client.user.id) {
             await delay(3000);

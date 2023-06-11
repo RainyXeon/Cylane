@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require("discord.js");
-const GLang = require("../../schemas/language.js");
 
 module.exports = async (client, player, track, payload) => {
   const guild = await client.guilds.cache.get(player.guildId)
@@ -9,17 +8,12 @@ module.exports = async (client, player, track, payload) => {
   const channel = client.channels.cache.get(player.textChannel);
   if (!channel) return;
 
-  let guildModel = await GLang.findOne({
-    guild: channel.guild.id,
-  });
+  let guildModel = await client.db.get(`language.guild_${channel.guild.id}`)
   if (!guildModel) {
-    guildModel = await GLang.create({
-      guild: channel.guild.id,
-      language: "en",
-    });
+      guildModel = await client.db.set(`language.guild_${channel.guild.id}`, "en")
   }
 
-  const { language } = guildModel;
+  const language = guildModel;
 
   /////////// Update Music Setup ///////////
 

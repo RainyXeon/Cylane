@@ -28,6 +28,8 @@ class Manager extends Client {
             GatewayIntentBits.GuildMessages,
         ]
     });
+    this.obj_regex = /([0-9]{0,9999999}|[a-z]{0,9999999}|[A-Z]{0,9999999}){0,9999999}_([0-9]{0,9999999}|[a-z]{0,9999999}|[A-Z]{0,9999999}){0,99999}/g
+
     this.config = require("../../plugins/config.js");
     this.owner = this.config.OWNER_ID;
     this.dev = this.config.DEV_ID;
@@ -77,7 +79,8 @@ class Manager extends Client {
         "interval", 
         "sent_queue", 
         "aliases",
-        "pl_editing"
+        "pl_editing",
+        "db_map"
     ]
 
     if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);

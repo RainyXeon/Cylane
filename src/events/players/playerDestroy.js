@@ -1,6 +1,4 @@
 const { EmbedBuilder, Client } = require("discord.js");
-const GLang = require("../../schemas/language.js");
-const db  = require("../../schemas/autoreconnect")
 
  module.exports = async (client, player) => {
 	const guild = await client.guilds.cache.get(player.guildId)
@@ -8,7 +6,7 @@ const db  = require("../../schemas/autoreconnect")
 	if (client.websocket) client.websocket.send(JSON.stringify({ op: "player_destroy", guild: player.guildId }))
 	const channel = client.channels.cache.get(player.textId);
 	client.sent_queue.set(player.guildId, false)
-	let data = await db.findOne({ guild: player.guildId })
+	let data = await client.db.get(`autoreconnect.guild_${player.guildId}`)
 
 	if (!channel) return;
 
@@ -21,17 +19,12 @@ const db  = require("../../schemas/autoreconnect")
 		});
 	}
 
-	let guildModel = await GLang.findOne({
-	  guild: channel.guild.id,
-	});
+	let guildModel = await client.db.get(`language.guild_${channel.guild.id}`)
 	if (!guildModel) {
-	  guildModel = await GLang.create({
-		guild: channel.guild.id,
-		language: "en",
-	  });
+			guildModel = await client.db.set(`language.guild_${channel.guild.id}`, "en")
 	}
 
-	const { language } = guildModel;
+	const language = guildModel;
 
 		/////////// Update Music Setup ///////////
 

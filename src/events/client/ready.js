@@ -1,5 +1,3 @@
-const Premium = require("../../schemas/premium.js");
-const Status = require('../../schemas/status.js')
 const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField, ChannelType, version } = require('discord.js');
 const ms = require('pretty-ms');
 const { stripIndents } = require("common-tags");
@@ -9,8 +7,10 @@ module.exports = async (client) => {
 
     // Auto Deploy
     require("../../plugins/autoDeploy.js")(client)
-    const users = await Premium.find();
-    users.forEach(user => client.premiums.set(user.Id, user))
+    const users = await client.db.get("premium");
+    if (users) Object.keys(users).forEach(async (key, index) => {
+        client.premiums.set(client.obj_regex.exec(key)[2], users[key])
+    })
 
     let guilds = client.guilds.cache.size;
     let members = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0);
@@ -26,7 +26,19 @@ module.exports = async (client) => {
     // console.log(lavainfo.stats)
 
     const info = setInterval(async () => {
-        const SetupChannel = await Status.find({ enable: true });
+        const SetupChannel = new Map()
+        const prepare = await client.db.get(`status`)
+        if (!prepare) return
+        Object.keys(prepare).forEach(async (key, index) => {
+            if (prepare[key].enable == true) {
+                SetupChannel.set(client.obj_regex.exec(key)[2], {
+                    channel: prepare[key].channel,
+                    category: prepare[key].category,
+                    statmsg: prepare[key].statmsg
+                })
+            }
+        })
+
         if (!SetupChannel) return
         const fetched_info = new EmbedBuilder()
           .setTitle(client.user.tag + " Status")
@@ -43,7 +55,7 @@ module.exports = async (client) => {
           .setTimestamp()
           .setColor(client.color);
     
-          SetupChannel.forEach(async (g) => {
+          SetupChannel.map(async (g) => {
             const fetch_channel = await client.channels.fetch(g.channel)
             const interval_text = await fetch_channel.messages.fetch(g.statmsg)
             if (!fetch_channel) return

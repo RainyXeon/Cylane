@@ -1,6 +1,4 @@
 const { PermissionsBitField, InteractionType, CommandInteraction, EmbedBuilder } = require("discord.js");
-const GLang = require("../../schemas/language.js");
-const Premium = require("../../schemas/premium.js");
 
  /**
   * @param {CommandInteraction} interaction
@@ -11,9 +9,15 @@ module.exports = async(client, interaction) => {
     if (!interaction.guild || interaction.user.bot) return;
 
     let LANGUAGE = client.i18n;
-    let guildModel = await GLang.findOne({ guild: interaction.guild.id });
+    let guildModel = await client.db.get(`language.guild_${interaction.guild.id}`)
 
-    if(guildModel && guildModel.language) LANGUAGE = guildModel.language;
+    if(guildModel) LANGUAGE = guildModel;
+    else if(!guildModel) {
+      await client.db.set(`language.guild_${interaction.guild.id}`, client.config.get.bot.LANGUAGE)
+      const newModel = await client.db.get(`language.guild_${interaction.guild.id}`)
+      LANGUAGE = newModel
+    }
+
     const language = LANGUAGE;
 
     let subCommandName = "";
