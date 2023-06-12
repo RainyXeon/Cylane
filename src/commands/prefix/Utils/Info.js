@@ -49,13 +49,15 @@ run: async (client, message, args, language, prefix) => {
           .setColor(client.color);
         const channel_msg = await textChannel.send({ content: ``, embeds: [info] })
 
-        await Status.findOneAndUpdate({ guild: message.guild.id }, {
+        const new_data = {
             guild: message.guild.id,
             enable: true,
             channel: textChannel.id,
             statmsg: channel_msg.id,
             category: parent.id
-        }, { upsert: true, new: true });
+        }
+
+        await client.db.set(`setup.guild_${message.guild.id}`, new_data)
 
         const interval_info = await client.interval.get("MAIN")
 
@@ -99,9 +101,15 @@ run: async (client, message, args, language, prefix) => {
         }
 
         if(choose === "delete") {
-            const SetupChannel = await Status.findOne({ guild: message.guild.id });
+            const SetupChannel = await client.db.get(`setup.guild_${message.guild.id}`)
 
-            if (!SetupChannel) return message.channel.send({ embeds: [embed] });
+            const embed_none = new EmbedBuilder()
+            .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
+                channel: undefined,
+              })}`)
+              .setColor(client.color);
+
+            if (!SetupChannel) return interaction.editReply({ embeds: [embed_none] });
 
             const fetchedTextChannel = message.guild.channels.cache.get(SetupChannel.channel)
             const fetchedCategory = message.guild.channels.cache.get(SetupChannel.category)
@@ -116,13 +124,15 @@ run: async (client, message, args, language, prefix) => {
             if (fetchedTextChannel) await fetchedTextChannel.delete();
             if (fetchedCategory) await fetchedCategory.delete()
 
-            return Status.findOneAndUpdate({ guild: message.guild.id }, {
-                    guild: message.guild.id,
-                    enable: false,
-                    channel: "",
-                    statmsg: "",
-                    category: ""
-                });
+            const deleted_data = {
+                guild: message.guild.id,
+                enable: false,
+                channel: "",
+                statmsg: "",
+                category: ""
+            }
+
+            return client.db.set(`setup.guild_${message.guild.id}`, deleted_data)
         }
     }
 };

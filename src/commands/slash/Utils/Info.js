@@ -110,7 +110,13 @@ run: async (interaction, client, language) => {
                 if(interaction.options.getString('type') === "delete") {
                     const SetupChannel = await client.db.get(`status.guild_${interaction.guild.id}`)
 
-                    if (!SetupChannel) return interaction.editReply({ embeds: [embed] });
+                    const embed_none = new EmbedBuilder()
+                        .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
+                        channel: undefined,
+                        })}`)
+                        .setColor(client.color);
+
+                    if (!SetupChannel) return interaction.editReply({ embeds: [embed_none] });
 
                     const fetchedTextChannel = interaction.guild.channels.cache.get(SetupChannel.channel)
                     const fetchedCategory = interaction.guild.channels.cache.get(SetupChannel.category)

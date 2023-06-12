@@ -78,6 +78,14 @@ run: async (interaction, client, language) => {
                 if(interaction.options.getString('type') === "delete") {
                     const SetupChannel = await client.db.get(`setup.guild_${interaction.guild.id}`)
 
+                    const embed_none = new EmbedBuilder()
+                    .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
+                        channel: undefined,
+                      })}`)
+                        .setColor(client.color);
+
+                    if (!SetupChannel) return interaction.editReply({ embeds: [embed_none] });
+
                     const fetchedTextChannel = interaction.guild.channels.cache.get(SetupChannel.channel)
                     const fetchedVoiceChannel = interaction.guild.channels.cache.get(SetupChannel.voice)
                     const fetchedCategory = interaction.guild.channels.cache.get(SetupChannel.category)
@@ -88,7 +96,6 @@ run: async (interaction, client, language) => {
                       })}`)
                         .setColor(client.color);
 
-                    if (!SetupChannel) return interaction.editReply({ embeds: [embed] });
 
                     if (fetchedCategory) await fetchedCategory.delete()
                     if (fetchedVoiceChannel) await fetchedVoiceChannel.delete()

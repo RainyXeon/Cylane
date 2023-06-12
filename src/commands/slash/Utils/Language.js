@@ -24,6 +24,7 @@ run: async (interaction, client, language) => {
             })}`);
     
             const newLang = await client.db.get(`language.guild_${interaction.guild.id}`)
+            
             if(!newLang) {
                 await client.db.set(`language.guild_${interaction.guild.id}`, input)
                 const embed = new EmbedBuilder()
@@ -35,7 +36,6 @@ run: async (interaction, client, language) => {
                 return interaction.editReply({ content: " ", embeds: [embed] });
             }
             else if(newLang) {
-                newLang.language = input;
 
                 await client.db.set(`language.guild_${interaction.guild.id}`, input)
 

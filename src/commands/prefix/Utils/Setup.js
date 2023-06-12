@@ -48,14 +48,16 @@ run: async (client, message, args, language, prefix) => {
             userLimit: 30,
         });
 
-        await Setup.findOneAndUpdate({ guild: message.guild.id }, {
+        const new_data = {
             guild: message.guild.id,
             enable: true,
             channel: textChannel.id,
             playmsg: channel_msg.id,
             voice: voiceChannel.id,
             category: parent.id
-        }, { upsert: true, new: true });
+        }
+
+        await client.db.set(`setup.guild_${message.guild.id}`, new_data)
 
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "setup", "setup_msg", {
@@ -66,7 +68,16 @@ run: async (client, message, args, language, prefix) => {
         }
 
         if(choose === "delete") {
-            const SetupChannel = await Setup.findOne({ guild: message.guild.id });
+            const SetupChannel = await client.db.get(`setup.guild_${message.guild.id}`)
+
+            const embed_none = new EmbedBuilder()
+                .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
+                channel: undefined,
+                })}`)
+                .setColor(client.color);
+
+            if (!SetupChannel) return interaction.editReply({ embeds: [embed_none] });
+
             const fetchedTextChannel = message.guild.channels.cache.get(SetupChannel.channel)
             const fetchedVoiceChannel = message.guild.channels.cache.get(SetupChannel.voice)
             const fetchedCategory = message.guild.channels.cache.get(SetupChannel.category)
@@ -82,14 +93,16 @@ run: async (client, message, args, language, prefix) => {
             if (fetchedVoiceChannel) await fetchedVoiceChannel.delete()
             if (fetchedTextChannel) await fetchedTextChannel.delete();
 
-            await Setup.findOneAndUpdate({ guild: message.guild.id }, {
-                    guild: message.guild.id,
-                    enable: false,
-                    channel: "",
-                    playmsg: "",
-                    voice: "",
-                    category: ""
-                });
+            const deleted_data = {
+                guild: message.guild.id,
+                enable: false,
+                channel: "",
+                playmsg: "",
+                voice: "",
+                category: ""
+            }
+
+            await client.db.set(`setup.guild_${deleted_data.guild}`, deleted_data)
 
             return message.channel.send({ embeds: [embed] });
         }

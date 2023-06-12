@@ -50,8 +50,6 @@ module.exports = async (client, message) => {
 
     if(command.owner && message.author.id != client.owner) return message.channel.send(`${client.i18n.get(language, "interaction", "owner_only")}`);
 
-    
-
     try {
       if (command.premium) {
         const user = client.premiums.get(message.author.id)
