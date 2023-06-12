@@ -90,7 +90,7 @@ module.exports = {
                 if(!playlist) { interaction.followUp(`${client.i18n.get(language, "playlist", "public_notfound")}`); TrackAdd.length = 0; return; }
                 if(playlist.owner !== interaction.user.id) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_owner")}`); TrackAdd.length = 0; return; }
 
-                const LimitTrack = tracks.length + TrackAdd.length;
+                const LimitTrack = playlist.tracks.length + TrackAdd.length;
                 if(LimitTrack > client.config.get.bot.LIMIT_TRACK) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_limit_track", {
                     limit: client.config.get.bot.LIMIT_TRACK
                 })}`); TrackAdd.length = 0; return; }

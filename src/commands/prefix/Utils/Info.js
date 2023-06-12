@@ -108,7 +108,7 @@ run: async (client, message, args, language, prefix) => {
               })}`)
               .setColor(client.color);
 
-            if (!SetupChannel) return interaction.editReply({ embeds: [embed_none] });
+            if (!SetupChannel) return message.channel.send({ embeds: [embed_none] });
 
             const fetchedTextChannel = message.guild.channels.cache.get(SetupChannel.channel)
             const fetchedCategory = message.guild.channels.cache.get(SetupChannel.category)

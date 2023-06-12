@@ -48,8 +48,8 @@ module.exports = {
 
 
         if(Object.keys(Exist).length !== 0) return msg.edit(`${client.i18n.get(language, "playlist", "create_name_exist")}`);
-        if(Object.keys(Limit).length >= client.config.LIMIT_PLAYLIST) { msg.edit(`${client.i18n.get(language, "playlist", "create_limit_playlist", {
-            limit: client.config.LIMIT_PLAYLIST
+        if(Object.keys(Limit).length >= client.config.get.bot.LIMIT_PLAYLIST) { msg.edit(`${client.i18n.get(language, "playlist", "create_limit_playlist", {
+            limit: client.config.get.bot.LIMIT_PLAYLIST
         })}`); return; }
 
         const idgen = id.generate({ length: 8, prefix: "playlist-", });

@@ -16,13 +16,20 @@ module.exports = {
 
     run: async (client, message, args, language, prefix) => {
       
-      const value = args[0]
+      const value = args[0] ? args[0] : null;
       const id = value ? null : args[0]
 
-      if (id) info = await Playlist.findOne({ id: id });
+      if (id) info = await client.db.get(`playlist.pid_${id}`)
       if (value) {
-        const PlaylistName = value.replace(/_/g, ' ');
-        info = await Playlist.findOne({ name: PlaylistName, owner: message.author.id })
+        const Plist = value.replace(/_/g, ' ');
+
+        const fullList = await client.db.get("playlist")
+
+        const pid = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == message.author.id && fullList[key].name == Plist;
+          })
+
+        info = fullList[pid[0]]
       }
       if (!id && !value) return message.channel.send(`${client.i18n.get(language, "playlist", "no_id_or_name")}`)
       if (id && value) return message.channel.send(`${client.i18n.get(language, "playlist", "got_id_and_name")}`)
