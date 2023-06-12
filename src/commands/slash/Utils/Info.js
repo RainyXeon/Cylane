@@ -1,5 +1,4 @@
 const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField, ChannelType, version } = require('discord.js');
-const Status = require('../../../schemas/status.js')
 const ms = require('pretty-ms');
 
 module.exports = { 
@@ -58,13 +57,14 @@ run: async (interaction, client, language) => {
 
                 const channel_msg = await textChannel.send({ content: ``, embeds: [info] })
 
-                await Status.findOneAndUpdate({ guild: interaction.guild.id }, {
+                const data = {
                     guild: interaction.guild.id,
                     enable: true,
                     channel: textChannel.id,
                     statmsg: channel_msg.id,
                     category: parent.id
-                }, { upsert: true, new: true });
+                }
+                await client.db.set(`status.guild_${interaction.guild.id}`, data)
 
                 const interval_info = await client.interval.get("MAIN")
 
@@ -108,31 +108,39 @@ run: async (interaction, client, language) => {
                 }
 
                 if(interaction.options.getString('type') === "delete") {
-                    const SetupChannel = await Status.findOne({ guild: interaction.guild.id });
+                    const SetupChannel = await client.db.get(`status.guild_${interaction.guild.id}`)
 
-                    if (!SetupChannel) return interaction.editReply({ embeds: [embed] });
+                    const embed_none = new EmbedBuilder()
+                        .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
+                        channel: undefined,
+                        })}`)
+                        .setColor(client.color);
+
+                    if (!SetupChannel) return interaction.editReply({ embeds: [embed_none] });
 
                     const fetchedTextChannel = interaction.guild.channels.cache.get(SetupChannel.channel)
                     const fetchedCategory = interaction.guild.channels.cache.get(SetupChannel.category)
 
                     const embed = new EmbedBuilder()
-                    .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
-                      channel: fetchedTextChannel,
-                    })}`)
-                    .setColor(client.color);
+                        .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
+                        channel: fetchedTextChannel,
+                        })}`)
+                        .setColor(client.color);
 
                     await interaction.editReply({ embeds: [embed] });
 
                     if (fetchedTextChannel) await fetchedTextChannel.delete();
                     if (fetchedCategory) await fetchedCategory.delete()
 
-                    return Status.findOneAndUpdate({ guild: interaction.guild.id }, {
-                            guild: interaction.guild.id,
-                            enable: false,
-                            channel: "",
-                            statmsg: "",
-                            category: ""
-                        });
+                    const deleted_data = {
+                        guild: interaction.guild.id,
+                        enable: false,
+                        channel: "",
+                        statmsg: "",
+                        category: ""
+                    }
+
+                    return client.db.set(`status.guild_${interaction.guild.id}`, deleted_data)
         }
     }
 };

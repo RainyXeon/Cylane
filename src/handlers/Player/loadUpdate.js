@@ -1,13 +1,11 @@
 const { Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const formatDuration = require("../../structures/FormatDuration.js");
 const { QueueDuration } = require("../../structures/QueueDuration.js");
-const GLang = require("../../schemas/language.js");
-const Setup = require("../../schemas/setup.js");
   
 module.exports = async (client) => {
     const file = new AttachmentBuilder('../../../assets/banner.jpg');
     client.UpdateQueueMsg = async function (player) {
-        let data = await Setup.findOne({ guild: player.guildId });
+        let data = await client.db.get(`setup.guild_${player.guildId}`);
         if (data.enable === false) return;
 
         let channel = await client.channels.cache.get(data.channel);
@@ -15,15 +13,13 @@ module.exports = async (client) => {
 
         let playMsg = await channel.messages.fetch(data.playmsg, { cache: false, force: true });
         if (!playMsg) return;
-    
-        let guildModel = await GLang.findOne({ guild: player.guildId });
-        if (!guildModel) { guildModel = await GLang.create({
-                guild: player.guildId,
-                language: "en",
-            });
+
+        let guildModel = await client.db.get(`language.guild_${player.guildId}`)
+        if (!guildModel) {
+            guildModel = await client.db.set(`language.guild_${player.guildId}`, client.config.get.bot.LANGUAGE)
         }
 
-        const { language } = guildModel;
+        const language = guildModel;
 
         const songStrings = [];
         const queuedSongs = player.queue.map((song, i) => `${client.i18n.get(language, "setup", "setup_content_queue", {
@@ -70,7 +66,7 @@ module.exports = async (client) => {
      * @param {Player} player
      */
     client.UpdateMusic = async function (player) {
-        let data = await Setup.findOne({ guild: player.guildId });
+        let data = await client.db.get(`setup.guild_${player.guildId}`);
         if (data.enable === false) return;
 
         let channel = await client.channels.cache.get(data.channel);
@@ -78,15 +74,15 @@ module.exports = async (client) => {
 
         let playMsg = await channel.messages.fetch(data.playmsg, { cache: true, force: true });
         if (!playMsg) return;
-    
-        let guildModel = await GLang.findOne({ guild: player.guildId });
-        if (!guildModel) { guildModel = await GLang.create({
-                guild: player.guildId,
-                language: "en",
-            });
+
+        let guildModel = await client.db.get(`language.guild_${player.guildId}`)
+        if (!guildModel) {
+            guildModel = await client.db.set(`language.guild_${player.guildId}`, client.config.get.bot.LANGUAGE)
         }
 
-        const { language } = guildModel;
+
+        const language = guildModel;
+
 
         const queueMsg = `${client.i18n.get(language, "setup", "setup_queuemsg")}`;
 

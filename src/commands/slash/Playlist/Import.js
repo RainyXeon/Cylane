@@ -1,6 +1,5 @@
 const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
-const Playlist = require("../../../schemas/playlist.js");
 let playlist
 
 module.exports = {
@@ -39,10 +38,17 @@ module.exports = {
         const SongAdd = [];
         let SongLoad = 0;
 
-        if (id) playlist = await Playlist.findOne({ id: id });
+        if (id) playlist = await client.db.get(`playlist.pid_${id}`)
         if (value) {
             const Plist = value.replace(/_/g, ' ');
-            playlist = await Playlist.findOne({ name: Plist, owner: interaction.user.id });
+
+            const fullList = await client.db.get("playlist")
+
+            const pid = Object.keys(fullList).filter(function(key) {
+                return fullList[key].owner == interaction.user.id && fullList[key].name == Plist;
+              })
+    
+            playlist = fullList[pid[0]]
         }
         if (!id && !value) return interaction.editReply(`${client.i18n.get(language, "playlist", "no_id_or_name")}`)
         if (id && value) return interaction.editReply(`${client.i18n.get(language, "playlist", "got_id_and_name")}`)

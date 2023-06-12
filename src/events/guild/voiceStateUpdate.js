@@ -1,10 +1,8 @@
 const delay = require("delay");
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
-const GLang = require("../../schemas/language.js")
-const db = require("../../schemas/autoreconnect")
 
 module.exports = async (client, oldState, newState) => {
-	let data = await db.findOne({ guild: newState.guild.id })
+	let data = await client.db.get(`autoreconnect.guild_${newState.guild.id}`)
 
 	if(oldState.channel === null && oldState.id !== client.user.id) {
 		if (client.websocket) client.websocket.send(JSON.stringify({ op: "voice_state_update_join", guild: newState.guild.id, }))
@@ -12,17 +10,12 @@ module.exports = async (client, oldState, newState) => {
 	if (newState.channel === null && newState.id !== client.user.id) {
 		if (client.websocket) client.websocket.send(JSON.stringify({ op: "voice_state_update_leave", guild: newState.guild.id }))
 	}
-	
-	let guildModel = await GLang.findOne({
-		guild: newState.guild.id,
-	});
+
+	let guildModel = await client.db.get(`language.guild_${newState.guild.id}`)
 	if (!guildModel) {
-		guildModel = await GLang.create({
-			guild: newState.guild.id,
-			language: "en",
-		});
+			guildModel = await client.db.set(`language.guild_${newState.guild.id}`, "en")
 	}
-	const { language } = guildModel;
+	const language = guildModel;
 
 	const player = client.manager?.players.get(newState.guild.id);
 	if (!player) return;

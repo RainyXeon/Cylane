@@ -33,7 +33,7 @@ detail_embed_title: "Playlist • %{name}"
 detail_embed_footer: "Page • %{page}/%{pages} | %{songs} • Songs | %{duration} • Total duration"
 detail_notnumber: "Page must be a number."
 detail_page_notfound: "There are only %{page} pages available."
-detail_track: "%{num}. **[%{title}](%{url})** | *Author*: %{author} • `[%{duration}]`"
+detail_track: "%{num}. **[%{title}](%{url})** | *Author*: %{author} | `[%{duration}]`"
 
 ##### Import command #####
 import_loading: "Importing a playlist to the queue..."
@@ -68,21 +68,15 @@ savequeue_owner: "You can't save song to this playlist."
 savequeue_no_new_saved: "No new track saved in `%{name}` playlist"
 savequeue_saved: "`📦` | *Saved* • (%{tracks} tracks) to `%{name}`"
 
-##### Private command #####
-private_arg: "Please provide a playlist name. Example: %{prefix}private <playlist name>"
-private_notfound: "The playlist name is invalid."
-private_owner: "You can't private this playlist."
-private_already: "This playlist is already private."
-private_loading: "Loading please wait..."
-private_success: "`📦` | *Playlist is now:* `Private`"
-
 ##### Public command #####
 public_arg: "Please provide a playlist name. Example: %{prefix}public <playlist name>"
 public_notfound: "The playlist name is invalid."
 public_owner: "You can't public this playlist."
 public_already: "This playlist is already public."
 public_loading: "Loading please wait..."
-public_success: "`📦` | *Playlist is now:* `Public`"
+public_success: "`📦` | *Playlist is now:* `%{view}`"
+public: "Public"
+private: "Private"
 
 ##### Info Command ######
 info_title: "Playlist %{name} infomation:"

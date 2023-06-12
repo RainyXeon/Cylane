@@ -77,7 +77,8 @@ class Manager extends Client {
         "interval", 
         "sent_queue", 
         "aliases",
-        "pl_editing"
+        "pl_editing",
+        "db_map"
     ]
 
     if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
@@ -88,7 +89,6 @@ class Manager extends Client {
         "loadCommand",
         "loadPrefixCommand",
         "loadEvent",
-        "loadDatabase",
         "loadPlayer",
         "loadNodeEvents",
         "loadWebSocket",
@@ -102,7 +102,16 @@ class Manager extends Client {
 
     if (!this.config.features.MESSAGE_CONTENT.enable) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
 
-    loadFile.forEach(x => require(`../../handlers/${x}`)(this));
+    
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    require(`../../handlers/loadDatabase`)(this)
+
+    wait(2 * 1000).then(() => {
+        loadFile.forEach(x => require(`../../handlers/${x}`)(this));
+    }).catch(() => {
+        this.logger.log({ level: 'error', message: error })
+    });
 
     const client = this;
 

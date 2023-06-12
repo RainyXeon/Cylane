@@ -1,5 +1,4 @@
 const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
-const Setup = require('../../../schemas/setup.js')
 module.exports = { 
   name: ["settings", "setup"],
   description: "Setup channel song request",
@@ -57,14 +56,16 @@ run: async (interaction, client, language) => {
                     userLimit: 30,
                 });
 
-                await Setup.findOneAndUpdate({ guild: interaction.guild.id }, {
+                const new_data = {
                     guild: interaction.guild.id,
                     enable: true,
                     channel: textChannel.id,
                     playmsg: channel_msg.id,
                     voice: voiceChannel.id,
                     category: parent.id
-                }, { upsert: true, new: true });
+                }
+
+                await client.db.set(`setup.guild_${interaction.guild.id}`, new_data)
 
                 const embed = new EmbedBuilder()
                     .setDescription(`${client.i18n.get(language, "setup", "setup_msg", {
@@ -75,7 +76,15 @@ run: async (interaction, client, language) => {
                 }
 
                 if(interaction.options.getString('type') === "delete") {
-                    const SetupChannel = await Setup.findOne({ guild: interaction.guild.id });
+                    const SetupChannel = await client.db.get(`setup.guild_${interaction.guild.id}`)
+
+                    const embed_none = new EmbedBuilder()
+                    .setDescription(`${client.i18n.get(language, "setup", "setup_deleted", {
+                        channel: undefined,
+                      })}`)
+                        .setColor(client.color);
+
+                    if (!SetupChannel) return interaction.editReply({ embeds: [embed_none] });
 
                     const fetchedTextChannel = interaction.guild.channels.cache.get(SetupChannel.channel)
                     const fetchedVoiceChannel = interaction.guild.channels.cache.get(SetupChannel.voice)
@@ -87,20 +96,21 @@ run: async (interaction, client, language) => {
                       })}`)
                         .setColor(client.color);
 
-                    if (!SetupChannel) return interaction.editReply({ embeds: [embed] });
 
                     if (fetchedCategory) await fetchedCategory.delete()
                     if (fetchedVoiceChannel) await fetchedVoiceChannel.delete()
                     if (fetchedTextChannel) await fetchedTextChannel.delete();
 
-                    await Setup.findOneAndUpdate({ guild: interaction.guild.id }, {
-                            guild: interaction.guild.id,
-                            enable: false,
-                            channel: "",
-                            playmsg: "",
-                            voice: "",
-                            category: ""
-                        });
+                    const deleted_data = {
+                        guild: interaction.guild.id,
+                        enable: false,
+                        channel: "",
+                        playmsg: "",
+                        voice: "",
+                        category: ""
+                    }
+
+                    await client.db.set(`setup.guild_${interaction.guild.id}`, deleted_data)
 
                     return interaction.editReply({ embeds: [embed] });
         }

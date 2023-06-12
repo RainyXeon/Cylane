@@ -1,7 +1,6 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
 const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
-const Playlist = require("../../../schemas/playlist.js");
 
 const TrackAdd = [];
 
@@ -79,37 +78,45 @@ module.exports = {
                 } else { //The playlist link is invalid.
                     return msg.edit(`${client.i18n.get(language, "playlist", "add_match")}`);
                 }
-                Playlist.findOne({ name: PlaylistName, owner: interaction.user.id }).then(playlist => {
-                    if(playlist) {
-                        if(playlist.owner !== interaction.user.id) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_owner")}`); TrackAdd.length = 0; return; }
-                        const LimitTrack = tracks.length + TrackAdd.length;
-                        if(LimitTrack > client.config.LIMIT_TRACK) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_limit_track", {
-                            limit: client.config.LIMIT_TRACK
-                        })}`); TrackAdd.length = 0; return; }
-                        TrackAdd.forEach(track => {
-                            playlist.tracks.push(
-                              {
-                                title: track.title,
-                                uri: track.uri,
-                                length: track.length,
-                                thumbnail: track.thumbnail,
-                                author: track.author,
-                                requester: track.requester // Just case can push
-                              }
-                            )
-                        });
-                        playlist.save().then(() => {
-                        const embed = new EmbedBuilder()
-                            .setDescription(`${client.i18n.get(language, "playlist", "add_added", {
-                                count: TrackAdd.length,
-                                playlist: PlaylistName
-                                })}`)
-                            .setColor(client.color)
-                        interaction.followUp({ content: " ", embeds: [embed] });
-                        TrackAdd.length = 0;
-                        });
-                    }
+
+                const fullList = await client.db.get("playlist")
+
+                const pid = Object.keys(fullList).filter(function(key) {
+                    return fullList[key].owner == interaction.user.id && fullList[key].name == PlaylistName;
+                })
+
+                const playlist = fullList[pid[0]]
+
+                if(!playlist) { interaction.followUp(`${client.i18n.get(language, "playlist", "public_notfound")}`); TrackAdd.length = 0; return; }
+                if(playlist.owner !== interaction.user.id) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_owner")}`); TrackAdd.length = 0; return; }
+
+                const LimitTrack = playlist.tracks.length + TrackAdd.length;
+                if(LimitTrack > client.config.get.bot.LIMIT_TRACK) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_limit_track", {
+                    limit: client.config.get.bot.LIMIT_TRACK
+                })}`); TrackAdd.length = 0; return; }
+
+
+                TrackAdd.forEach(async track => {
+                    await client.db.push(`playlist.${pid[0]}.tracks`,
+                      {
+                        title: track.title,
+                        uri: track.uri,
+                        length: track.length,
+                        thumbnail: track.thumbnail,
+                        author: track.author,
+                        requester: track.requester // Just case can push
+                      }
+                    )
                 });
+
+                const embed = new EmbedBuilder()
+                .setDescription(`${client.i18n.get(language, "playlist", "add_added", {
+                    count: TrackAdd.length,
+                    playlist: PlaylistName
+                    })}`)
+                .setColor(client.color)
+                interaction.followUp({ content: " ", embeds: [embed] });
+                TrackAdd.length = 0;
             }
         } catch (e) {
 

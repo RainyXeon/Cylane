@@ -1,5 +1,4 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
-const Playlist = require("../../../schemas/playlist.js");
 
 const TrackAdd = [];
 const TrackExist = []
@@ -22,7 +21,13 @@ module.exports = {
 
         const value = interaction.options.getString("name");
         const Plist = value.replace(/_/g, ' ');
-        const playlist = await Playlist.findOne({ name: Plist, owner: interaction.user.id });
+        const fullList = await client.db.get("playlist")
+
+        const pid = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == interaction.user.id && fullList[key].name == Plist;
+          })
+
+        const playlist = fullList[pid[0]]
 
         if(!playlist) return interaction.editReply(`${client.i18n.get(language, "playlist", "savequeue_notfound")}`);
         if(playlist.owner !== interaction.user.id) return interaction.editReply(`${client.i18n.get(language, "playlist", "savequeue_owner")}`);
@@ -68,8 +73,8 @@ module.exports = {
             .setColor(client.color)
         await interaction.editReply({ embeds: [embed] });
 
-        Result.forEach(track => {
-            playlist.tracks.push(
+        Result.forEach(async track => {
+            await client.db.push(`playlist.${pid[0]}.tracks`,
               {
                 title: track.title,
                 uri: track.uri,
@@ -81,10 +86,8 @@ module.exports = {
             )
         });
 
-        playlist.save().then(() => {
-            TrackAdd.length = 0;
-            TrackExist.length = 0
-            Result = null
-        });
+        TrackAdd.length = 0;
+        TrackExist.length = 0
+        Result = null
     }
 }

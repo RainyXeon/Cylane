@@ -20,17 +20,33 @@ module.exports = {
         const PlaylistName = value.replace(/_/g, ' ');
         const msg = await message.channel.send(`${client.i18n.get(language, "playlist", "create_loading")}`);
 
-        const Limit = await Playlist.find({ owner: message.author.id }).countDocuments();
-        const Exist = await Playlist.findOne({ name: PlaylistName, owner: message.author.id });
+        const fullList = await client.db.get("playlist")
 
-        if(Exist) { msg.edit(`${client.i18n.get(language, "playlist", "create_name_exist")}`); return; }
-        if(Limit >= client.config.LIMIT_PLAYLIST) { msg.edit(`${client.i18n.get(language, "playlist", "create_limit_playlist", {
-            limit: client.config.LIMIT_PLAYLIST
+        const Limit = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == message.author.id;
+          // to cast back from an array of keys to the object, with just the passing ones
+          }).reduce(function(obj, key){
+            obj[key] = fullList[key];
+            return obj;
+          }, {});;
+
+        const Exist = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == message.author.id && fullList[key].name == PlaylistName;
+          // to cast back from an array of keys to the object, with just the passing ones
+          }).reduce(function(obj, key){
+            obj[key] = fullList[key];
+            return obj;
+          }, {});
+
+        if(Object.keys(Exist).length !== 0) { msg.edit(`${client.i18n.get(language, "playlist", "create_name_exist")}`); return; }
+        if(Object.keys(Limit).length >= client.config.get.bot.LIMIT_PLAYLIST) { msg.edit(`${client.i18n.get(language, "playlist", "create_limit_playlist", {
+            limit: client.config.get.bot.LIMIT_PLAYLIST
         })}`); return; }
+        
 
         const idgen = id.generate({ length: 8, prefix: "playlist-", });
 
-        const CreateNew = new Playlist({
+        await client.db.set(`playlist.pid_${idgen}`, {
             id: idgen[0],
             name: PlaylistName,
             owner: message.author.id,
@@ -38,15 +54,14 @@ module.exports = {
             private: true,
             created: Date.now(),
             description: des ? des : null,
-        });
+        })
 
-        CreateNew.save().then(() => {
-            const embed = new EmbedBuilder()
+        const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "playlist", "create_created", {
                 playlist: PlaylistName
                 })}`)
             .setColor(client.color)
         msg.edit({ content: " ", embeds: [embed] });
-        });
+
     }
 }

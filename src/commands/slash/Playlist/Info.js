@@ -1,7 +1,6 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
 const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
-const Playlist = require("../../../schemas/playlist.js");
 const { stripIndents } = require("common-tags");
 const humanizeDuration = require('humanize-duration');
 
@@ -28,11 +27,19 @@ module.exports = {
       const value = interaction.options.getString("name");
       const id = interaction.options.getString("id")
 
-      if (id) info = await Playlist.findOne({ id: id });
+      if (id) info = await client.db.get(`playlist.pid_${id}`)
       if (value) {
-        const PlaylistName = value.replace(/_/g, ' ');
-        info = await Playlist.findOne({ name: PlaylistName, owner: interaction.user.id })
+          const Plist = value.replace(/_/g, ' ');
+
+          const fullList = await client.db.get("playlist")
+
+          const pid = Object.keys(fullList).filter(function(key) {
+              return fullList[key].owner == interaction.user.id && fullList[key].name == Plist;
+            })
+  
+          info = fullList[pid[0]]
       }
+
       if (!id && !value) return interaction.editReply(`${client.i18n.get(language, "playlist", "no_id_or_name")}`)
       if (id && value) return interaction.editReply(`${client.i18n.get(language, "playlist", "got_id_and_name")}`)
       if (!info) return interaction.deferReply(`${client.i18n.get(language, "playlist", "invalid")}`)
@@ -53,6 +60,8 @@ module.exports = {
         { name: `${client.i18n.get(language, "playlist", "info_des")}`, value: `${info.description === null ? client.i18n.get(language, "playlist", "no_des") : info.description}` }
       ])
       .setColor(client.color)
-      interaction.editReply({ embeds: [embed] })
+      await interaction.editReply({ embeds: [embed] })
+
+      info = null
     }
 }

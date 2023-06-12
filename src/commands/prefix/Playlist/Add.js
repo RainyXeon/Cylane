@@ -14,7 +14,7 @@ module.exports = {
 
     run: async (client, message, args, language, prefix) => {
                 
-        const value = args[0]
+        const value = args[0] ? args[0] : null;
         const input = args[1];
                 
         const PlaylistName = value.replace(/_/g, ' ');
@@ -72,42 +72,43 @@ module.exports = {
             return msg.edit(`${client.i18n.get(language, "playlist", "add_match")}`);
         }
 
-        Playlist.findOne({ name: PlaylistName, owner: message.author.id }).then(playlist => {
-            if(playlist) {
+        const fullList = await client.db.get("playlist")
 
-                if(playlist.owner !== message.author.id) { message.channel.send(`${client.i18n.get(language, "playlist", "add_owner")}`); TrackAdd.length = 0; return; }
-                const LimitTrack = tracks.length + TrackAdd.length;
+        const pid = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == message.author.id && fullList[key].name == PlaylistName;
+        })
 
-                if(LimitTrack > client.config.LIMIT_TRACK) { message.channel.send(`${client.i18n.get(language, "playlist", "add_limit_track", {
-                    limit: client.config.LIMIT_TRACK
-                })}`); TrackAdd.length = 0; return; }
+        const playlist = fullList[pid[0]]
 
-                TrackAdd.forEach(track => {
-                    playlist.tracks.push(
-                      {
-                        title: track.title,
-                        uri: track.uri,
-                        length: track.length,
-                        thumbnail: track.thumbnail,
-                        author: track.author,
-                        requester: track.requester // Just case can push
-                      }
-                    )
-                });
-                playlist.save().then(() => {
+        if(playlist.owner !== message.author.id) { message.channel.send(`${client.i18n.get(language, "playlist", "add_owner")}`); TrackAdd.length = 0; return; }
+        const LimitTrack = playlist.tracks.length + TrackAdd.length;
 
-                const embed = new EmbedBuilder()
-                    .setDescription(`${client.i18n.get(language, "playlist", "add_added", {
-                        count: TrackAdd.length,
-                        playlist: PlaylistName
-                        })}`)
-                    .setColor(client.color)
+        if(LimitTrack > client.config.get.bot.LIMIT_TRACK) { message.channel.send(`${client.i18n.get(language, "playlist", "add_limit_track", {
+            limit: client.config.get.bot.LIMIT_TRACK
+        })}`); TrackAdd.length = 0; return; }
 
-                message.channel.send({ content: " ", embeds: [embed] });
 
-                TrackAdd.length = 0;
-                });
-            }
+        TrackAdd.forEach(async track => {
+            await client.db.push(`playlist.${pid[0]}.tracks`,
+              {
+                title: track.title,
+                uri: track.uri,
+                length: track.length,
+                thumbnail: track.thumbnail,
+                author: track.author,
+                requester: track.requester // Just case can push
+              }
+            )
         });
+
+        const embed = new EmbedBuilder()
+            .setDescription(`${client.i18n.get(language, "playlist", "add_added", {
+                count: TrackAdd.length,
+                playlist: PlaylistName
+                })}`)
+            .setColor(client.color)
+
+        message.channel.send({ content: " ", embeds: [embed] });
+        TrackAdd.length = 0;
     }
 }

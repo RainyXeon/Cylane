@@ -1,7 +1,6 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const formatDuration = require('../../../structures/FormatDuration.js');
 const { SlashPage } = require('../../../structures/PageQueue.js');
-const Playlist = require("../../../schemas/playlist.js");
 
 module.exports = {
     name: ["playlist", "detail"],
@@ -28,8 +27,15 @@ module.exports = {
         const number = interaction.options.getInteger("page");
 
         const Plist = value.replace(/_/g, ' ');
-        
-        const playlist = await Playlist.findOne({ name: Plist, owner: interaction.user.id });
+
+        const fullList = await client.db.get("playlist")
+
+        const pid = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == interaction.user.id && fullList[key].name == Plist;
+          })
+
+        const playlist = fullList[pid[0]]
+
         if(!playlist) return interaction.editReply(`${client.i18n.get(language, "playlist", "detail_notfound")}`);
         if(playlist.private && playlist.owner !== interaction.user.id) return interaction.editReply(`${client.i18n.get(language, "playlist", "detail_private")}`);
 
@@ -37,6 +43,7 @@ module.exports = {
         if(pagesNum === 0) pagesNum = 1;
 
         const playlistStrings = [];
+
         for(let i = 0; i < playlist.tracks.length; i++) {
             const playlists = playlist.tracks[i];
             playlistStrings.push(
@@ -54,7 +61,7 @@ module.exports = {
 
         const pages = [];
         for (let i = 0; i < pagesNum; i++) {
-            const str = playlistStrings.slice(i * 10, i * 10 + 10).join('');
+            const str = playlistStrings.slice(i * 10, i * 10 + 10).join(`\n`);
             const embed = new EmbedBuilder() //${playlist.name}'s Playlists
                 .setAuthor({ name: `${client.i18n.get(language, "playlist", "detail_embed_title", {
                     name: playlist.name

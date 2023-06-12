@@ -1,7 +1,6 @@
 const { EmbedBuilder, ApplicationCommandOptionType, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
 const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
-const Playlist = require("../../../schemas/playlist.js");
 const { stripIndents } = require("common-tags");
 const humanizeDuration = require('humanize-duration');
 const remove_regex = /[^0] - [^0]/
@@ -26,11 +25,6 @@ module.exports = {
       {
         name: "description",
         description: "The description of the playlist",
-        type: ApplicationCommandOptionType.String,
-      },
-      {
-        name: "id",
-        description: "The id of the playlist",
         type: ApplicationCommandOptionType.String,
       },
       {
@@ -64,13 +58,15 @@ module.exports = {
       const name = interaction.options.getString("name")
       const PlaylistName = name.replace(/_/g, ' ');
       const newname = interaction.options.getString("rename") ? interaction.options.getString("rename") : null
-      const id = interaction.options.getString("id") ? interaction.options.getString("id") : null
       const des = interaction.options.getString("description") ? interaction.options.getString("description") : null
       const get_private = interaction.options.getString("private") ? interaction.options.getString("private") : null
       const add = interaction.options.getString("add") ? interaction.options.getString("add") : null
       const remove = interaction.options.getNumber("remove") ? interaction.options.getNumber("remove") : null
-      const playlist = await Playlist.findOne({ name: PlaylistName, owner: interaction.user.id })
-      const Exist = await Playlist.findOne({ id: id });
+      const fullList = await client.db.get("playlist")
+      const pid = Object.keys(fullList).filter(function(key) {
+          return fullList[key].owner == interaction.user.id && fullList[key].name == PlaylistName;
+        })
+      const playlist = fullList[pid[0]]
 
       function parseBoolean(value){
         if (typeof(value) === 'string'){
@@ -93,15 +89,13 @@ module.exports = {
 
       const private = parseBoolean(get_private)
 
-      async function RunCommands(newname, des, id, private, add, remove) {
+      async function RunCommands(newname, des, private, add, remove, playlist) {
         try {
           await interaction.deferReply({ ephemeral: false });
           if (!playlist) return interaction.editReply(`${client.i18n.get(language, "playlist", "public_notfound")}`)
-          if(Exist) return interaction.editReply(`${client.i18n.get(language, "playlist", "edit_exist")}`)
           const embed = new EmbedBuilder()
             .setTitle(`${client.i18n.get(language, "playlist", "edit_new")}`)
             .setDescription(stripIndents`${client.i18n.get(language, "playlist", "edit_name")} \`${newname !== null ? newname : name}\`
-            ${client.i18n.get(language, "playlist", "edit_id")} \`${id !== null ? id : playlist.id}\`
             ${client.i18n.get(language, "playlist", "edit_des")} \`${des !== null ? des : playlist.description}\`
             ${client.i18n.get(language, "playlist", "edit_private")} \`${private !== null ? parseReply(private) : parseReply(playlist.private)}\`
             ${client.i18n.get(language, "playlist", "edit_added")} \`${add !== null ? add : client.i18n.get(language, "playlist", "edit_added_none")}\`
@@ -140,12 +134,12 @@ module.exports = {
                 else TrackAdd.push(tracks[0]);
                 
                 const LimitTrack = tracks.length + TrackAdd.length;
-                if(LimitTrack > client.config.LIMIT_TRACK) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_limit_track", {
-                    limit: client.config.LIMIT_TRACK
+                if(LimitTrack > client.config.get.bot.LIMIT_TRACK) { interaction.followUp(`${client.i18n.get(language, "playlist", "add_limit_track", {
+                    limit: client.config.get.bot.LIMIT_TRACK
                 })}`); TrackAdd.length = 0; return; }
 
-                TrackAdd.forEach(track => {
-                  playlist.tracks.push(
+                TrackAdd.forEach(async track => {
+                  await client.db.push(`playlist.${pid[0]}.tracks`,
                     {
                       title: track.title,
                       uri: track.uri,
@@ -160,24 +154,21 @@ module.exports = {
 
               if (remove) {
                 const position = remove;
-                const song = playlist.tracks[position];
+                const song = playlist.tracks[position - 1];
                 if(!song) return interaction.editReply(`${client.i18n.get(language, "playlist", "remove_song_notfound")}`);
-                playlist.tracks.splice(position - 1, 1);
+                await client.db.pull(`playlist.${pid[0]}.tracks`, playlist.tracks[position - 1])
               }
 
-              playlist.id = id !== null ? id : playlist.id,
-              playlist.name = newname !== null ? newname : PlaylistName,
-              playlist.private =  private !== null ? private : playlist.private,
-              playlist.description = des !== null ? des : playlist.description,
-              
-              playlist.save().then(async () => {
-                const embed = new EmbedBuilder()
-                  .setColor(client.color)
-                  .setDescription(`${client.i18n.get(language, "playlist", "edit_accepted")}`)
-                await message.reply({ embeds: [embed] })
-                msg.edit({ components: [] })
-                collector.stop();
-              }).catch((e) => console.log(e))
+              await client.db.set(`playlist.${pid[0]}.name`, newname !== null ? newname : PlaylistName)
+              await client.db.set(`playlist.${pid[0]}.private`, private !== null ? private : playlist.private)
+              await client.db.set(`playlist.${pid[0]}.description`, des !== null ? des : playlist.description)
+
+              const embed = new EmbedBuilder()
+              .setColor(client.color)
+              .setDescription(`${client.i18n.get(language, "playlist", "edit_accepted")}`)
+              await message.reply({ embeds: [embed] })
+              msg.edit({ components: [] })
+              return collector.stop();
 
             }
           })
@@ -193,8 +184,8 @@ module.exports = {
         } catch (e) { }
       }
       if (interaction.options.getString("add") || interaction.options.getString("remove")) {
-        return RunCommands(newname, des, id, private, add, remove)
+        return RunCommands(newname, des, private, add, remove, playlist)
       }
-      RunCommands(newname, des, id, private, add, remove)
+      RunCommands(newname, des, private, add, remove, playlist)
     }
 }
