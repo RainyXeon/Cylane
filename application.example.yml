@@ -7,8 +7,7 @@ bot:
   LANGUAGE: en # You can set it to vi, en, th,...
   LIMIT_TRACK: 50 # The number of tracks you want to limit
   LIMIT_PLAYLIST: 20 # The number of playlist you want to limit
-  # Your mongo_uri, you can get it from here: https://www.mongodb.com/
-  MONGO_URI: mongodb://127.0.0.1:27017/dreamvast
+
 
 lavalink:
 
@@ -44,9 +43,16 @@ lavalink:
   }
 
 features:
-  LOCAL_DATABASE:
-    enable: false
-    path: "./cylane.database.json" # Database file path
+  DATABASE:
+    # Note: You can't enable all or 2 databases. It will return to JSON database
+    JSON: "./cylane.database.json" # Pass null if you don't use. Pass file path if you use (File will auto generate)
+    MONGO_DB: null # Pass null if you don't use. Pass your mongouri if you use. You can get it from here: https://www.mongodb.com/
+    MYSQL: 
+      enable: false # Pass false if you don't use. Pass true and your credentials if you use
+      host: "localhost"
+      user: "me"
+      password: "secret"
+      database: "my_db"
   
   SHARD_SYSTEM: 
     enable: false # If you want to use shard system, change it to `true`

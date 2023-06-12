@@ -28,8 +28,6 @@ class Manager extends Client {
             GatewayIntentBits.GuildMessages,
         ]
     });
-    this.obj_regex = /([0-9]{0,9999999}|[a-z]{0,9999999}|[A-Z]{0,9999999}){0,9999999}_([0-9]{0,9999999}|[a-z]{0,9999999}|[A-Z]{0,9999999}){0,99999}/g
-
     this.config = require("../../plugins/config.js");
     this.owner = this.config.OWNER_ID;
     this.dev = this.config.DEV_ID;
@@ -91,7 +89,6 @@ class Manager extends Client {
         "loadCommand",
         "loadPrefixCommand",
         "loadEvent",
-        "loadDatabase",
         "loadPlayer",
         "loadNodeEvents",
         "loadWebSocket",
@@ -105,7 +102,16 @@ class Manager extends Client {
 
     if (!this.config.features.MESSAGE_CONTENT.enable) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
 
-    loadFile.forEach(x => require(`../../handlers/${x}`)(this));
+    
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    require(`../../handlers/loadDatabase`)(this)
+
+    wait(2 * 1000).then(() => {
+        loadFile.forEach(x => require(`../../handlers/${x}`)(this));
+    }).catch(() => {
+        this.logger.log({ level: 'error', message: error })
+    });
 
     const client = this;
 
