@@ -9,7 +9,7 @@ module.exports = async (client) => {
     require("../../plugins/autoDeploy.js")(client)
     const users = await client.db.get("premium");
     if (users) Object.keys(users).forEach(async (key, index) => {
-        client.premiums.set(client.obj_regex.exec(key)[2], users[key])
+        client.premiums.set(users[key].id, users[key])
     })
 
     let guilds = client.guilds.cache.size;
@@ -31,7 +31,7 @@ module.exports = async (client) => {
         if (!prepare) return
         Object.keys(prepare).forEach(async (key, index) => {
             if (prepare[key].enable == true) {
-                SetupChannel.set(client.obj_regex.exec(key)[2], {
+                SetupChannel.set(prepare[key].guild, {
                     channel: prepare[key].channel,
                     category: prepare[key].category,
                     statmsg: prepare[key].statmsg
@@ -55,7 +55,7 @@ module.exports = async (client) => {
           .setTimestamp()
           .setColor(client.color);
     
-          SetupChannel.map(async (g) => {
+          SetupChannel.forEach(async (g) => {
             const fetch_channel = await client.channels.fetch(g.channel)
             const interval_text = await fetch_channel.messages.fetch(g.statmsg)
             if (!fetch_channel) return

@@ -8,7 +8,8 @@ module.exports = async (client, player, track) => {
 
   let Control = await client.db.get(`control.guild_${player.guildId}`)
   if (!Control) {
-    Control = await client.db.set(`control.guild_${player.guildId}`, "disable")
+    await client.db.set(`control.guild_${player.guildId}`, "disable")
+    Control = client.db.get(`control.guild_${player.guildId}`)
   }
 
   if (!player) return;
