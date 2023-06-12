@@ -39,7 +39,7 @@ module.exports = {
         if (db.isPremium) {
 
         const data = {
-            id: interaction.user.id,
+            id: id || mentions.id,
             isPremium: false,
             redeemedAt: null,
             expiresAt: null,

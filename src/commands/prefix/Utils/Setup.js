@@ -1,5 +1,4 @@
 const { EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
-const Setup = require('../../../schemas/setup.js')
 
 module.exports = { 
   name: "setup",

@@ -1,5 +1,4 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const GControl = require('../../../schemas/control.js');
 
 module.exports = {
     name: "control",

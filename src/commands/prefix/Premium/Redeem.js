@@ -15,7 +15,7 @@ module.exports = {
         
         const input = args[0]
         
-        let member = await Premium.findOne({ Id: message.author.id })
+        let member = await client.db.get(`premium.user_${message.author.id}`)
 
         if (member && member.isPremium) {
             const embed = new EmbedBuilder()
@@ -24,7 +24,7 @@ module.exports = {
             return message.channel.send({ embeds: [embed] });
         }
   
-        const premium = await Redeem.findOne({ code: input.toUpperCase() });
+        const premium = await client.db.get(`code.pmc_${input.toUpperCase()}`)
         if (premium) {
             const expires = moment(premium.expiresAt).format('do/MMMM/YYYY (HH:mm:ss)')
             const embed = new EmbedBuilder()
@@ -36,34 +36,18 @@ module.exports = {
                 .setColor(client.color)
                 .setTimestamp()
 
-            if (!member) {
-                const newMem = new Premium({
-                    Id: message.author.id,
-                    isPremium: true,
-                    premium: {
-                        redeemedBy: message.author,
-                        redeemedAt: Date.now(),
-                        expiresAt: premium.expiresAt,
-                        plan: premium.plan
-                    }
-                })
-                return newMem.save().then(async () => {
-                    await message.channel.send({ embeds: [embed] });
-                    await premium.deleteOne();
-                }).catch((e) => client.logger.log({ level: 'error', message: e }))
+            const new_data = {
+                id: message.author.id,
+                isPremium: true,
+                redeemedBy: message.author,
+                redeemedAt: Date.now(),
+                expiresAt: premium.expiresAt,
+                plan: premium.plan
             }
-  
-            member.isPremium = true
-            member.premium.redeemedBy.push(message.author)
-            member.premium.redeemedAt = Date.now()
-            member.premium.expiresAt = premium.expiresAt
-            member.premium.plan = premium.plan
-
-            member = await member.save();
-            await client.premiums.set(message.author.id, member)
-            await premium.deleteOne();
-
-            return message.channel.send({ embeds: [embed] });
+            await client.db.set(`premium.guild_${new_data.id}`, new_data)
+            await message.channel.send({ embeds: [embed] });
+            await client.db.delete(`code.pmc_${input.toUpperCase()}`)
+            return client.premiums.set(message.user.id, new_data)
         } else {
             const embed = new EmbedBuilder()
                 .setColor(client.color)

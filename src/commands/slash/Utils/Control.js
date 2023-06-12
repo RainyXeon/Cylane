@@ -31,7 +31,7 @@ run: async (interaction, client, language) => {
 
                 const embed = new EmbedBuilder()
                     .setDescription(`${client.i18n.get(language, "utilities", "control_set", {
-                        toggle: "enable"
+                        toggle: `${client.i18n.get(language, "music", "enabled")}`
                     })}`)
                     .setColor(client.color)
 
@@ -42,7 +42,7 @@ run: async (interaction, client, language) => {
                 await client.db.set(`control.guild_${interaction.guild.id}`, "enable")
                 const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "utilities", "control_set", {
-                    toggle: "disable"
+                    toggle: `${client.i18n.get(language, "music", "disabled")}`
                 })}`)
                 .setColor(client.color)
 

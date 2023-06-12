@@ -27,7 +27,7 @@ module.exports = {
             return interaction.editReply({ embeds: [embed] });
         }
   
-        const premium = await client.db.get(`code.pmc_${input}`)
+        const premium = await client.db.get(`code.pmc_${input.toUpperCase()}`)
 
         if (input == "pmc_thedreamvastghost") return interaction.editReply("WU9VIENBTidUIERPIFRISVMgRk9SIEZSRUUgUFJFTUlVTQotIFJhaW55WGVvbiAt") 
 
@@ -51,24 +51,11 @@ module.exports = {
                 plan: premium.plan
             }
 
-            if (!member) {
-                await client.db.set(`premium.user_${interaction.user.id}`, data)
-                await interaction.editReply({ embeds: [embed] });
-                return client.premiums.set(interaction.user.id, data)
-                await client.db.delete(`code.pmc_${input.toUpperCase()}`)
-            }
-
-            client.db.set(`premium.user_${interaction.user.id}.isPremium`, true)
-            client.db.push(`premium.user_${interaction.user.id}.redeemedBy`, interaction.user)
-            client.db.set(`premium.user_${interaction.user.id}.redeemedAt`, Date.now())
-            client.db.set(`premium.user_${interaction.user.id}.expiresAt`, premium.expiresAt)
-            client.db.set(`premium.user_${interaction.user.id}.plan`, premium.plan)
-
-
+            await client.db.set(`premium.user_${interaction.user.id}`, data)
+            await interaction.editReply({ embeds: [embed] });
             await client.premiums.set(interaction.user.id, data)
-            await client.db.delete(`code.pmc_${input.toUpperCase()}`)
+            return client.db.delete(`code.pmc_${input.toUpperCase()}`)
 
-            return interaction.editReply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
                 .setColor(client.color)

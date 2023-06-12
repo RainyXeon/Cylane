@@ -19,30 +19,31 @@ module.exports = {
         if (!id && !mentions) return message.channel.send({ content: `${client.i18n.get(language, "premium", "remove_no_params",)}` });
         if (id && mentions) return message.channel.send({ content: `${client.i18n.get(language, "premium", "remove_only_params",)}` });
 
-        if (id && !mentions) db = await Premium.findOne({ Id: id });
-        if (mentions && !id) db = await Premium.findOne({ Id:  mentions.id });
+        if (id && !mentions) db = await client.db.get(`premium.user_${id}`)
+        if (mentions && !id) db = await client.db.get(`premium.user_${mentions.id}`)
 
         if (!db) return message.channel.send({ content: `${client.i18n.get(language, "premium", "remove_404", { userid: id })}` })
 
         if (db.isPremium) {
 
-          db.isPremium = false
-          db.premium.redeemedBy = []
-          db.premium.redeemedAt = null
-          db.premium.expiresAt = null
-          db.premium.plan = null
+        const data = {
+            id: id || mentions.id,
+            isPremium: false,
+            redeemedAt: null,
+            expiresAt: null,
+            plan: null
+        }
 
-          const done = await db.save().catch(() => {})
+        await client.db.set(`premium.user_${data.id}`, data)
 
-          await client.premiums.set(id || mentions.id, done)
+        await client.premiums.set(id || mentions.id, data)
 
-            const embed = new EmbedBuilder()
-                .setDescription(`${client.i18n.get(language, "premium", "remove_desc", {
-                    user: mentions
-                })}`)
-                .setColor(client.color)
-
-            message.channel.send({ embeds: [embed] });
+        const embed = new EmbedBuilder()
+            .setDescription(`${client.i18n.get(language, "premium", "remove_desc", {
+                user: mentions
+            })}`)
+            .setColor(client.color)
+        message.channel.send({ embeds: [embed] });
 
         } else {
             const embed = new EmbedBuilder()
