@@ -15,7 +15,7 @@ module.exports = async (client, name) => {
             const voice = client.channels.cache.get(data.voice)
             if (!channel || !voice) return data.delete()
             const player = await client.manager.createPlayer({
-                guildId: client.obj_regex.exec(key)[2],
+                guildId: data.guild,
                 voiceId: data.voice,
                 textId: data.text,
                 deaf: true,

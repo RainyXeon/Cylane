@@ -28,17 +28,7 @@ module.exports = {
         const PlaylistName = value.replace(/_/g, ' ');
         const msg = await interaction.editReply(`${client.i18n.get(language, "playlist", "create_loading")}`);
 
-        let fullList = await client.db.get("playlist")
-        if (!fullList) await client.db.set(`playlist.pid_thedreamvastghost0923849084`, {
-            id: "thedreamvastghost0923849084",
-            name: "TheDreamvastGhost",
-            owner: client.owner,
-            tracks: [],
-            private: true,
-            created: Date.now(),
-            description: null,
-        })
-        fullList = await client.db.get("playlist")
+        const fullList = await client.db.get("playlist")
         
         const Limit = Object.keys(fullList).filter(function(key) {
             return fullList[key].owner == interaction.user.id;

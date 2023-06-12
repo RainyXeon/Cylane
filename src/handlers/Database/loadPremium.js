@@ -7,10 +7,11 @@ module.exports = async (client) => {
     if (users && Object.keys(users).length) {
 
       Object.keys(users).forEach(async function(key, index) {
-        const element = json_test[key]
+        const element = users[key]
 
         if (Date.now() >= element.expiresAt) {
           await client.db.set(`premium.user_${key}`, {
+            id: key,
             isPremium: false,
             redeemedBy: [],
             redeemedAt: null,

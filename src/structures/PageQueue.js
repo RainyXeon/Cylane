@@ -25,7 +25,7 @@ const SlashPage = async (client, interaction, pages, timeout, queueLength, queue
     if(pages.length == 0) return;
 
     const filter = (m) => m.user.id === interaction.user.id;
-    const collector = await curPage.createinteractionComponentCollector({ filter, time: timeout });
+    const collector = await curPage.createMessageComponentCollector({ filter, time: timeout });
 
     collector.on('collect', async (interaction) => {
             if(!interaction.deferred) await interaction.deferUpdate();
@@ -80,7 +80,7 @@ const SlashPlaylist = async (client, interaction, pages, timeout, queueLength, l
     if(pages.length == 0) return;
 
     const filter = (m) => m.user.id === interaction.user.id;
-    const collector = await curPage.createinteractionComponentCollector({ filter, time: timeout });
+    const collector = await curPage.createMessageComponentCollector({ filter, time: timeout });
 
     collector.on('collect', async (interaction) => {
             if(!interaction.deferred) await interaction.deferUpdate();
