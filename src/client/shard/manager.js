@@ -46,6 +46,7 @@ class Manager extends Client {
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
     this.prefix = this.config.features.MESSAGE_CONTENT.prefix
+    this.shard_status = true
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }))
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }))
@@ -86,15 +87,7 @@ class Manager extends Client {
     
     loadCollection.forEach(x => this[x] = new Collection());
     
-    
-    [
-        "loadCommand",
-        "loadPrefixCommand",
-        "loadEvent",
-        "loadDatabase",
-        "loadPlayer",
-        "loadNodeEvents"
-    ].forEach(x => require(`../../handlers/${x}`)(this));
+    require(`../../boot/connection`)(this)
 
     this.cluster = new Cluster.Client(this);
 

@@ -39,6 +39,7 @@ class Manager extends Client {
     this.config.features.WEBSOCKET.enable ? this.wss.message = new Collection() : undefined
     this.prefix = this.config.features.MESSAGE_CONTENT.prefix
     this.count = 0
+    this.shard_status = false
     if (this.config.get.features.ALIVE_SERVER.enable) require("../../plugins/alive_server.js")
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
@@ -83,35 +84,11 @@ class Manager extends Client {
 
     if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
 
-    loadCollection.forEach(x => this[x] = new Collection());
+    loadCollection.forEach(x => this[x] = new Collection())
 
-    const loadFile = [
-        "loadCommand",
-        "loadPrefixCommand",
-        "loadEvent",
-        "loadPlayer",
-        "loadNodeEvents",
-        "loadWebSocket",
-        "loadWsMessage"
-    ]
-    
-    if (!this.config.features.WEBSOCKET.enable){
-        loadFile.splice(loadFile.indexOf('loadWebSocket'), 1);
-        loadFile.splice(loadFile.indexOf('loadWsMessage'), 1);
-    } 
 
-    if (!this.config.features.MESSAGE_CONTENT.enable) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
 
-    
-    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-    require(`../../handlers/loadDatabase`)(this)
-
-    wait(2 * 1000).then(() => {
-        loadFile.forEach(x => require(`../../handlers/${x}`)(this));
-    }).catch(() => {
-        this.logger.log({ level: 'error', message: error })
-    });
+    require(`../../boot/connection`)(this)
 
     const client = this;
 
