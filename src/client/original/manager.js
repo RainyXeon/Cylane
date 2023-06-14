@@ -86,7 +86,7 @@ class Manager extends Client {
 
     loadCollection.forEach(x => this[x] = new Collection())
 
-
+    this.logger.info("Booting client...")
 
     require(`../../boot/connection`)(this)
 
