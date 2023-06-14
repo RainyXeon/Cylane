@@ -86,6 +86,8 @@ class Manager extends Client {
     if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
     
     loadCollection.forEach(x => this[x] = new Collection());
+
+    this.logger.info("Booting client...")
     
     require(`../../boot/connection`)(this)
 
