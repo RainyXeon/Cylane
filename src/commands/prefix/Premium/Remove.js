@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-const Premium = require("../../../schemas/premium.js");
 
 module.exports = {
     name: "premium-remove",

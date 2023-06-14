@@ -1,5 +1,4 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
-const Playlist = require("../../../schemas/playlist.js");
 
 module.exports = {
     name: "playlist-remove",

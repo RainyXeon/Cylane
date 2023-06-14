@@ -1,6 +1,5 @@
 const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
-const Playlist = require("../../../schemas/playlist.js");
 let playlist
 
 module.exports = {
