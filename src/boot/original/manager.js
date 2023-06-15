@@ -88,7 +88,7 @@ class Manager extends Client {
 
     this.logger.info("Booting client...")
 
-    require(`../../boot/connection`)(this)
+    require(`../../connection/database`)(this)
 
     const client = this;
 

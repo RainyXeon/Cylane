@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-const db = require("../../../schemas/autoreconnect")
 module.exports = {
     name: "247",
     description: "24/7 in voice channel",
@@ -38,5 +37,5 @@ module.exports = {
                  .setColor(client.color); 
              return msg.edit({ content: " ", embeds: [on] }); 
          }
-        
+    } 
 }
