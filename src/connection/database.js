@@ -9,21 +9,33 @@ module.exports = async (client) => {
             require("./loader")(client)
         }
 
-        if (db_config.JSON && db_config.JSON !== null) {
+        if (
+            db_config.JSON.enable 
+            && !db_config.MYSQL.enable 
+            && !db_config.MONGO_DB.enable
+        ) {
             await database.JSONDriver(client, db_config).then(() => {
                 load_file()
             })
             return
         }
 
-        if (db_config.MONGO_DB && db_config.MONGO_DB !== null) {
+        if (
+            db_config.MONGO_DB.enable
+            && !db_config.JSON.enable 
+            && !db_config.MYSQL.enable
+        ) {
             await database.MongoDriver(client, db_config).then(() => {
                 load_file()
             })
             return
         }
 
-        if (db_config.MYSQL.enable && db_config.JSON == null && db_config.MONGO_DB == null) {
+        if (
+            db_config.MYSQL.enable 
+            && !db_config.JSON.enable 
+            && !db_config.MONGO_DB.enable
+        ) {
             await database.SQLDriver(client, db_config).then(() => {
                 load_file()
             })

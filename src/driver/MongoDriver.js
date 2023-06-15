@@ -1,7 +1,7 @@
 const { QuickDB, MongoDriver } = require("quick.db");
 
 module.exports =  async (client, db_config) => {
-  const mongoDriver = new MongoDriver(db_config.MONGO_DB);
+  const mongoDriver = new MongoDriver(db_config.MONGO_DB.uri);
 
   try {
     await mongoDriver.connect().then(async () => {

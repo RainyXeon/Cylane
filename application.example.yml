@@ -44,11 +44,16 @@ lavalink:
 
 features:
   DATABASE:
-    # Note: You can't enable all or 2 databases. It will return to JSON database
-    JSON: "./cylane.database.json" # Pass null if you don't use. Pass file path if you use (File will auto generate)
-    MONGO_DB: null # Pass null if you don't use. Pass your mongouri if you use. You can get it from here: https://www.mongodb.com/
+  # Note: You can't enable all or 2 databases. It will return to JSON database
+    JSON:
+      enable: false
+      path: "./cylane.database.json"
+    MONGO_DB:
+      enable: true
+      # Your mongo_uri, you can get it from here: https://www.mongodb.com/
+      uri: mongodb://127.0.0.1:27017/dreamvast
     MYSQL: 
-      enable: false # Pass false if you don't use. Pass true and your credentials if you use
+      enable: true
       host: "localhost"
       user: "me"
       password: "secret"

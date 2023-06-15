@@ -20,6 +20,11 @@
 - [x] Bandcamp
 - [x] NicoVideo
 
+## 🎶 Support Database
+- [x] Mysql
+- [x] Mongo DB
+- [x] JSON
+
 <details><summary>📎 Requirements [CLICK ME]</summary>
 <p>
 
@@ -53,7 +58,7 @@ Start.bat
 Copy or Rename `application.example.yml` to `application.yml` and fill out the values:
 
 ```yaml
-# Cylane config file via .yaml
+# Cylane config file via .yml
 
 bot:
   TOKEN: Your token
@@ -62,8 +67,7 @@ bot:
   LANGUAGE: en # You can set it to vi, en, th,...
   LIMIT_TRACK: 50 # The number of tracks you want to limit
   LIMIT_PLAYLIST: 20 # The number of playlist you want to limit
-  # Your mongo_uri, you can get it from here: https://www.mongodb.com/
-  MONGO_URI: mongodb://127.0.0.1:27017/dreamvast
+
 
 lavalink:
 
@@ -99,6 +103,22 @@ lavalink:
   }
 
 features:
+  DATABASE:
+  # Note: You can't enable all or 2 databases. It will return to JSON database
+    JSON:
+      enable: false
+      path: "./cylane.database.json"
+    MONGO_DB:
+      enable: true
+      # Your mongo_uri, you can get it from here: https://www.mongodb.com/
+      uri: mongodb://127.0.0.1:27017/dreamvast
+    MYSQL: 
+      enable: true
+      host: "localhost"
+      user: "me"
+      password: "secret"
+      database: "my_db"
+  
   SHARD_SYSTEM: 
     enable: false # If you want to use shard system, change it to `true`
     totalShards: 3 # you can set to every number you want but for save mode, use 'auto' option
@@ -125,6 +145,23 @@ features:
 
   # Your id or friend id (disable global command)
   DEV_ID: []
+
+# dash:
+#   PORT: 3000
+#   # If you change the PORT, you have to change this to! Ex: `PORT: 9999, DISCORD_REDIRECT_URL: http://localhost:9999/api/auth/discord/redirect`
+#   REDIRECT: http://localhost:3000/menu
+#   SIGNATURE: cylane/a69c29e2f989c7d06f98b6e462c835a4 # Type anything you want
+#   # Discord Auth App
+#   DISCORD_CLIENT_ID: "Your bot id"
+#   DISCORD_CLIENT_SECRET: "Your bot secret"
+  
+#   # You have to add the redirect url in your discord developer portal, remove the <>
+#   # Link: https://discord.com/developers/applications/<your_bot_id>/oauth2/general
+#   # If you change the PORT, you have to change this to! Ex: `PORT: 9999, DISCORD_REDIRECT_URL: http://localhost:9999/api/auth/discord/redirect`
+#   DISCORD_REDIRECT_URL: http://localhost:3000/api/auth/discord/redirect 
+#   DISCORD_API_URL: https://discord.com/api/v10
+#   # If you use https, you have to enable SECURE
+#   SECURE: false
 ```
 After installation or finishes all you can use `npm start` to start the bot. or `Run Start.bat`
 
