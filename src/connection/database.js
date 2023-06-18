@@ -14,8 +14,8 @@ module.exports = async (client) => {
             && !db_config.MYSQL.enable 
             && !db_config.MONGO_DB.enable
         ) {
-            await database.JSONDriver(client, db_config).then(() => {
-                load_file()
+            await database.JSONDriver(client, db_config).then(async () => {
+                await load_file()
             })
             return
         }
@@ -25,8 +25,8 @@ module.exports = async (client) => {
             && !db_config.JSON.enable 
             && !db_config.MYSQL.enable
         ) {
-            await database.MongoDriver(client, db_config).then(() => {
-                load_file()
+            await database.MongoDriver(client, db_config).then(async () => {
+                await load_file()
             })
             return
         }
@@ -36,13 +36,13 @@ module.exports = async (client) => {
             && !db_config.JSON.enable 
             && !db_config.MONGO_DB.enable
         ) {
-            await database.SQLDriver(client, db_config).then(() => {
-                load_file()
+            await database.SQLDriver(client, db_config).then(async () => {
+                await load_file()
             })
             return
         } else {
-            await database.JSONDriver(client, db_config).then(() => {
-                load_file()
+            await database.JSONDriver(client, db_config).then(async () => {
+                await load_file()
             })
             return 
         }

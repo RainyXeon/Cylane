@@ -50,7 +50,11 @@ class Manager extends Client {
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
 
+    this.logger.info("Booting client...")
+
     if (this.config.NODES.length > 1) return this.logger.error("You cannot use multi lavalink server when in autofix lavalink mode!")
+
+    require(`../../connection/database`)(this)
 
     this.manager = new Kazagumo({
         defaultSearchEngine: "youtube", 
@@ -76,7 +80,7 @@ class Manager extends Client {
             new Nico({ searchLimit: 10 }),
             new Plugins.PlayerMoved(this)
           ],
-    }, new Connectors.DiscordJS(this), this.config.NODES, this.config.get.features.AUTOFIX_LAVALINK ? null : this.config.SHOUKAKU_OPTIONS);
+    }, new Connectors.DiscordJS(this), this.config.NODES);
 
     const loadCollection = [
         "slash", 
@@ -92,10 +96,6 @@ class Manager extends Client {
     if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
 
     loadCollection.forEach(x => this[x] = new Collection())
-
-    this.logger.info("Booting client...")
-
-    require(`../../connection/database`)(this)
 
     const client = this;
 

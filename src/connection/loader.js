@@ -1,14 +1,14 @@
 module.exports = async (client) => {
   if (!client.shard_status) {
     const loadFile = [
-      "loadEvent",
+      "loadCheck",
       "loadNodeEvents",
       "loadPlayer",
+      "loadEvent",
       "loadWebSocket",
       "loadWsMessage",
       "loadCommand",
-      "loadPrefixCommand",
-      "loadCheck"
+      "loadPrefixCommand"
     ]
 
     if (!client.config.features.WEBSOCKET.enable){
@@ -26,12 +26,12 @@ module.exports = async (client) => {
 
   } else if (client.shard_status) {
     const shardLoadFile = [
+      "loadCheck",
+      "loadCommand",
+      "loadPrefixCommand",
       "loadEvent",
       "loadNodeEvents",
       "loadPlayer",
-      "loadCommand",
-      "loadPrefixCommand",
-      "loadCheck"
     ]
 
     if (!client.config.get.features.AUTOFIX_LAVALINK) {

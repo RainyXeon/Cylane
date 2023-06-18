@@ -7,7 +7,6 @@ module.exports = {
     run: async (interaction, client, language) => {
         console.log(client.manager.shoukaku.nodes)
         await interaction.deferReply({ ephemeral: false });
-        await autofix(client)
             const invite = new EmbedBuilder()
                 .setTitle(`${client.i18n.get(language, "info", "inv_title" , { username: client.user.username })}`)
                 .setDescription(`${client.i18n.get(language, "info", "inv_desc", { username: client.user.username })}`)
