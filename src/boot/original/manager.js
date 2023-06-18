@@ -38,12 +38,19 @@ class Manager extends Client {
     this.wss = this.config.features.WEBSOCKET.enable ? new WebSocket.Server({ port: this.config.features.WEBSOCKET.port }) : undefined
     this.config.features.WEBSOCKET.enable ? this.wss.message = new Collection() : undefined
     this.prefix = this.config.features.MESSAGE_CONTENT.prefix
-    this.count = 0
     this.shard_status = false
     if (this.config.get.features.ALIVE_SERVER.enable) require("../../plugins/alive_server.js")
 
+    // Auto fix lavalink varibles
+    this.lavalink_list = []
+    this.lavalink_using = []
+    this.fixing_nodes = false
+    this.used_lavalink = []
+
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
+
+    if (this.config.NODES.length > 1) return this.logger.error("You cannot use multi lavalink server when in autofix lavalink mode!")
 
     this.manager = new Kazagumo({
         defaultSearchEngine: "youtube", 
@@ -69,7 +76,7 @@ class Manager extends Client {
             new Nico({ searchLimit: 10 }),
             new Plugins.PlayerMoved(this)
           ],
-    }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
+    }, new Connectors.DiscordJS(this), this.config.NODES, this.config.get.features.AUTOFIX_LAVALINK ? null : this.config.SHOUKAKU_OPTIONS);
 
     const loadCollection = [
         "slash", 

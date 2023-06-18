@@ -40,7 +40,12 @@ module.exports = {
         auth: process.env.NODE_AUTH || 'coders',
         secure: parseBoolean(process.env.NODE_SECURE || 'false'),
       },
-    ] : doc.lavalink.NODES || [
+    ] : [{
+      url: doc.lavalink.NODES.url,
+      name: doc.lavalink.NODES.url,
+      auth: doc.lavalink.NODES.auth,
+      secure: doc.lavalink.NODES.secure
+    }] || [
       {
         url: 'lavalink-coders.ml:80',
         name: 'Main',

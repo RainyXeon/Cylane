@@ -7,6 +7,7 @@ module.exports = {
     category: "Info",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
+        console.log(client.lavalink_list)
           const info = new EmbedBuilder()
              .setTitle(client.user.tag + " Status")
              .addFields([

@@ -1,13 +1,14 @@
 module.exports = async (client) => {
   if (!client.shard_status) {
     const loadFile = [
+      "loadEvent",
+      "loadNodeEvents",
+      "loadPlayer",
+      "loadWebSocket",
+      "loadWsMessage",
       "loadCommand",
       "loadPrefixCommand",
-      "loadEvent",
-      "loadPlayer",
-      "loadNodeEvents",
-      "loadWebSocket",
-      "loadWsMessage"
+      "loadCheck"
     ]
 
     if (!client.config.features.WEBSOCKET.enable){
@@ -17,20 +18,27 @@ module.exports = async (client) => {
 
     if (!client.config.features.MESSAGE_CONTENT.enable) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
 
+    if (!client.config.get.features.AUTOFIX_LAVALINK) {
+      loadFile.splice(loadFile.indexOf('loadCheck'), 1);
+    }
+
     loadFile.forEach(x => require(`../handlers/${x}`)(client));
 
   } else if (client.shard_status) {
     const shardLoadFile = [
+      "loadEvent",
+      "loadNodeEvents",
+      "loadPlayer",
       "loadCommand",
       "loadPrefixCommand",
-      "loadEvent",
-      "loadDatabase",
-      "loadPlayer",
-      "loadNodeEvents"
+      "loadCheck"
     ]
 
+    if (!client.config.get.features.AUTOFIX_LAVALINK) {
+      shardLoadFile.splice(shardLoadFile.indexOf('loadCheck'), 1);
+    }
     if (!client.config.features.MESSAGE_CONTENT.enable) shardLoadFile.splice(shardLoadFile.indexOf('loadPrefixCommand'), 1);
     
-    shardLoadFile.forEach(x => require(`../../handlers/${x}`)(this));
+    shardLoadFile.forEach(x => require(`../handlers/${x}`)(client));
   }
 }
