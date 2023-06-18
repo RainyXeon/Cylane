@@ -8,7 +8,7 @@
 - [x] Play music from file
 - [x] Easy to use
 - [x] Autocomplete (Play command)
-- [x] Lavalink restore system (`sudo addnode`, `sudo remove_node`)
+- [x] Auto restore lavalink (Get from [lavalink.darrennathanael.com](https://lavalink.darrennathanael.com/NoSSL/lavalink-without-ssl/) sources)
 
 ## 🎶 Support Source
 - [x] Youtube
@@ -379,3 +379,10 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 ## 🛑 Super Requirements 
 
 Java 11-13 **[Download JDK13](http://www.mediafire.com/file/m6gk7aoq96db8g0/file)** (i use this version) for LAVALINK!
+
+## Special thanks
+
+- [@DarrenOfficial](https://github.com/DarrenOfficial) [Lavalink Sources]
+- [@Pain6900](https://github.com/Pain6900) [My friend]
+- [@Adivise](https://github.com/Adivise) [Framework]
+- And everyone who starred and contribute my project 💖
