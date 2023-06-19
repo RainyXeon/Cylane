@@ -36,7 +36,7 @@ module.exports = {
     [
       {
         url: process.env.NODE_URL || 'lavalink-coders.ml:80',
-        name: process.env.NODE_NAME || 'Main (PROCESS.ENV)',
+        name: process.env.NODE_NAME || 'lavalink-coders.ml:80',
         auth: process.env.NODE_AUTH || 'coders',
         secure: parseBoolean(process.env.NODE_SECURE || 'false'),
       },
@@ -48,7 +48,7 @@ module.exports = {
     }] || [
       {
         url: 'lavalink-coders.ml:80',
-        name: 'Main',
+        name: 'lavalink-coders.ml:80',
         auth: 'coders',
         secure: false,
       },
