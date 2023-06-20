@@ -8,8 +8,8 @@ const timezoned = () => {
 }
 
 function filterLog(info) {
-  const info_print = chalk.hex('#0a84d8');
-  const debug = chalk.hex("#09edc3")
+  const info_print = chalk.hex('#00CFF0');
+  const debug = chalk.hex("#F5A900")
   const warning = chalk.hex("#FBEC5D")
   const error = chalk.hex("#e12885")
   const online = chalk.hex("#00FF7F")
@@ -57,7 +57,7 @@ const logger = createLogger({
 
 	transports: [
     new transports.Console({
-      level: 'offline',
+      level: 'debug',
       format: customFormat,
     }),
 
