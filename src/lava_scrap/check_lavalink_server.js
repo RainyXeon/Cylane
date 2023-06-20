@@ -1,4 +1,4 @@
-const getLavalinkServer = require("./getLavalinkServer")
+const getLavalinkServer = require("./get_lavalink_server")
 const Websocket = require("ws")
 module.exports = async (client) => {
   client.logger.info("Running check lavalink server from [https://lavalink.darrennathanael.com/] source")
