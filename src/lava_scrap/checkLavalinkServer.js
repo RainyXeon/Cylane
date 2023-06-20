@@ -60,7 +60,7 @@ module.exports = async (client) => {
         name: `${config.host}:${config.port}`,
         online: true
       }) 
-      console.log(`ONLINE: ${url}`)
+      client.logger.online(`Server: ${url}`)
     }).catch(err => {
       client.lavalink_list.push({
         host: config.host,
@@ -70,7 +70,7 @@ module.exports = async (client) => {
         name: `${config.host}:${config.port}`,
         online: false
       }) 
-      console.log(`Error in url: ${url}`)
+      client.logger.offline(`Server: ${url}`)
     });
 
   }

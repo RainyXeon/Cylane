@@ -2,7 +2,7 @@ const regex = /^(wss?|ws?:\/\/)([0-9]{1,3}(?:\.[0-9]{1,3}){3}|[^\/]+):([0-9]{1,5
 module.exports = async (client) => {
   client.logger.info("----- Starting autofix lavalink... -----")
 
-  if (client.manager.shoukaku.nodes) {
+  if (client.manager.shoukaku.nodes && client.lavalink_using.length == 0) {
     client.manager.shoukaku.nodes.forEach((data, index) => {
         const res = regex.exec(data.url)
         client.lavalink_using.push({
