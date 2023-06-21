@@ -106,3 +106,5 @@ dist
 application.yml
 
 cylane.database.json
+
+.cylane/

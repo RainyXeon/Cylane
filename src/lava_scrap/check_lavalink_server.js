@@ -70,7 +70,7 @@ module.exports = async (client) => {
         name: `${config.host}:${config.port}`,
         online: false
       }) 
-      client.logger.error(`Server: ${url}`)
+      client.logger.offline(`Server: ${url}`)
     });
 
   }
