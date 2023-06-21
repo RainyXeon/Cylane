@@ -8,7 +8,6 @@ let doc
 try {
   const yaml_files = yaml.load(fs.readFileSync('./application.yml', 'utf8'));
   doc = yaml_files
-  parseProcessEngine(doc)
 } catch (e) {
   console.log(e);
 }
@@ -100,30 +99,4 @@ function parseBoolean(value){
       default:
           return false;
   }
-}
-
-function parseProcessEngine(value) {
-  const array_filter_1 = []
-  const array_filter_2 = []
-  let array_backup
-  const split = Object.values(value)
-
-  for (let i = 0; i < split.length; i++) {
-    const element = Object.values(split[i]);
-    array_filter_1.push(...element)
-  }
-
-  for (let i = 0; i < array_filter_1.length; i++) {
-    const element = array_filter_1[i];
-
-    if (typeof element === 'object' && element !== null) {
-      array_backup = array_filter_1
-      const element_filter = Object.values(element);
-      array_filter_2.push(...element_filter)
-    }
-    
-    array_filter_2.push(element)
-  }
-
-  console.log(array_filter_2)
 }
