@@ -18,17 +18,17 @@ function filterLog(info) {
 
   switch (info.level) {
     case "info":
-      return info_print(info.level)
+      return info_print(info.level.toUpperCase().padEnd(7))
     case "debug":
-      return debug(info.level)
+      return debug(info.level.toUpperCase().padEnd(7))
     case "warn":
-      return warning(info.level)
+      return warning(info.level.toUpperCase().padEnd(7))
     case "error":
-      return error(info.level)
+      return error(info.level.toUpperCase().padEnd(7))
     case "online":
-      return online(info.level)
+      return online(info.level.toUpperCase().padEnd(7))
     case "offline":
-      return offline(info.level)
+      return offline(info.level.toUpperCase().padEnd(7))
   }
 }
 
