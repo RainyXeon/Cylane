@@ -201,3 +201,6 @@ stop_loading: "Loading please wait..."
 stop_msg: "`⏯` | **Stopped and clear the queue.**"
 
 number_invalid: "Invalid argument, must be a number."
+
+enabled: "Enabled"
+disabled: "Disabled"

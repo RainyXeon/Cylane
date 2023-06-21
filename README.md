@@ -8,7 +8,7 @@
 - [x] Play music from file
 - [x] Easy to use
 - [x] Autocomplete (Play command)
-- [x] Lavalink restore system (`sudo addnode`, `sudo remove_node`)
+- [x] Auto restore lavalink (Get from [lavalink.darrennathanael.com](https://lavalink.darrennathanael.com/NoSSL/lavalink-without-ssl/) sources)
 
 ## 🎶 Support Source
 - [x] Youtube
@@ -19,6 +19,11 @@
 - [x] Twitch
 - [x] Bandcamp
 - [x] NicoVideo
+
+## 🎶 Support Database
+- [x] Mysql
+- [x] Mongo DB
+- [x] JSON
 
 <details><summary>📎 Requirements [CLICK ME]</summary>
 <p>
@@ -62,8 +67,7 @@ bot:
   LANGUAGE: en # You can set it to vi, en, th,...
   LIMIT_TRACK: 50 # The number of tracks you want to limit
   LIMIT_PLAYLIST: 20 # The number of playlist you want to limit
-  # Your mongo_uri, you can get it from here: https://www.mongodb.com/
-  MONGO_URI: mongodb://127.0.0.1:27017/dreamvast
+
 
 lavalink:
 
@@ -99,6 +103,22 @@ lavalink:
   }
 
 features:
+  DATABASE:
+  # Note: You can't enable all or 2 databases. It will return to JSON database
+    JSON:
+      enable: false
+      path: "./cylane.database.json"
+    MONGO_DB:
+      enable: true
+      # Your mongo_uri, you can get it from here: https://www.mongodb.com/
+      uri: mongodb://127.0.0.1:27017/dreamvast
+    MYSQL: 
+      enable: true
+      host: "localhost"
+      user: "me"
+      password: "secret"
+      database: "my_db"
+  
   SHARD_SYSTEM: 
     enable: false # If you want to use shard system, change it to `true`
     totalShards: 3 # you can set to every number you want but for save mode, use 'auto' option
@@ -112,6 +132,9 @@ features:
   
   AUTO_DEPLOY: true
   AUTO_REMOVE_DUPLICATE: true
+
+  # Fix the lavalink server when the current is down
+  AUTOFIX_LAVALINK: true
 
   ALIVE_SERVER:
     enable: false
@@ -356,3 +379,10 @@ Just add `ENABLE_MESSAGE=true` on `.env` and make sure you have enabled `MESSAGE
 ## 🛑 Super Requirements 
 
 Java 11-13 **[Download JDK13](http://www.mediafire.com/file/m6gk7aoq96db8g0/file)** (i use this version) for LAVALINK!
+
+## Special thanks
+
+- [@DarrenOfficial](https://github.com/DarrenOfficial) [Lavalink Sources]
+- [@Pain6900](https://github.com/Pain6900) [My friend]
+- [@Adivise](https://github.com/Adivise) [Framework]
+- And everyone who starred and contribute my project 💖

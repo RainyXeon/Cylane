@@ -1,13 +1,29 @@
-const db  = require("../../schemas/autoreconnect")
+const regex = /^(wss?|ws?:\/\/)([0-9]{1,3}(?:\.[0-9]{1,3}){3}|[^\/]+):([0-9]{1,5})$/
 
 module.exports = async (client, name) => {
+    client.fixing_nodes = false
+    client.manager.shoukaku.nodes.forEach((data, index) => {
+        const res = regex.exec(data.url)
+        client.lavalink_using.push({
+            host: res[2],
+            port: res[3],
+            pass: data.auth,
+            secure: res[1] == "ws://" ? false : true,
+            name: index
+        })
+    })
+
     client.logger.info(`Lavalink [${name}] connected.`);
     client.logger.info("Auto ReConnect Collecting player 24/7 data");
-    const maindata = await db.find()
-    client.logger.info(`Auto ReConnect found in ${maindata.length} servers!`);
-    if (maindata.length === 0) return
-    for (let data of maindata) {
-        const index = maindata.indexOf(data);
+    const maindata = await client.db.get(`autoreconnect`)
+    if (!maindata) return client.logger.info(`Auto ReConnect found in 0 servers!`);
+
+    client.logger.info(`Auto ReConnect found in ${Object.keys(maindata).length} servers!`);
+    if (Object.keys(maindata).length === 0) return
+
+    Object.keys(maindata).forEach(async function(key, index) {
+        const data = maindata[key];
+
         setTimeout(async () => {
             const channel = client.channels.cache.get(data.text)
             const voice = client.channels.cache.get(data.voice)
@@ -21,7 +37,5 @@ module.exports = async (client, name) => {
             player.twentyFourSeven = true;
             }
             
-        ), index * 5000}
-
-        client.count = 0
+        ), index * 5000})
 };

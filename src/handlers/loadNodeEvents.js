@@ -1,6 +1,6 @@
 const { readdirSync } = require('fs');
-
 module.exports = async (client) => {
+    // console.log(await getLavalinkServer())
     readdirSync("./src/events/node/").forEach(file => {
         const event = require(`../events/node/${file}`);
         let eventName = file.split(".")[0];

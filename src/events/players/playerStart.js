@@ -1,19 +1,15 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, } = require("discord.js");
 const formatduration = require('../../structures/FormatDuration.js');
 const { QueueDuration } = require("../../structures/QueueDuration.js");
-const GControl = require("../../schemas/control.js")
-const GLang = require("../../schemas/language.js")
-const Setup = require("../../schemas/setup.js")
 
 module.exports = async (client, player, track) => {
   const guild = await client.guilds.cache.get(player.guildId)
   client.logger.info(`Player Started in @ ${guild.name} / ${player.guildId}`);
-  let Control = await GControl.findOne({ guild: player.guildId });
+
+  let Control = await client.db.get(`control.guild_${player.guildId}`)
   if (!Control) {
-    Control = await GControl.create({
-      guild: player.guildId,
-      playerControl: "disable",
-    });
+    await client.db.set(`control.guild_${player.guildId}`, "disable")
+    Control = client.db.get(`control.guild_${player.guildId}`)
   }
 
   if (!player) return;
@@ -27,20 +23,15 @@ module.exports = async (client, player, track) => {
   const channel = client.channels.cache.get(player.textId);
   if (!channel) return;
 
-  let data = await Setup.findOne({ guild: channel.guild.id });
+  let data = await client.db.get(`setup.guild_${channel.guild.id}`)
   if (player.textChannel === data.channel) return;
 
-
-  let guildModel = await GLang.findOne({
-    guild: channel.guild.id,
-  });
+  let guildModel = await client.db.get(`language.guild_${channel.guild.id}`)
   if (!guildModel) {
-    guildModel = await GLang.create({
-      guild: channel.guild.id,
-      language: "en",
-    });
+      guildModel = await client.db.set(`language.guild_${channel.guild.id}`, "en")
   }
-  const { language } = guildModel;
+
+  const language = guildModel;
 
   const song = player.queue.current;
   const position = player.shoukaku.position
@@ -102,7 +93,7 @@ module.exports = async (client, player, track) => {
 
   }
 
-  if (Control.playerControl === 'disable') return
+  if (Control === 'disable') return
 
   const embeded = new EmbedBuilder()
     .setAuthor({ name: `${client.i18n.get(language, "player", "track_title")}`, iconURL: `${client.i18n.get(language, "player", "track_icon")}` })

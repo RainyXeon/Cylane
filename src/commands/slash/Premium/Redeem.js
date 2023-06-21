@@ -1,7 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const moment = require('moment');
-const Premium = require("../../../schemas/premium.js");
-const Redeem = require("../../../schemas/redeem.js");
 
 module.exports = {
     name: ["redeem"],
@@ -20,7 +18,7 @@ module.exports = {
         
         const input = interaction.options.getString("code");
         
-        let member = await Premium.findOne({ Id: interaction.user.id })
+        let member = await client.db.get(`premium.user_${interaction.user.id}`)
 
         if (member && member.isPremium) {
             const embed = new EmbedBuilder()
@@ -29,7 +27,10 @@ module.exports = {
             return interaction.editReply({ embeds: [embed] });
         }
   
-        const premium = await Redeem.findOne({ code: input.toUpperCase() });
+        const premium = await client.db.get(`code.pmc_${input.toUpperCase()}`)
+
+        if (input == "pmc_thedreamvastghost") return interaction.editReply("WU9VIENBTidUIERPIFRISVMgRk9SIEZSRUUgUFJFTUlVTQotIFJhaW55WGVvbiAt") 
+
         if (premium) {
             const expires = moment(premium.expiresAt).format('do/MMMM/YYYY (HH:mm:ss)')
             const embed = new EmbedBuilder()
@@ -41,34 +42,20 @@ module.exports = {
                 .setColor(client.color)
                 .setTimestamp()
 
-            if (!member) {
-                const newMem = new Premium({
-                    Id: interaction.user.id,
-                    isPremium: true,
-                    premium: {
-                        redeemedBy: interaction.user,
-                        redeemedAt: Date.now(),
-                        expiresAt: premium.expiresAt,
-                        plan: premium.plan
-                    }
-                })
-                return newMem.save().then(async () => {
-                    await interaction.editReply({ embeds: [embed] });
-                    await premium.deleteOne();
-                }).catch((e) => client.logger.log({ level: 'error', message: e }))
+            const data = {
+                id: interaction.user.id,
+                isPremium: true,
+                redeemedBy: interaction.user,
+                redeemedAt: Date.now(),
+                expiresAt: premium.expiresAt,
+                plan: premium.plan
             }
-  
-            member.isPremium = true
-            member.premium.redeemedBy.push(interaction.user)
-            member.premium.redeemedAt = Date.now()
-            member.premium.expiresAt = premium.expiresAt
-            member.premium.plan = premium.plan
 
-            member = await member.save();
-            await client.premiums.set(interaction.user.id, member)
-            await premium.deleteOne();
+            await client.db.set(`premium.user_${interaction.user.id}`, data)
+            await interaction.editReply({ embeds: [embed] });
+            await client.premiums.set(interaction.user.id, data)
+            return client.db.delete(`code.pmc_${input.toUpperCase()}`)
 
-            return interaction.editReply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
                 .setColor(client.color)

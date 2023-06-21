@@ -1,7 +1,6 @@
 const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
 const { StartQueueDuration } = require("../../../structures/QueueDuration.js");
-
 module.exports = {
     name: ["play"],
     description: "Play a song from any types",
@@ -34,7 +33,7 @@ module.exports = {
                     guildId: interaction.guild.id,
                     voiceId: interaction.member.voice.channel.id,
                     textId: interaction.channel.id,
-                    deaf: true,
+                    deaf: true
                   });
                 
                 const result = await player.search(value, { requester: interaction.user });

@@ -1,7 +1,6 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const formatDuration = require('../../../structures/FormatDuration.js');
-const { SlashPage } = require('../../../structures/PageQueue.js');
-const Playlist = require("../../../schemas/playlist.js");
+const { NormalPage } = require('../../../structures/PageQueue.js');
 
 module.exports = {
     name: "playlist-detail",
@@ -13,14 +12,21 @@ module.exports = {
     run: async (client, message, args, language, prefix) => {
         
         
-        const value = args[0]
+        const value = args[0] ? args[0] : null;
         const number = args[1];
 
-        if (value && isNaN(value)) return message.channel.send(`${client.i18n.get(language, "music", "number_invalid")}`);
+        if (number && isNaN(number)) return message.channel.send(`${client.i18n.get(language, "music", "number_invalid")}`);
 
         const Plist = value.replace(/_/g, ' ');
         
-        const playlist = await Playlist.findOne({ name: Plist, owner: message.author.id });
+        const fullList = await client.db.get("playlist")
+
+        const pid = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == message.author.id && fullList[key].name == Plist;
+          })
+
+        const playlist = fullList[pid[0]]
+
         if(!playlist) return message.channel.send(`${client.i18n.get(language, "playlist", "detail_notfound")}`);
         if(playlist.private && playlist.owner !== message.author.id) return message.channel.send(`${client.i18n.get(language, "playlist", "detail_private")}`);
 
@@ -45,7 +51,7 @@ module.exports = {
 
         const pages = [];
         for (let i = 0; i < pagesNum; i++) {
-            const str = playlistStrings.slice(i * 10, i * 10 + 10).join('');
+            const str = playlistStrings.slice(i * 10, i * 10 + 10).join(`\n`);
             const embed = new EmbedBuilder() //${playlist.name}'s Playlists
                 .setAuthor({ name: `${client.i18n.get(language, "playlist", "detail_embed_title", {
                     name: playlist.name
@@ -62,7 +68,7 @@ module.exports = {
             pages.push(embed);
         }
         if (!number) {
-            if (pages.length == pagesNum && playlist.tracks.length > 10) SlashPage(client, message, pages, 60000, playlist.tracks.length, totalDuration, language);
+            if (pages.length == pagesNum && playlist.tracks.length > 10) NormalPage(client, message, pages, 60000, playlist.tracks.length, totalDuration, language);
             else return message.channel.send({ embeds: [pages[0]] });
         } else {
             if (isNaN(number)) return message.channel.send(`${client.i18n.get(language, "playlist", "detail_notnumber")}`);

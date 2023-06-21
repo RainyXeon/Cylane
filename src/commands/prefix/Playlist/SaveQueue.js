@@ -1,5 +1,4 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
-const Playlist = require("../../../schemas/playlist.js");
 
 const TrackAdd = [];
 const TrackExist = []
@@ -15,9 +14,16 @@ module.exports = {
     run: async (client, message, args, language, prefix) => {
         
 
-        const value = args[0]
+        const value = args[0] ? args[0] : null;
         const Plist = value.replace(/_/g, ' ');
-        const playlist = await Playlist.findOne({ name: Plist, owner: message.author.id });
+        const fullList = await client.db.get("playlist")
+
+        const pid = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == message.author.id && fullList[key].name == Plist;
+          })
+
+        const playlist = fullList[pid[0]]
+
 
         if(!playlist) return message.channel.send(`${client.i18n.get(language, "playlist", "savequeue_notfound")}`);
         if(playlist.owner !== message.author.id) return message.channel.send(`${client.i18n.get(language, "playlist", "savequeue_owner")}`);
@@ -63,8 +69,8 @@ module.exports = {
             .setColor(client.color)
         await message.channel.send({ embeds: [embed] });
 
-        TrackAdd.forEach(track => {
-            playlist.tracks.push(
+        Result.forEach(async track => {
+            await client.db.push(`playlist.${pid[0]}.tracks`,
               {
                 title: track.title,
                 uri: track.uri,
@@ -75,10 +81,9 @@ module.exports = {
               }
             )
         });
-        await playlist.save().then(() => {
-            TrackAdd.length = 0;
-            TrackExist.length = 0
-            Result = null
-        });
+
+        TrackAdd.length = 0;
+        TrackExist.length = 0
+        Result = null
     }
 }

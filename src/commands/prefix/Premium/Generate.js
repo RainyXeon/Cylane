@@ -1,7 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 const moment = require('moment');
 const voucher_codes = require('voucher-code-generator');
-const Redeem = require("../../../schemas/redeem.js");
 
 module.exports = {
     name: "premium-generate",
@@ -39,10 +38,10 @@ module.exports = {
         })
 
         const code = codePremium.toString().toUpperCase()
-        const find = await Redeem.findOne({ code: code })
+        const find = await client.db.get(`code.pmc_${code}`)
 
         if (!find) {
-            Redeem.create({
+            await client.db.set(`code.pmc_${code}`, {
                 code: code,
                 plan: plan,
                 expiresAt: time

@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-const db = require("../../../schemas/autoreconnect")
 module.exports = {
     name: "247",
     description: "24/7 in voice channel",
@@ -16,26 +15,27 @@ module.exports = {
         const { channel } = message.member.voice;
         if (!channel || message.member.voice.channel !== message.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
 
-        let data = await db.findOne({ guild: message.guild.id })
 
-        if (data) {
-            await data.delete();
-            const on = new EmbedBuilder()
-                .setDescription(`${client.i18n.get(language, "music", "247_off")}`)
-                .setColor(client.color);
-            msg.edit({ content: " ", embeds: [on] });
-
-        } else if (!data) {
-            data = new db({
-                guild: player.guildId,
-                text: player.textId,
-                voice: player.voiceId
-            })
-            await data.save();
-            const on = new EmbedBuilder()
-                .setDescription(`${client.i18n.get(language, "music", "247_on")}`)
-                .setColor(client.color);
-            msg.edit({ content: " ", embeds: [on] });
-        }
-    }
+        let data = await client.db.get(`autoreconnect.guild_${message.guild.id}`) 
+  
+         if (data) { 
+             await client.db.delete(`autoreconnect.guild_${message.guild.id}`) 
+             const on = new EmbedBuilder() 
+                 .setDescription(`${client.i18n.get(language, "music", "247_off")}`) 
+                 .setColor(client.color); 
+             msg.edit({ content: " ", embeds: [on] }); 
+  
+         } else if (!data) { 
+             await client.db.set(`autoreconnect.guild_${message.guild.id}`, { 
+                 guild: player.guildId, 
+                 text: player.textId, 
+                 voice: player.voiceId 
+             }) 
+  
+             const on = new EmbedBuilder() 
+                 .setDescription(`${client.i18n.get(language, "music", "247_on")}`) 
+                 .setColor(client.color); 
+             return msg.edit({ content: " ", embeds: [on] }); 
+         }
+    } 
 }

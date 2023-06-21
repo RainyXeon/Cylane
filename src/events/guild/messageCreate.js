@@ -1,14 +1,18 @@
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
-const GPrefix = require('../../schemas/prefix.js');
-const GLang = require("../../schemas/language.js");
 
 module.exports = async (client, message) => { 
     if(message.author.bot || message.channel.type === "dm") return;
 
     let LANGUAGE = client.i18n;
-    let guildModel = await GLang.findOne({ guild: message.guild.id });
+    let guildModel = await client.db.get(`language.guild_${message.guild.id}`)
 
-    if(guildModel && guildModel.language) LANGUAGE = guildModel.language;
+    if(guildModel) LANGUAGE = guildModel;
+    else if(!guildModel) {
+      await client.db.set(`language.guild_${message.guild.id}`, client.config.get.bot.LANGUAGE)
+      const newModel = await client.db.get(`language.guild_${message.guild.id}`)
+      LANGUAGE = newModel
+    }
+
     const language = LANGUAGE;
 
 
@@ -16,8 +20,13 @@ module.exports = async (client, message) => {
 
     const mention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     
-    const GuildPrefix = await GPrefix.findOne({ guild: message.guild.id });
-    if(GuildPrefix && GuildPrefix.prefix) PREFIX = GuildPrefix.prefix;
+    const GuildPrefix = await client.db.get(`prefix.guild_${message.guild.id}`)
+    if(GuildPrefix) PREFIX = GuildPrefix;
+    else if(!GuildPrefix) {
+      await client.db.set(`prefix.guild_${message.guild.id}`, client.prefix)
+      const newPrefix = await client.db.get(`prefix.guild_${message.guild.id}`)
+      PREFIX = newPrefix
+    }
 
     if (message.content.match(mention)) {
       const embed = new EmbedBuilder()
@@ -40,8 +49,6 @@ module.exports = async (client, message) => {
     if(!message.guild.members.me.permissions.has(PermissionsBitField.Flags.EmbedLinks)) return await message.channel.send(`${client.i18n.get(language, "interaction", "no_perms")}`);
 
     if(command.owner && message.author.id != client.owner) return message.channel.send(`${client.i18n.get(language, "interaction", "owner_only")}`);
-
-    
 
     try {
       if (command.premium) {

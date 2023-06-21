@@ -1,13 +1,44 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const moment = require('moment');
 const voucher_codes = require('voucher-code-generator');
-const Redeem = require("../../../schemas/redeem.js");
 
 module.exports = {
     name: ["premium", "generate"],
     description: "Generate a premium code!",
     category: "Premium",
     owner: true,
+    options: [
+        {
+            name: "plan",
+            description: "Avalible: daily, weekly, monthly, yearly",
+            required: true,
+            type: ApplicationCommandOptionType.String,
+            choices: [
+                {
+                    name: "Daily",
+                    value: "daily"
+                },
+                {
+                    name: "Weekly",
+                    value: "Weekly"
+                },
+                {
+                    name: "Monthly",
+                    value: "Monthly"
+                },
+                {
+                    name: "Yearly",
+                    value: "Yearly"
+                },
+            ]
+        },
+        {
+            name: "amount",
+            description: "The song link or name",
+            type: ApplicationCommandOptionType.String,
+            required: true,
+        }
+    ],
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
 
@@ -34,14 +65,14 @@ module.exports = {
         })
 
         const code = codePremium.toString().toUpperCase()
-        const find = await Redeem.findOne({ code: code })
+        const find = await client.db.get(`code.pmc_${code}`)
 
         if (!find) {
-            Redeem.create({
+            await client.db.set(`code.pmc_${code}`, {
                 code: code,
                 plan: plan,
                 expiresAt: time
-            }),
+            })
                 codes.push(`${i + 1} - ${code}`)
             }
         }

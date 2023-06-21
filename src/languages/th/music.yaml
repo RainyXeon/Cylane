@@ -201,3 +201,6 @@ stop_msg: "`⏯` | **หยุดและล้างคิว**"
 number_invalid: "โปรดใช้ตัวเลข"
 
 removetrack_duplicate_desc: "ลบ `%{removed}` แทร็กออกจากคิว \n ก่อน: `%{original}` | หลัง: `%{new}`"
+
+enabled: "เปิดใช้งาน"
+disabled: "ปิดการใช้งาน"

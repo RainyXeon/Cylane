@@ -22,3 +22,6 @@ help_category: "%{category}"
 help_timeout: "```Menu trợ giúp đã hết hiệu lực, vui lòng dùng lệnh %{prefix}help để xem lại lần nữa.```"
 
 arg_error: "Vui lòng cho một `%{text}`!"
+
+page_title: "Trực tuyến: 🟢 / Ngoại tuyến: 🔴"
+page_footer: "Trang • %{page}/%{pages}"

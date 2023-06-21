@@ -1,7 +1,7 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const formatDuration = require('../../../structures/FormatDuration.js');
 const { convertTime } = require("../../../structures/ConvertTime.js");
-const { NormalPage } = require('../../../structures/MessagePageQueue.js');
+const { NormalPage } = require('../../../structures/PageQueue.js');
 
 // Main code
 module.exports = { 

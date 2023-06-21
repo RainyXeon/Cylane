@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, SelectMenuOptionBuilder } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require("discord.js");
 const { readdirSync } = require("fs");
 const { stripIndents } = require("common-tags");
 
@@ -52,14 +52,14 @@ module.exports = {
 
         const row = new ActionRowBuilder()
             .addComponents([
-                new SelectMenuBuilder()
+                new StringSelectMenuBuilder()
                     .setCustomId("help-category")
                     .setPlaceholder(`${client.i18n.get(language, "utilities", "help_desc")}`)
                     .setMaxValues(1)
                     .setMinValues(1)
                     /// Map the category to the select menu
                     .setOptions(category.map(category => {
-                        return new SelectMenuOptionBuilder()
+                        return new StringSelectMenuOptionBuilder()
                             .setLabel(category)
                             .setValue(category)
                         }
@@ -67,13 +67,13 @@ module.exports = {
                 ])
 
             message.reply({ embeds: [embed], components: [row] }).then(async (msg) => {
-                let filter = (i) => (i.isSelectMenu()) && i.user && i.message.author.id == client.user.id;
+                let filter = (i) => (i.isStringSelectMenu()) && i.user && i.message.author.id == client.user.id;
                 let collector = await msg.createMessageComponentCollector({ 
                     filter,
                     time: 60000 
                 });
                 collector.on('collect', async (m) => {
-                    if(m.isSelectMenu()) {
+                    if(m.isStringSelectMenu()) {
                         if(m.customId === "help-category") {
                             await m.deferUpdate();
                             let [directory] = m.values;

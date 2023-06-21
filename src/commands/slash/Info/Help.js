@@ -44,13 +44,13 @@ module.exports = {
                 ])
 
             interaction.editReply({ embeds: [embed], components: [row] }).then(async (msg) => {
-                let filter = (i) => (i.isSelectMenu()) && i.user && i.message.author.id == client.user.id;
+                let filter = (i) => (i.isStringSelectMenu()) && i.user && i.message.author.id == client.user.id;
                 let collector = await msg.createMessageComponentCollector({ 
                     filter,
                     time: 60000 
                 });
                 collector.on('collect', async (m) => {
-                    if(m.isSelectMenu()) {
+                    if(m.isStringSelectMenu()) {
                         if(m.customId === "help-category") {
                             await m.deferUpdate();
                             let [directory] = m.values;

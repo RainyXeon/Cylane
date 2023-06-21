@@ -21,8 +21,6 @@ module.exports = {
              ])
              .setTimestamp()
              .setColor(client.color);
-
-          console.log(client.manager.shoukaku.node)
           const row = new ActionRowBuilder()
                .addComponents(
                  new ButtonBuilder()

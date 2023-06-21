@@ -1,5 +1,4 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const GLang = require('../../../schemas/language.js'); 
 
 module.exports = {
     name: "language",
@@ -17,39 +16,26 @@ module.exports = {
             languages: languages.join(', ')
         })}`);
 
-        const newLang = await GLang.findOne({ guild: message.guild.id });
+        const newLang = await client.db.get(`language.guild_${message.guild.id}`)
         if(!newLang) {
-            const newLang = new GLang({
-                guild: message.guild.id,
+            await client.db.set(`language.guild_${message.guild.id}`, args[0])
+            const embed = new EmbedBuilder()
+            .setDescription(`${client.i18n.get(language, "utilities", "lang_set", {
                 language: args[0]
-            });
-            newLang.save().then(() => {
-                const embed = new EmbedBuilder()
-                .setDescription(`${client.i18n.get(language, "utilities", "lang_set", {
-                    language: args[0]
-                })}`)
-                .setColor(client.color)
+            })}`)
+            .setColor(client.color)
 
-                message.channel.send({ embeds: [embed] });
-            }
-            ).catch(() => {
-                message.channel.send(`${client.i18n.get(language, "utilities", "Lang_error")}`);
-            });
+            return message.channel.send({ embeds: [embed] });
         }
         else if(newLang) {
-            newLang.language = args[0];
-            newLang.save().then(() => {
-                const embed = new EmbedBuilder()
-                .setDescription(`${client.i18n.get(language, "utilities", "lang_change", {
-                    language: args[0]
-                })}`)
-                .setColor(client.color)
-    
-                message.channel.send({ embeds: [embed] });
-            }
-            ).catch(() => {
-                message.channel.send(`${client.i18n.get(language, "utilities", "Lang_error")}`);
-            });
+            await client.db.set(`language.guild_${message.guild.id}`, args[0])
+            const embed = new EmbedBuilder()
+            .setDescription(`${client.i18n.get(language, "utilities", "lang_change", {
+                language: args[0]
+            })}`)
+            .setColor(client.color)
+
+            return message.channel.send({ embeds: [embed] });
         }
     }
 }

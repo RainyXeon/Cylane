@@ -1,8 +1,6 @@
-const db  = require("../../schemas/autoreconnect")
-
 module.exports = async (client, player, track, playload) => {
   const guild = await client.guilds.cache.get(player.guildId)
-  let data = await db.findOne({ guild: player.guildId })
+  let data = await client.db.get(`autoreconnect.guild_${player.guildId}`)
 
   if (player.data.get('autoplay') === true) {
       const requester = player.data.get('requester')

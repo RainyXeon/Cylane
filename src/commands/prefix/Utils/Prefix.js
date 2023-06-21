@@ -1,5 +1,4 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const GPrefix = require('../../../schemas/prefix.js');
 
 module.exports = {
     name: "prefix",
@@ -13,39 +12,30 @@ module.exports = {
         if(!args[0]) return message.channel.send(`${client.i18n.get(language, "utilities", "prefix_arg")}`);
         if(args[0].length > 10) return message.channel.send(`${client.i18n.get(language, "utilities", "prefix_length")}`);
 
-        const newPrefix = await GPrefix.findOne({ guild: message.guild.id });
+        const newPrefix = await client.db.get(`prefix.guild_${message.guild.id}`)
+
         if(!newPrefix) {
-            const newPrefix = new GPrefix({
-                guild: message.guild.id,
-                prefix: args[0]
-            });
-            newPrefix.save().then(() => {
-                const embed = new EmbedBuilder()
+            await client.db.set(`prefix.guild_${message.guild.id}`, args[0])
+
+            const embed = new EmbedBuilder()
                 .setDescription(`${client.i18n.get(language, "utilities", "prefix_set", {
                     prefix: args[0]
                 })}`)
                 .setColor(client.color)
-
-                message.channel.send({ embeds: [embed] });
-            }
-            ).catch(() => {
-                message.channel.send(`${client.i18n.get(language, "utilities", "prefix_error")}`);
-            });
+    
+            return message.channel.send({ embeds: [embed] });
         }
         else if(newPrefix) {
-            newPrefix.prefix = args[0];
-            newPrefix.save().then(() => {
-                const embed = new EmbedBuilder()
-                .setDescription(`${client.i18n.get(language, "utilities", "prefix_change", {
-                    prefix: args[0]
-                })}`)
-                .setColor(client.color)
-    
-                message.channel.send({ embeds: [embed] });
-            }
-            ).catch(() => {
-                message.channel.send(`${client.i18n.get(language, "utilities", "prefix_error")}`);
-            });
+            await client.db.set(`prefix.guild_${message.guild.id}`, args[0])
+
+            const embed = new EmbedBuilder()
+            .setDescription(`${client.i18n.get(language, "utilities", "prefix_change", {
+                prefix: args[0]
+            })}`)
+            .setColor(client.color)
+
+            return message.channel.send({ embeds: [embed] });
+
         }
     }
 }

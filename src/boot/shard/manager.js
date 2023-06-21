@@ -34,8 +34,10 @@ class Manager extends Client {
 
     this.config = require("../../plugins/config.js");
     
-    if (this.config.features.WEBSOCKET.enable || this.config.get.features.ALIVE_SERVER.enable){
-        logger.error("You cannot enable this feature on advanced shard system! To use ws, please run the bot in normal mode by type `npm run start:normal` or `npm start`\n To disable, use <feature_name>: false in application.yml files")
+    if (
+        this.config.features.WEBSOCKET.enable
+        || this.config.get.features.ALIVE_SERVER.enable){
+        logger.error("You cannot enable this feature on advanced shard system!\n To use it, please run the bot in normal mode by type `npm run start:normal` or `npm start`\n To disable, use <feature_name>: false in application.yml files\nBanned features: ALIVE_SERVER, WEBSOCKET")
         process.exit()
     }
 
@@ -46,6 +48,13 @@ class Manager extends Client {
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
     this.prefix = this.config.features.MESSAGE_CONTENT.prefix
+    this.shard_status = true
+
+    // Auto fix lavalink varibles
+    this.lavalink_list = []
+    this.lavalink_using = []
+    this.fixing_nodes = false
+    this.used_lavalink = []
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }))
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }))
@@ -70,7 +79,7 @@ class Manager extends Client {
             new Nico({ searchLimit: 10 }),
             new Plugins.PlayerMoved(this)
           ],
-    }, new Connectors.DiscordJS(this), this.config.NODES, this.config.SHOUKAKU_OPTIONS);
+    }, new Connectors.DiscordJS(this), this.config.NODES, this.config.get.features.AUTOFIX_LAVALINK ? null : this.config.SHOUKAKU_OPTIONS);
 
     const loadCollection = [
         "slash", 
@@ -85,16 +94,10 @@ class Manager extends Client {
     if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
     
     loadCollection.forEach(x => this[x] = new Collection());
+
+    this.logger.info("Booting client...")
     
-    
-    [
-        "loadCommand",
-        "loadPrefixCommand",
-        "loadEvent",
-        "loadDatabase",
-        "loadPlayer",
-        "loadNodeEvents"
-    ].forEach(x => require(`../../handlers/${x}`)(this));
+    require(`../../connection/database`)(this)
 
     this.cluster = new Cluster.Client(this);
 

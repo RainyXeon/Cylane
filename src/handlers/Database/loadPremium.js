@@ -1,24 +1,27 @@
 const cron = require('node-cron')
-const Premium = require("../../schemas/premium.js");
 
 module.exports = async (client) => {
   cron.schedule('*/60 * * * * *', async () => {
-    await Premium.find({ isPremium: true }, async (err, users) => {
-      if (users && users.length) {
+    const users = await client.db.get("premium")
 
-        for (let user of users) {
-          if (Date.now() >= user.premium.expiresAt) {
+    if (users && Object.keys(users).length) {
 
-            user.isPremium = false
-            user.premium.redeemedBy = []
-            user.premium.redeemedAt = null
-            user.premium.expiresAt = null
-            user.premium.plan = null
+      Object.keys(users).forEach(async function(key, index) {
+        const element = users[key]
 
-            const newUser = await user.save({ new: true }).catch(() => {})
-          }
+        if (Date.now() >= element.expiresAt) {
+          await client.db.set(`premium.user_${key}`, {
+            id: key,
+            isPremium: false,
+            redeemedBy: [],
+            redeemedAt: null,
+            expiresAt: null,
+            plan: null
+          })
         }
-      }
-    })
+
+      });
+
+    }
   })
 }

@@ -1,5 +1,4 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
-const Playlist = require("../../../schemas/playlist.js");
 
 module.exports = {
     name: ["playlist", "remove"],
@@ -26,15 +25,25 @@ module.exports = {
         const pos = interaction.options.getInteger("postion");
 
         const Plist = value.replace(/_/g, ' ');
-        const playlist = await Playlist.findOne({ name: Plist, owner: interaction.user.id });
+        const fullList = await client.db.get("playlist")
+
+        const pid = Object.keys(fullList).filter(function(key) {
+            return fullList[key].owner == interaction.user.id && fullList[key].name == Plist;
+          })
+
+        const playlist = fullList[pid[0]]
+
         if(!playlist) return interaction.editReply(`${client.i18n.get(language, "playlist", "remove_notfound")}`);
         if(playlist.owner !== interaction.user.id) return interaction.editReply(`${client.i18n.get(language, "playlist", "remove_owner")}`);
     
         const position = pos;
-        const song = playlist.tracks[position];
+
+        const song = playlist.tracks[position - 1];
         if(!song) return interaction.editReply(`${client.i18n.get(language, "playlist", "remove_song_notfound")}`);
-        playlist.tracks.splice(position - 1, 1);
-        await playlist.save();
+
+
+        await client.db.pull(`playlist.${pid[0]}.tracks`, playlist.tracks[position - 1])
+
         const embed = new EmbedBuilder()
             .setDescription(`${client.i18n.get(language, "playlist", "remove_removed", {
                 name: Plist,

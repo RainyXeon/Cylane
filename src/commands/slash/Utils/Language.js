@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType, PermissionsBitField } = require('discord.js');
-const GLang = require('../../../schemas/language.js'); 
+
 module.exports = { 
   name: ["settings", "language"],
   description: "Change the language for the bot",
@@ -23,39 +23,29 @@ run: async (interaction, client, language) => {
                 languages: languages.join(', ')
             })}`);
     
-            const newLang = await GLang.findOne({ guild: interaction.guild.id });
+            const newLang = await client.db.get(`language.guild_${interaction.guild.id}`)
+            
             if(!newLang) {
-                const newLang = new GLang({
-                    guild: interaction.guild.id,
-                    language: input,
-                });
-                newLang.save().then(() => {
-                    const embed = new EmbedBuilder()
-                    .setDescription(`${client.i18n.get(language, "utilities", "lang_set", {
-                        language: input
-                    })}`)
-                    .setColor(client.color)
-    
-                    interaction.editReply({ content: " ", embeds: [embed] });
-                }
-                ).catch(() => {
-                    interaction.editReply(`${client.i18n.get(language, "utilities", "Lang_error")}`);
-                });
+                await client.db.set(`language.guild_${interaction.guild.id}`, input)
+                const embed = new EmbedBuilder()
+                .setDescription(`${client.i18n.get(language, "utilities", "lang_set", {
+                    language: input
+                })}`)
+                .setColor(client.color)
+
+                return interaction.editReply({ content: " ", embeds: [embed] });
             }
             else if(newLang) {
-                newLang.language = input;
-                newLang.save().then(() => {
-                    const embed = new EmbedBuilder()
-                    .setDescription(`${client.i18n.get(language, "utilities", "lang_change", {
-                        language: input
-                    })}`)
-                    .setColor(client.color)
-        
-                    interaction.editReply({ content: " ", embeds: [embed] });
-                }
-                ).catch(() => {
-                    interaction.editReply(`${client.i18n.get(language, "utilities", "Lang_error")}`);
-                });
+
+                await client.db.set(`language.guild_${interaction.guild.id}`, input)
+
+                const embed = new EmbedBuilder()
+                .setDescription(`${client.i18n.get(language, "utilities", "lang_change", {
+                    language: input
+                })}`)
+                .setColor(client.color)
+
+                return interaction.editReply({ content: " ", embeds: [embed] });
             }
     }
 };
