@@ -61,6 +61,11 @@ const logger = createLogger({
       format: customFormat,
     }),
 
+    new transports.Console({
+      level: 'error',
+      format: fileFormat,
+    }),
+
     new transports.File({
       level: 'info',
       filename: './logs/info.log',
