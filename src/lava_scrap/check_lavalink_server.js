@@ -22,31 +22,12 @@ module.exports = async (client) => {
 
   for (let i = 0; i < lavalink_data.length; i++) {
     const config = lavalink_data[i]
-    let headers
-
-    if (client.manager.shoukaku.options.resumeKey) {
-      headers = {
-        'Client-Name': client.manager.shoukaku.options.userAgent,
-        'User-Agent': client.manager.shoukaku.options.userAgent,
-        'Authorization': config.pass,
-        'User-Id': client.manager.shoukaku.id,
-        'Resume-Key': client.manager.shoukaku.options.resumeKey
-      };
-    } else if (!client.manager.shoukaku.options){
-      headers = {
-        'Client-Name': 'shoukakubot/3.3.1 (https://github.com/Deivu/Shoukaku)',
-        'User-Agent': 'shoukakubot/3.3.1 (https://github.com/Deivu/Shoukaku)',
-        'Authorization': config.pass,
-        'User-Id': client.config.get.bot.ID,
-        'Resume-Key': 'Shoukaku@3.3.1(https://github.com/Deivu/Shoukaku)',
-      }
-    } else {
-      headers = {
-        'Client-Name': client.manager.shoukaku.options.userAgent,
-        'User-Agent': client.manager.shoukaku.options.userAgent,
-        'Authorization': config.pass,
-        'User-Id': client.manager.shoukaku.id
-      };
+    let headers = {
+      'Client-Name': 'shoukakubot/3.3.1 (https://github.com/Deivu/Shoukaku)',
+      'User-Agent': 'shoukakubot/3.3.1 (https://github.com/Deivu/Shoukaku)',
+      'Authorization': config.pass,
+      'User-Id': client.config.get.bot.ID,
+      'Resume-Key': 'Shoukaku@3.3.1(https://github.com/Deivu/Shoukaku)',
     }
 
     const url = `ws://${config.host}:${config.port}/v3/websocket`
