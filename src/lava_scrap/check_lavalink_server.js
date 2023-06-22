@@ -20,6 +20,8 @@ module.exports = async (client) => {
     });
   }
 
+  if (client.lavalink_list.length) client.lavalink_list.length = 0
+
   for (let i = 0; i < lavalink_data.length; i++) {
     const config = lavalink_data[i]
     let headers = {
