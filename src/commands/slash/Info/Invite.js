@@ -5,7 +5,6 @@ module.exports = {
     description: "Shows the invite information of the Bot",
     category: "Info",
     run: async (interaction, client, language) => {
-        console.log(client.manager.shoukaku.nodes)
         await interaction.deferReply({ ephemeral: false });
             const invite = new EmbedBuilder()
                 .setTitle(`${client.i18n.get(language, "info", "inv_title" , { username: client.user.username })}`)
