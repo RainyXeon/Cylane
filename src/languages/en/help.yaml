@@ -1,0 +1,3 @@
+author: "%{bot} Help Command"
+welcome: "Thanks for using %{bot}"
+prefix: "The bot prefix is: %{prefix}"

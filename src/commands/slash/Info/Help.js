@@ -16,17 +16,6 @@ module.exports = {
             .setThumbnail(client.user.displayAvatarURL({ dynamic: true, size: 2048 }))
             .setColor(client.color)
 
-
-        category.forEach(category => {
-            const dir = client.slash.filter(c => c.category === category)
-            const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
-            try {
-                embed.addFields({ name: `❯ ${capitalise} [${dir.size}]`, value: ` ` })
-            } catch(e) {
-                console.log(e)
-            }
-        })
-
         const row = new ActionRowBuilder()
             .addComponents([
                 new StringSelectMenuBuilder()

@@ -32,6 +32,7 @@ class Manager extends Client {
             ]
         });
 
+    logger.info("Booting client...")
     this.config = require("../../plugins/config.js");
     
     if (
@@ -94,8 +95,6 @@ class Manager extends Client {
     if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
     
     loadCollection.forEach(x => this[x] = new Collection());
-
-    this.logger.info("Booting client...")
     
     require(`../../connection/database`)(this)
 

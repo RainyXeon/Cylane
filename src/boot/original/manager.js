@@ -28,6 +28,7 @@ class Manager extends Client {
             GatewayIntentBits.GuildMessages,
         ]
     });
+    logger.info("Booting client...")
     this.config = require("../../plugins/config.js");
     this.owner = this.config.OWNER_ID;
     this.dev = this.config.DEV_ID;
@@ -49,8 +50,6 @@ class Manager extends Client {
 
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
-
-    this.logger.info("Booting client...")
 
     if (this.config.NODES.length > 1) return this.logger.error("You cannot use multi lavalink server when in autofix lavalink mode!")
 
