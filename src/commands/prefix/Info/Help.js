@@ -34,21 +34,19 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setAuthor({ name: `${message.guild.members.me.displayName} Help Command! [PREFIX]`, iconURL: message.guild.iconURL({ dynamic: true })})
-            .setDescription(`The bot prefix is: \`${prefix} or /\``)
+            .setDescription(stripIndents`${client.i18n.get(language, "help", "welcome", { bot: message.guild.members.me.displayName })}
+            ${client.i18n.get(language, "help", "intro1", { bot: message.guild.members.me.displayName })}
+            ${client.i18n.get(language, "help", "intro2")}
+            ${client.i18n.get(language, "help", "intro3")}
+            ${client.i18n.get(language, "help", "prefix", { prefix: `\`${prefix}\`` })}
+            ${client.i18n.get(language, "help", "intro4")}
+            ${client.i18n.get(language, "help", "ver", { botver: require("../../../../package.json").version })}
+            ${client.i18n.get(language, "help", "djs", { djsver: require("../../../../package.json").dependencies["discord.js"] })}
+            ${client.i18n.get(language, "help", "lavalink", { aver: "v3.0-beta" })}
+            `)
             .setThumbnail(client.user.displayAvatarURL({ dynamic: true, size: 2048 }))
             .setColor(client.color)
             .setFooter({ text: `© ${message.guild.members.me.displayName} | Total Commands: ${client.commands.size}`, iconURL: client.user.displayAvatarURL({ dynamic: true })})
-
-
-        category.forEach(category => {
-            const dir = client.commands.filter(c => c.category === category)
-            const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
-            try {
-                embed.addFields({ name: `❯ ${capitalise} [${dir.size}]`, value: " " })
-            } catch(e) {
-                console.log(e)
-            }
-        })
 
         const row = new ActionRowBuilder()
             .addComponents([

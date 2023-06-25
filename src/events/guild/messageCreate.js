@@ -1,4 +1,5 @@
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
+const { stripIndents } = require("common-tags");
 
 module.exports = async (client, message) => { 
     if(message.author.bot || message.channel.type === "dm") return;
@@ -30,8 +31,20 @@ module.exports = async (client, message) => {
 
     if (message.content.match(mention)) {
       const embed = new EmbedBuilder()
+        .setAuthor({ name: `${client.i18n.get(language, "help", "wel", { bot: message.guild.members.me.displayName })}`, iconURL: message.guild.iconURL({ dynamic: true })})
         .setColor(client.color)
-        .setDescription(`**My prefix is \`${PREFIX}\`**`);
+        .setDescription(stripIndents`
+        ${client.i18n.get(language, "help", "intro1", { bot: message.guild.members.me.displayName })}
+        ${client.i18n.get(language, "help", "intro2")}
+        ${client.i18n.get(language, "help", "intro3")}
+        ${client.i18n.get(language, "help", "prefix", { prefix: `\`${PREFIX}\`` })}
+        ${client.i18n.get(language, "help", "intro4")}
+        ${client.i18n.get(language, "help", "ver", { botver: require("../../../package.json").version })}
+        ${client.i18n.get(language, "help", "djs", { djsver: require("../../../package.json").dependencies["discord.js"] })}
+        ${client.i18n.get(language, "help", "lavalink", { aver: "v3.0-beta" })}
+        ${client.i18n.get(language, "help", "help1", { help: `\`${PREFIX}help\` / \`/help\`` })}
+        ${client.i18n.get(language, "help", "help2", { botinfo: `\`${PREFIX}status\` / \`/status\`` })}
+        `);
        return message.channel.send({ embeds: [embed] })
     };
     const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

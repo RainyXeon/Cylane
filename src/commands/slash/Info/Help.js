@@ -1,5 +1,7 @@
 const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require("discord.js");
 const { readdirSync } = require("fs");
+const { stripIndents } = require("common-tags");
+
 
 module.exports = {
     name: ["help"],
@@ -12,7 +14,16 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setAuthor({ name: `${interaction.guild.members.me.displayName} Help Command!`, iconURL: interaction.guild.iconURL({ dynamic: true })})
-            .setDescription(`The bot prefix is: \`/\``)
+            .setDescription(stripIndents`${client.i18n.get(language, "help", "welcome", { bot: interaction.guild.members.me.displayName })}
+            ${client.i18n.get(language, "help", "intro1", { bot: interaction.guild.members.me.displayName })}
+            ${client.i18n.get(language, "help", "intro2")}
+            ${client.i18n.get(language, "help", "intro3")}
+            ${client.i18n.get(language, "help", "prefix", { prefix: `\`/\`` })}
+            ${client.i18n.get(language, "help", "intro4")}
+            ${client.i18n.get(language, "help", "ver", { botver: require("../../../../package.json").version })}
+            ${client.i18n.get(language, "help", "djs", { djsver: require("../../../../package.json").dependencies["discord.js"] })}
+            ${client.i18n.get(language, "help", "lavalink", { aver: "v3.0-beta" })}
+            `)
             .setThumbnail(client.user.displayAvatarURL({ dynamic: true, size: 2048 }))
             .setColor(client.color)
 
