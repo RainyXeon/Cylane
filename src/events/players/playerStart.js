@@ -63,7 +63,7 @@ module.exports = async (client, player, track) => {
       requester: song.requester
     })
 
-    if (client.websocket || client.config.features.WEBSOCKET.enable) await client.websocket.send(
+    if (client.websocket && client.config.features.WEBSOCKET.enable) await client.websocket.send(
       JSON.stringify(
         {
           op: "player_start",
