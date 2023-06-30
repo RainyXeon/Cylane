@@ -8,6 +8,7 @@ module.exports = {
     category: "Playlist",
     usage: "<playlist_name_or_id>",
     aliases: ["pl-import"],
+    lavalink: true,
 
     run: async (client, message, args, language, prefix) => {
         

@@ -5,6 +5,7 @@ module.exports = {
     name: ["mp3"],
     description: "Play the music file for the bot",
     category: "Music",
+    lavalink: true,
     options: [
         {
             name: "file",

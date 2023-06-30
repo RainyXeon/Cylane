@@ -5,6 +5,7 @@ module.exports = {
     name: ["join"],
     description: "Make the bot join the voice channel.",
     category: "Music",
+    lavalink: true,
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
         

@@ -7,6 +7,7 @@ module.exports = {
     category: "Music",
     usage: "",
     aliases: [],
+    lavalink: true,
 
     run: async (client, message, args, language, prefix) => {
         

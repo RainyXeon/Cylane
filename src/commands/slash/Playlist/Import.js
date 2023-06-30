@@ -6,6 +6,7 @@ module.exports = {
     name: ["playlist", "import"],
     description: "Import a playlist to queue.",
     category: "Playlist",
+    lavalink: true,
     options: [
         {
             name: "name",

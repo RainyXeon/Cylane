@@ -5,6 +5,7 @@ module.exports = {
     name: ["play"],
     description: "Play a song from any types",
     category: "Music",
+    lavalink: true,
     options: [
         {
             name: "search",

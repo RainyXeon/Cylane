@@ -5,6 +5,7 @@ const { convertTime } = require("../../../structures/ConvertTime.js");
 module.exports = { 
     name: ["radio"],
     description: "Play radio in voice channel",
+    lavalink: true,
     options:[
         {
             name: "number",

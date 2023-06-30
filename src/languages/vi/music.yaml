@@ -189,5 +189,7 @@ number_invalid: "Đối số không hợp lệ, phải là một số."
 
 removetrack_duplicate_desc: "Đã xóa `%{removed}` bản nhạc từ hàng đợi \n Trước: `%{original}` | Sau: `%{new}`"
 
-_enabled: "Đã bật"
-_disabled: "Đã tắt"
+enabled: "Đã bật"
+disabled: "Đã tắt"
+
+no_node: "Không có máy chủ lavalink! \nVui lòng thử lại sau 5 phút."

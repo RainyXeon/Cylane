@@ -80,6 +80,10 @@ module.exports = async (client, message) => {
         console.log(err)
         return message.channel.send({ content: `${client.i18n.get(language, "nopremium", "premium_error")}` })
     }
+
+    if (command.lavalink) {
+      if (client.lavalink_using.length == 0) return message.reply(`${client.i18n.get(language, "music", "no_node")}`)
+    }
     
     if (command) {
       try {

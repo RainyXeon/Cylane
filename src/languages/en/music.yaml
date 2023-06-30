@@ -204,3 +204,5 @@ number_invalid: "Invalid argument, must be a number."
 
 enabled: "Enabled"
 disabled: "Disabled"
+
+no_node: "No lavalink server avalible! \nPlease try again after 5 minutes."
