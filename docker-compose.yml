@@ -47,7 +47,6 @@ services:
       - MONGO_URI=mongodb://cylane:cylake@mongodb:27017/streamhatchet?directConnection=true&authSource=admin&replicaSet=replicaset&retryWrites=true
       # Lavalink
       - NODE_URL=lavalink:2333
-      - NODE_NAME=Dreamvast_DOCKER
       - NODE_AUTH=dreamvast
 
 networks:

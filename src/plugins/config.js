@@ -32,27 +32,14 @@ module.exports = {
     NP_REALTIME: doc.lavalink.NP_REALTIME || "BOOLEAN", // "true" = realtime, "false" = not realtime :3 // WARNING: on set to "true" = laggy and bot will ratelimit if you have a lot of servers
     LEAVE_TIMEOUT: doc.lavalink.LEAVE_TIMEOUT || 120000,
     DEFAULT: doc.lavalink.DEFAULT || ["yorushika", "yoasobi", "tuyu", "hinkik"],
-    NODES: doc.lavalink.ENV_NODE ?
-    [
-      {
-        url: process.env.NODE_URL || 'lavalink-coders.ml:80',
-        name: process.env.NODE_NAME || 'lavalink-coders.ml:80',
-        auth: process.env.NODE_AUTH || 'coders',
-        secure: parseBoolean(process.env.NODE_SECURE || 'false'),
-      },
-    ] : [{
-      url: doc.lavalink.NODES.url,
-      name: doc.lavalink.NODES.url,
-      auth: doc.lavalink.NODES.auth,
-      secure: doc.lavalink.NODES.secure
-    }] || [
-      {
-        url: 'lavalink-coders.ml:80',
-        name: 'lavalink-coders.ml:80',
-        auth: 'coders',
-        secure: false,
-      },
-    ],
+    NODES: [{
+      url: process.env.NODE_URL || doc.lavalink.NODES.url ||'lavalink-coders.ml:80',
+      name: process.env.NODE_URL || doc.lavalink.NODES.url || 'lavalink-coders.ml:80',
+      auth: process.env.NODE_AUTH || doc.lavalink.NODES.auth || 'coders',
+      secure: process.env.NODE_SECURE ? 
+      parseBoolean(process.env.NODE_SECURE || 'false') : 
+      doc.lavalink.NODES.secure || false
+    }],
     ENABLE_SPOTIFY: doc.lavalink.SPOTIFY.enable || false,
     REGEX: [
       /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be.com\/\S*(?:watch|embed)(?:(?:(?=\/[-a-zA-Z0-9_]{11,}(?!\S))\/)|(?:\S*v=|v\/)))([-a-zA-Z0-9_]{11,})/,

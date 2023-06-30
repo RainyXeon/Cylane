@@ -28,7 +28,7 @@ module.exports = async (client) => {
       'Client-Name': 'shoukakubot/3.3.1 (https://github.com/Deivu/Shoukaku)',
       'User-Agent': 'shoukakubot/3.3.1 (https://github.com/Deivu/Shoukaku)',
       'Authorization': config.pass,
-      'User-Id': client.config.get.bot.ID,
+      'User-Id': "977148321682575410",
       'Resume-Key': 'Shoukaku@3.3.1(https://github.com/Deivu/Shoukaku)',
     }
 

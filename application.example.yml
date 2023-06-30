@@ -8,32 +8,25 @@ bot:
   LIMIT_TRACK: 50 # The number of tracks you want to limit
   LIMIT_PLAYLIST: 20 # The number of playlist you want to limit
 
-
 lavalink:
-
   SPOTIFY:
     # Your spotify id and secret, you can get it from here: https://developer.spotify.com/
     # If you don't have or don't want, you can disable it
-    enable: true
+    enable: false
     id: a98a98s9a89as98a9s8a98
     secret: a98a98s9a89as98a9s8a98
 
   DEFAULT: ["yorushika", "yoasobi", "tuyu", "hinkik"]
   
-  ENV_NODE: false # Enable this if you want to use lavalink info from .env files
   NP_REALTIME: false # Enable this if you want to use realtime duation in nowplaying command
 
   LEAVE_TIMEOUT: 100 # The number of leave time you want
 
   # You can add more lavalink server!
-  NODES: [
-    {
-      url: "narco.buses.rocks:2269",
-      name: "Node_1",
-      auth: "glasshost1984",
-      secure: false,
-    },
-  ]
+  NODES:
+    url: "narco.buses.rocks:2269"
+    auth: "glasshost1984"
+    secure: false
   SHOUKAKU_OPTIONS: {
     moveOnDisconnect: true,
     resumable: true,
@@ -46,14 +39,14 @@ features:
   DATABASE:
   # Note: You can't enable all or 2 databases. It will return to JSON database
     JSON:
-      enable: false
+      enable: true
       path: "./cylane.database.json"
     MONGO_DB:
-      enable: true
+      enable: false
       # Your mongo_uri, you can get it from here: https://www.mongodb.com/
       uri: mongodb://127.0.0.1:27017/dreamvast
     MYSQL: 
-      enable: true
+      enable: false
       host: "localhost"
       user: "me"
       password: "secret"
@@ -72,16 +65,14 @@ features:
   
   AUTO_DEPLOY: true
   AUTO_REMOVE_DUPLICATE: true
-
-  # Fix the lavalink server when the current is down
-  AUTOFIX_LAVALINK: true
+  AUTOFIX_LAVALINK: true # Fix the lavalink server when the current is down
 
   ALIVE_SERVER:
     enable: false
     port: 3000
 
   WEBSOCKET:
-    enable: true
+    enable: false
     port: 8080
     auth: false
     trusted: ['http://localhost:3000']
