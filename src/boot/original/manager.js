@@ -17,7 +17,7 @@ class Manager extends Client {
             parse: ["roles", "users", "everyone"],
             repliedUser: false
         },
-        intents: require("../../plugins/config.js").features.MESSAGE_CONTENT.enable ? [
+        intents: require("../../plugins/config.js").get.features.MESSAGE_CONTENT.enable ? [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildVoiceStates,
             GatewayIntentBits.GuildMessages,
@@ -36,9 +36,9 @@ class Manager extends Client {
     if(!this.token) this.token = this.config.TOKEN;
     this.i18n = new I18n(this.config.LANGUAGE);
     this.logger = logger
-    this.wss = this.config.features.WEBSOCKET.enable ? new WebSocket.Server({ port: this.config.features.WEBSOCKET.port }) : undefined
-    this.config.features.WEBSOCKET.enable ? this.wss.message = new Collection() : undefined
-    this.prefix = this.config.features.MESSAGE_CONTENT.prefix
+    this.wss = this.config.get.features.WEBSOCKET.enable ? new WebSocket.Server({ port: this.config.get.features.WEBSOCKET.port }) : undefined
+    this.config.get.features.WEBSOCKET.enable ? this.wss.message = new Collection() : undefined
+    this.prefix = this.config.get.features.MESSAGE_CONTENT.prefix
     this.shard_status = false
     if (this.config.get.features.ALIVE_SERVER.enable) require("../../plugins/alive_server.js")
 
@@ -89,14 +89,13 @@ class Manager extends Client {
         "sent_queue", 
         "aliases",
         "pl_editing",
-        "db_map"
+        "db_map",
+        "cached_music_link"
     ]
 
-    if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
+    if (!this.config.get.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
 
     loadCollection.forEach(x => this[x] = new Collection())
-
-    const client = this;
 
 	}
 		connect() {

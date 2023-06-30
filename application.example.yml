@@ -83,7 +83,7 @@ features:
   WEBSOCKET:
     enable: true
     port: 8080
-    auth: true
+    auth: false
     trusted: ['http://localhost:3000']
 
   # Your id or friend id (disable global command)

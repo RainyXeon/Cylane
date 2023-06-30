@@ -71,26 +71,7 @@ module.exports = {
       restTimeout: 3000
     },
 
-    get: doc,
-
-    features: {
-
-      MESSAGE_CONTENT: {
-        enable: doc.features.MESSAGE_CONTENT.enable || false,
-        prefix: doc.features.MESSAGE_CONTENT.prefix || "d!"
-      },
-
-      AUTO_DEPLOY: doc.features.AUTO_DEPLOY || true,
-      DEV_ID: doc.features.DEV_ID || [], // if you want to use command bot only, you can put your id here example: ["123456789", "123456789"]
-
-      WEBSOCKET: {
-        enable: doc.features.WEBSOCKET.enable || false,
-        port: doc.features.WEBSOCKET.port || 8080,
-        auth: doc.features.WEBSOCKET.auth || false,
-        trusted: doc.features.WEBSOCKET.trusted || ['http://localhost:3000'],
-      }
-    }
-
+    get: doc
 }
 
 function parseBoolean(value){
