@@ -25,7 +25,7 @@ function parseBoolean(value){
 }
 
 module.exports = contents => {
-  var re = /\{{(.*?)\}}/g;
+  var re = /\${(.*?)\}/g;
   var matches;
   var result = contents;
 
