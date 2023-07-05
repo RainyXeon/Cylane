@@ -59,6 +59,10 @@ Copy or Rename `application.example.yml` to `application.yml` and fill out the v
 
 ```yaml
 # Cylane config file via .yaml
+# Version 3.0
+# You can use {{}} to pass an enviroment varible from .env file
+# Eg:
+# something: {{DATA}}
 
 bot:
   TOKEN: Your token
@@ -68,19 +72,16 @@ bot:
   LIMIT_TRACK: 50 # The number of tracks you want to limit
   LIMIT_PLAYLIST: 20 # The number of playlist you want to limit
 
-
 lavalink:
-
   SPOTIFY:
     # Your spotify id and secret, you can get it from here: https://developer.spotify.com/
     # If you don't have or don't want, you can disable it
-    enable: true
+    enable: false
     id: a98a98s9a89as98a9s8a98
     secret: a98a98s9a89as98a9s8a98
 
   DEFAULT: ["yorushika", "yoasobi", "tuyu", "hinkik"]
   
-  ENV_NODE: false # Enable this if you want to use lavalink info from .env files
   NP_REALTIME: false # Enable this if you want to use realtime duation in nowplaying command
 
   LEAVE_TIMEOUT: 100 # The number of leave time you want
@@ -88,11 +89,11 @@ lavalink:
   # You can add more lavalink server!
   NODES: [
     {
-      url: "narco.buses.rocks:2269",
-      name: "Node_1",
-      auth: "glasshost1984",
-      secure: false,
-    },
+      url: "localhost:2333",
+      name: "Lavalink_Server",
+      auth: "youshallnotpass",
+      secure: false
+    }
   ]
   SHOUKAKU_OPTIONS: {
     moveOnDisconnect: true,
@@ -106,14 +107,14 @@ features:
   DATABASE:
   # Note: You can't enable all or 2 databases. It will return to JSON database
     JSON:
-      enable: false
+      enable: true
       path: "./cylane.database.json"
     MONGO_DB:
-      enable: true
+      enable: false
       # Your mongo_uri, you can get it from here: https://www.mongodb.com/
       uri: mongodb://127.0.0.1:27017/dreamvast
     MYSQL: 
-      enable: true
+      enable: false
       host: "localhost"
       user: "me"
       password: "secret"
@@ -132,23 +133,38 @@ features:
   
   AUTO_DEPLOY: true
   AUTO_REMOVE_DUPLICATE: true
-
-  # Fix the lavalink server when the current is down
-  AUTOFIX_LAVALINK: true
+  AUTOFIX_LAVALINK: true # Fix the lavalink server when the current is down
 
   ALIVE_SERVER:
     enable: false
     port: 3000
 
   WEBSOCKET:
-    enable: true
+    enable: false
     port: 8080
-    auth: true
+    auth: false
     trusted: ['http://localhost:3000']
 
   # Your id or friend id (disable global command)
   DEV_ID: []
 ```
+
+If you want to use environment variables from `.env` file, you can use the `{{}}` in `application.yml` file.
+
+Examples:
+
+```env
+NODE_AUTH=foo
+```
+
+```yaml
+bar: {{NODE_AUTH}}
+```
+
+### Output: { key: foo }
+
+-------------------------------------------------------------
+
 After installation or finishes all you can use `npm start` to start the bot. or `Run Start.bat`
 
 </p>
@@ -385,4 +401,5 @@ Java 11-13 **[Download JDK13](http://www.mediafire.com/file/m6gk7aoq96db8g0/file
 - [@DarrenOfficial](https://github.com/DarrenOfficial) [Lavalink Sources]
 - [@Pain6900](https://github.com/Pain6900) [My friend]
 - [@Adivise](https://github.com/Adivise) [Framework]
+- [@mrstebo](https://github.com/mrstebo) [env praser]
 - And everyone who starred and contribute my project 💖

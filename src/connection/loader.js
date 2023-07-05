@@ -11,14 +11,14 @@ module.exports = async (client) => {
       "loadPrefixCommand"
     ]
 
-    if (!client.config.get.features.WEBSOCKET.enable){
+    if (!client.config.features.WEBSOCKET.enable){
       loadFile.splice(loadFile.indexOf('loadWebSocket'), 1);
       loadFile.splice(loadFile.indexOf('loadWsMessage'), 1);
     }
 
-    if (!client.config.get.features.MESSAGE_CONTENT.enable) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
+    if (!client.config.features.MESSAGE_CONTENT.enable) loadFile.splice(loadFile.indexOf('loadPrefixCommand'), 1);
 
-    if (!client.config.get.features.AUTOFIX_LAVALINK) {
+    if (!client.config.features.AUTOFIX_LAVALINK) {
       loadFile.splice(loadFile.indexOf('loadCheck'), 1);
     }
 
@@ -34,10 +34,10 @@ module.exports = async (client) => {
       "loadPlayer",
     ]
 
-    if (!client.config.get.features.AUTOFIX_LAVALINK) {
+    if (!client.config.features.AUTOFIX_LAVALINK) {
       shardLoadFile.splice(shardLoadFile.indexOf('loadCheck'), 1);
     }
-    if (!client.config.get.features.MESSAGE_CONTENT.enable) shardLoadFile.splice(shardLoadFile.indexOf('loadPrefixCommand'), 1);
+    if (!client.config.features.MESSAGE_CONTENT.enable) shardLoadFile.splice(shardLoadFile.indexOf('loadPrefixCommand'), 1);
     
     shardLoadFile.forEach(x => require(`../handlers/${x}`)(client));
   }

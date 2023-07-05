@@ -40,7 +40,7 @@ module.exports = async (client, player, track) => {
 
   const TotalDuration = QueueDuration(player)
 
-  if (client.websocket && client.config.get.features.WEBSOCKET.enable) {
+  if (client.websocket && client.config.features.WEBSOCKET.enable) {
     let webqueue = []
 
     player.queue.forEach(track => {
@@ -65,7 +65,7 @@ module.exports = async (client, player, track) => {
       requester: song.requester
     })
 
-    if (client.websocket && client.config.get.features.WEBSOCKET.enable) await client.websocket.send(
+    if (client.websocket && client.config.features.WEBSOCKET.enable) await client.websocket.send(
       JSON.stringify(
         {
           op: "player_start",
@@ -193,7 +193,7 @@ module.exports = async (client, player, track) => {
       await player.pause(!player.paused);
       const uni = player.paused ? `${client.i18n.get(language, "player", "switch_pause")}` : `${client.i18n.get(language, "player", "switch_resume")}`;
 
-      if (client.websocket && client.config.get.features.WEBSOCKET.enable) await client.websocket.send(
+      if (client.websocket && client.config.features.WEBSOCKET.enable) await client.websocket.send(
         JSON.stringify(
           {
             op: player.paused ? 3 : 4,
@@ -215,7 +215,7 @@ module.exports = async (client, player, track) => {
       }
       await player.skip();
 
-      if (client.websocket && client.config.get.features.WEBSOCKET.enable)  await client.websocket.send(
+      if (client.websocket && client.config.features.WEBSOCKET.enable)  await client.websocket.send(
         JSON.stringify(
           {
             op: "skip_track",
@@ -235,7 +235,7 @@ module.exports = async (client, player, track) => {
         collector.stop();
       }
 
-      if (client.websocket && client.config.get.features.WEBSOCKET.enable) await client.websocket.send(
+      if (client.websocket && client.config.features.WEBSOCKET.enable) await client.websocket.send(
         JSON.stringify(
           {
             op: "player_destroy",

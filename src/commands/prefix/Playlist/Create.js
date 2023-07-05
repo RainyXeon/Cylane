@@ -38,8 +38,8 @@ module.exports = {
           }, {});
 
         if(Object.keys(Exist).length !== 0) { msg.edit(`${client.i18n.get(language, "playlist", "create_name_exist")}`); return; }
-        if(Object.keys(Limit).length >= client.config.get.bot.LIMIT_PLAYLIST) { msg.edit(`${client.i18n.get(language, "playlist", "create_limit_playlist", {
-            limit: client.config.get.bot.LIMIT_PLAYLIST
+        if(Object.keys(Limit).length >= client.config.bot.LIMIT_PLAYLIST) { msg.edit(`${client.i18n.get(language, "playlist", "create_limit_playlist", {
+            limit: client.config.bot.LIMIT_PLAYLIST
         })}`); return; }
         
 

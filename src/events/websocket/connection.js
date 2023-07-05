@@ -3,15 +3,15 @@ module.exports = async (client, ws, request) => {
 
   const verificationOrigin = request.headers.origin
 
-  if (client.config.get.features.WEBSOCKET.auth && !client.config.get.features.WEBSOCKET.trusted.includes(verificationOrigin)){
+  if (client.config.features.WEBSOCKET.auth && !client.config.features.WEBSOCKET.trusted.includes(verificationOrigin)){
     ws.close()
     client.logger.info(`Disconnected to client (${verificationOrigin}) beacuse it's not in trusted list!`)
     return
   } 
 
-  if (!client.config.get.features.WEBSOCKET.auth) client.logger.warn(`[UNSECURE] Connected to client (${verificationOrigin})`)
+  if (!client.config.features.WEBSOCKET.auth) client.logger.warn(`[UNSECURE] Connected to client (${verificationOrigin})`)
 
-  if (client.config.get.features.WEBSOCKET.auth) client.logger.info(`Connected to client (${verificationOrigin})`)
+  if (client.config.features.WEBSOCKET.auth) client.logger.info(`Connected to client (${verificationOrigin})`)
 
   ws.on('message', (message) => {
     const json = JSON.parse(message)

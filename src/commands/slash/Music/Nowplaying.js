@@ -8,7 +8,7 @@ module.exports = {
     category: "Music",
     run: async (interaction, client, language) => {
         await interaction.deferReply({ ephemeral: false });
-        const realtime = client.config.NP_REALTIME;
+        const realtime = client.config.lavalink.NP_REALTIME;
         const msg = await interaction.editReply(`${client.i18n.get(language, "music", "np_loading")}`);
         const player = client.manager.players.get(interaction.guild.id);
         if (!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);

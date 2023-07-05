@@ -16,7 +16,7 @@ module.exports = async (client) => {
 
         let guildModel = await client.db.get(`language.guild_${player.guildId}`)
         if (!guildModel) {
-            guildModel = await client.db.set(`language.guild_${player.guildId}`, client.config.get.bot.LANGUAGE)
+            guildModel = await client.db.set(`language.guild_${player.guildId}`, client.config.bot.LANGUAGE)
         }
 
         const language = guildModel;
@@ -77,7 +77,7 @@ module.exports = async (client) => {
 
         let guildModel = await client.db.get(`language.guild_${player.guildId}`)
         if (!guildModel) {
-            guildModel = await client.db.set(`language.guild_${player.guildId}`, client.config.get.bot.LANGUAGE)
+            guildModel = await client.db.set(`language.guild_${player.guildId}`, client.config.bot.LANGUAGE)
         }
 
 

@@ -9,7 +9,7 @@ module.exports = async (client, message) => {
 
     if(guildModel) LANGUAGE = guildModel;
     else if(!guildModel) {
-      await client.db.set(`language.guild_${message.guild.id}`, client.config.get.bot.LANGUAGE)
+      await client.db.set(`language.guild_${message.guild.id}`, client.config.bot.LANGUAGE)
       const newModel = await client.db.get(`language.guild_${message.guild.id}`)
       LANGUAGE = newModel
     }
