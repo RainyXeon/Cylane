@@ -82,8 +82,8 @@ module.exports = {
         if(playlist.owner !== message.author.id) { message.channel.send(`${client.i18n.get(language, "playlist", "add_owner")}`); TrackAdd.length = 0; return; }
         const LimitTrack = playlist.tracks.length + TrackAdd.length;
 
-        if(LimitTrack > client.config.get.bot.LIMIT_TRACK) { message.channel.send(`${client.i18n.get(language, "playlist", "add_limit_track", {
-            limit: client.config.get.bot.LIMIT_TRACK
+        if(LimitTrack > client.config.bot.LIMIT_TRACK) { message.channel.send(`${client.i18n.get(language, "playlist", "add_limit_track", {
+            limit: client.config.bot.LIMIT_TRACK
         })}`); TrackAdd.length = 0; return; }
 
 

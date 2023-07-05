@@ -1,13 +1,13 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
-const Discord = require('discord.js');
 const { Connectors } = require("shoukaku");
-const { Kazagumo, KazagumoTrack, Plugins } = require("kazagumo");
+const { Kazagumo, Plugins } = require("kazagumo");
 const logger = require('../../plugins/logger')
 const { I18n } = require("@hammerhq/localization")
 const Spotify = require('kazagumo-spotify');
 const Deezer = require('kazagumo-deezer');
 const Nico = require('kazagumo-nico');
 const WebSocket = require('ws')
+const { resolve } = require("path");
 
 class Manager extends Client {
     constructor() {
@@ -17,7 +17,7 @@ class Manager extends Client {
             parse: ["roles", "users", "everyone"],
             repliedUser: false
         },
-        intents: require("../../plugins/config.js").get.features.MESSAGE_CONTENT.enable ? [
+        intents: require("../../plugins/config.js").features.MESSAGE_CONTENT.enable ? [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildVoiceStates,
             GatewayIntentBits.GuildMessages,
@@ -30,17 +30,20 @@ class Manager extends Client {
     });
     logger.info("Booting client...")
     this.config = require("../../plugins/config.js");
-    this.owner = this.config.OWNER_ID;
-    this.dev = this.config.DEV_ID;
-    this.color = this.config.EMBED_COLOR;
-    if(!this.token) this.token = this.config.TOKEN;
-    this.i18n = new I18n(this.config.LANGUAGE);
+    this.owner = this.config.bot.OWNER_ID;
+    this.dev = this.config.bot.DEV_ID;
+    this.color = this.config.bot.EMBED_COLOR;
+    if(!this.token) this.token = this.config.bot.TOKEN;
+    this.i18n = new I18n({
+      defaultLocale: this.config.bot.LANGUAGE || "en",
+      directory: resolve("./src/languages"),
+    });
     this.logger = logger
-    this.wss = this.config.get.features.WEBSOCKET.enable ? new WebSocket.Server({ port: this.config.get.features.WEBSOCKET.port }) : undefined
-    this.config.get.features.WEBSOCKET.enable ? this.wss.message = new Collection() : undefined
-    this.prefix = this.config.get.features.MESSAGE_CONTENT.prefix
+    this.wss = this.config.features.WEBSOCKET.enable ? new WebSocket.Server({ port: this.config.features.WEBSOCKET.port }) : undefined
+    this.config.features.WEBSOCKET.enable ? this.wss.message = new Collection() : undefined
+    this.prefix = this.config.features.MESSAGE_CONTENT.prefix
     this.shard_status = false
-    if (this.config.get.features.ALIVE_SERVER.enable) require("../../plugins/alive_server.js")
+    if (this.config.features.ALIVE_SERVER.enable) require("../../plugins/alive_server.js")
 
     // Auto fix lavalink varibles
     this.lavalink_list = []
@@ -51,9 +54,14 @@ class Manager extends Client {
     process.on('unhandledRejection', error => this.logger.log({ level: 'error', message: error }));
     process.on('uncaughtException', error => this.logger.log({ level: 'error', message: error }));
 
-    if (this.config.NODES.length > 1) return this.logger.error("You cannot use multi lavalink server when in autofix lavalink mode!")
-
     require(`../../connection/database`)(this)
+
+    if 
+        (
+            this.config.lavalink.NODES.length > 1
+            && this.config.features.AUTOFIX_LAVALINK
+        ) 
+    return this.logger.error("You cannot use more than 1 lavalink in AUTOFIX features") 
 
     this.manager = new Kazagumo({
         defaultSearchEngine: "youtube", 
@@ -62,7 +70,7 @@ class Manager extends Client {
             const guild = this.guilds.cache.get(guildId);
             if (guild) guild.shard.send(payload);
         },
-        plugins: this.config.ENABLE_SPOTIFY ? [
+        plugins: this.config.lavalink.ENABLE_SPOTIFY ? [
             new Spotify({
               clientId: this.config.SPOTIFY_ID,
               clientSecret: this.config.SPOTIFY_SECRET,
@@ -79,7 +87,7 @@ class Manager extends Client {
             new Nico({ searchLimit: 10 }),
             new Plugins.PlayerMoved(this)
           ],
-    }, new Connectors.DiscordJS(this), this.config.NODES);
+    }, new Connectors.DiscordJS(this), this.config.lavalink.NODES, this.config.features.AUTOFIX_LAVALINK ? null : this.config.lavalink.SHOUKAKU_OPTIONS);
 
     const loadCollection = [
         "slash", 
@@ -93,7 +101,7 @@ class Manager extends Client {
         "cached_music_link"
     ]
 
-    if (!this.config.get.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
+    if (!this.config.features.MESSAGE_CONTENT.enable) loadCollection.splice(loadCollection.indexOf('commands'), 1);
 
     loadCollection.forEach(x => this[x] = new Collection())
 

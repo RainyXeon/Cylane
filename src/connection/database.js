@@ -3,7 +3,7 @@ const database = require("../driver/index")
 
 module.exports = async (client) => {
     try {
-        const db_config = client.config.get.features.DATABASE
+        const db_config = client.config.features.DATABASE
 
         function load_file() {
             require("./loader")(client)

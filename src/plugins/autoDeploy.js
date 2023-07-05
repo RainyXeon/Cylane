@@ -9,7 +9,7 @@ const { ApplicationCommandOptionType, ApplicationCommandManager } = require('dis
 module.exports = async (client) => {
   let command = [];
 
-  if (!client.config.get.features.AUTO_DEPLOY) return client.logger.info("Auto deploy disabled. Exiting auto deploy...")
+  if (!client.config.features.AUTO_DEPLOY) return client.logger.info("Auto deploy disabled. Exiting auto deploy...")
 
   let interactionsFolder = path.resolve("./src/commands/slash");
 

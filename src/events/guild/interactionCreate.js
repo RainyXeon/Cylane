@@ -4,6 +4,16 @@ const { PermissionsBitField, InteractionType, CommandInteraction, EmbedBuilder }
   * @param {CommandInteraction} interaction
   */
 
+const REGEX = [
+  /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be.com\/\S*(?:watch|embed)(?:(?:(?=\/[-a-zA-Z0-9_]{11,}(?!\S))\/)|(?:\S*v=|v\/)))([-a-zA-Z0-9_]{11,})/,
+  /^.*(youtu.be\/|list=)([^#\&\?]*).*/,
+  /^(?:spotify:|https:\/\/[a-z]+\.spotify\.com\/(track\/|user\/(.*)\/playlist\/|playlist\/))(.*)$/,
+  /^https?:\/\/(?:www\.)?deezer\.com\/[a-z]+\/(track|album|playlist)\/(\d+)$/,
+  /^(?:(https?):\/\/)?(?:(?:www|m)\.)?(soundcloud\.com|snd\.sc)\/(.*)$/,
+  /(?:https:\/\/music\.apple\.com\/)(?:.+)?(artist|album|music-video|playlist)\/([\w\-\.]+(\/)+[\w\-\.]+|[^&]+)\/([\w\-\.]+(\/)+[\w\-\.]+|[^&]+)/,
+  /^https?:\/\/(?:www\.|secure\.|sp\.)?nicovideo\.jp\/watch\/([a-z]{2}[0-9]+)/
+]
+
 module.exports = async(client, interaction) => {
     if (interaction.isCommand || interaction.isContextMenuCommand || interaction.isModalSubmit || interaction.isChatInputCommand) {
     if (!interaction.guild || interaction.user.bot) return;
@@ -13,7 +23,7 @@ module.exports = async(client, interaction) => {
 
     if(guildModel) LANGUAGE = guildModel;
     else if(!guildModel) {
-      await client.db.set(`language.guild_${interaction.guild.id}`, client.config.get.bot.LANGUAGE)
+      await client.db.set(`language.guild_${interaction.guild.id}`, client.config.bot.LANGUAGE)
       const newModel = await client.db.get(`language.guild_${interaction.guild.id}`)
       LANGUAGE = newModel
     }
@@ -40,7 +50,7 @@ module.exports = async(client, interaction) => {
     // Push Function
     async function AutoCompletePush(url, choice) {
       const Random = client.config.DEFAULT[Math.floor(Math.random() * client.config.DEFAULT.length)]
-      const match = client.config.REGEX.some((match) => { return match.test(url) == true });
+      const match = REGEX.some((match) => { return match.test(url) == true });
       if (match == true) {
         choice.push({ name: url, value: url })
         await interaction.respond(choice).catch(() => { });

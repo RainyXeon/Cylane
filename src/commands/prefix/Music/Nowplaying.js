@@ -8,7 +8,7 @@ module.exports = {
     category: "Music",
     run: async (client, message, args, language, prefix) => {
         
-        const realtime = client.config.NP_REALTIME;
+        const realtime = client.config.lavalink.NP_REALTIME;
         const msg = await message.channel.send(`${client.i18n.get(language, "music", "np_loading")}`);
         const player = client.manager.players.get(message.guild.id);
         if (!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
