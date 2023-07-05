@@ -60,13 +60,13 @@ Copy or Rename `application.example.yml` to `application.yml` and fill out the v
 ```yaml
 # Cylane config file via .yaml
 # Version 3.0
-# You can use {{}} to pass an enviroment varible from .env file
+# You can use ${} to pass an enviroment varible from .env file
 # Eg:
-# something: {{DATA}}
+# something: ${DATA}
 
 bot:
   TOKEN: Your token
-  EMBED_COLOR: "Your color. Example: #ffffff"
+  EMBED_COLOR: "#2b2d31"
   OWNER_ID: "Your id"
   LANGUAGE: en # You can set it to vi, en, th,...
   LIMIT_TRACK: 50 # The number of tracks you want to limit
@@ -149,7 +149,7 @@ features:
   DEV_ID: []
 ```
 
-If you want to use environment variables from `.env` file, you can use the `{{}}` in `application.yml` file.
+If you want to use environment variables from `.env` file, you can use the `${}` in `application.yml` file.
 
 Examples:
 
@@ -158,10 +158,10 @@ NODE_AUTH=foo
 ```
 
 ```yaml
-bar: {{NODE_AUTH}}
+bar: ${NODE_AUTH}
 ```
 
-### Output: { key: foo }
+### Output: { bar: foo }
 
 -------------------------------------------------------------
 

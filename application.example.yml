@@ -1,12 +1,12 @@
 # Cylane config file via .yaml
 # Version 3.0
-# You can use {{}} to pass an enviroment varible from .env file
+# You can use ${} to pass an enviroment varible from .env file
 # Eg:
-# something: {{DATA}}
+# something: ${DATA}
 
 bot:
   TOKEN: Your token
-  EMBED_COLOR: "Your color. Example: #ffffff"
+  EMBED_COLOR: "#2b2d31"
   OWNER_ID: "Your id"
   LANGUAGE: en # You can set it to vi, en, th,...
   LIMIT_TRACK: 50 # The number of tracks you want to limit

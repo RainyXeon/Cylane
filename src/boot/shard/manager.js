@@ -42,14 +42,14 @@ class Manager extends Client {
 
     this.owner = this.config.bot.OWNER_ID;
     this.dev = this.config.bot.DEV_ID;
-    this.color = this.config.bot.EMBED_COLOR;
+    this.color = this.config.bot.EMBED_COLOR || "#2b2d31";
     if(!this.token) this.token = this.config.bot.TOKEN;
     this.i18n = new I18n({
         defaultLocale: this.config.bot.LANGUAGE || "en",
         directory: resolve("./src/languages"),
     });
     this.logger = logger
-    this.prefix = this.config.features.MESSAGE_CONTENT.prefix
+    this.prefix = this.config.features.MESSAGE_CONTENT.prefix || "d!"
     this.shard_status = true
 
     // Auto fix lavalink varibles
