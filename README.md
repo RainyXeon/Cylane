@@ -66,7 +66,7 @@ Copy or Rename `application.example.yml` to `application.yml` and fill out the v
 
 bot:
   TOKEN: Your token
-  EMBED_COLOR: "Your color. Example: #ffffff"
+  EMBED_COLOR: "#2b2d31"
   OWNER_ID: "Your id"
   LANGUAGE: en # You can set it to vi, en, th,...
   LIMIT_TRACK: 50 # The number of tracks you want to limit
