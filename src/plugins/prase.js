@@ -33,7 +33,10 @@ module.exports = contents => {
     matches = re.exec(result);
 
     if (matches) {
-      if (boolean.includes(process.env[matches[1]].trim().toLowerCase())) {
+      if (
+        process.env[matches[1]] 
+        && boolean.includes(process.env[matches[1]].trim().toLowerCase())
+      ) {
         const boolean_prase_res = parseBoolean(process.env[matches[1]])
         return result = _.replace(result, matches[0], boolean_prase_res);
       }
