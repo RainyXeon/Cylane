@@ -8,7 +8,6 @@ module.exports = {
     aliases: [],
     run: async (client, message, args, language, prefix) => {
         
-        console.log(client.cluster)
           const ping = new EmbedBuilder()
               .setTitle(`${client.i18n.get(language, "info", "ping_title")}` + client.user.username)
               .setDescription(`${client.i18n.get(language, "info", "ping_desc", { ping: client.ws.ping })}`)

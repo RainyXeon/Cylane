@@ -49,7 +49,7 @@ module.exports = async(client, interaction) => {
 
     // Push Function
     async function AutoCompletePush(url, choice) {
-      const Random = client.config.DEFAULT[Math.floor(Math.random() * client.config.DEFAULT.length)]
+      const Random = client.config.lavalink.DEFAULT[Math.floor(Math.random() * client.config.lavalink.DEFAULT.length)]
       const match = REGEX.some((match) => { return match.test(url) == true });
       if (match == true) {
         choice.push({ name: url, value: url })
@@ -113,7 +113,7 @@ module.exports = async(client, interaction) => {
         }
       }
     } catch (err) {
-        console.log(err)
+        logger.error(err)
         return interaction.reply({ content: `${client.i18n.get(language, "nopremium", "premium_error")}` })
     }
     if(!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.SendMessages)) return interaction.user.dmChannel.send(`${client.i18n.get(language, "interaction", "no_perms")}`);

@@ -3,7 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = async (client, player, track, payload) => {
   const guild = await client.guilds.cache.get(player.guildId)
 
-  console.error(payload.error);
+  client.logger.error(payload.error);
 
   const channel = client.channels.cache.get(player.textChannel);
   if (!channel) return;

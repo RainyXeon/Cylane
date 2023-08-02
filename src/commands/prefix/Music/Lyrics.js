@@ -29,7 +29,7 @@ module.exports = {
                 lyrics = await lyricsfinder(song, "");
                 if (!lyrics) return msg.edit(`${client.i18n.get(language, "music", "lyrics_notfound")}`);
             } catch (err) {
-                console.log(err);
+                logger.log({ level: "error", message: err });
                 return msg.edit(`${client.i18n.get(language, "music", "lyrics_notfound")}`);
             }
             let lyricsEmbed = new EmbedBuilder()

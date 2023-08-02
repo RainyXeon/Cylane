@@ -54,7 +54,7 @@ module.exports = async (client, oldState, newState) => {
 				try {
 		      if (leaveEmbed) leaveEmbed.send({ embeds: [TimeoutEmbed] });
 		    } catch (error) {
-		      console.log(error);
+		      client.logger.error(error);
 		    }
 			}
 		}

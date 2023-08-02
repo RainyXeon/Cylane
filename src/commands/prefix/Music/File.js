@@ -15,8 +15,6 @@ module.exports = {
 
         const file = await message.attachments
 
-        console.log(file)
-
         const msg = await message.channel.send(`${client.i18n.get(language, "music", "play_loading", {
             result: file.name
         })}`);
