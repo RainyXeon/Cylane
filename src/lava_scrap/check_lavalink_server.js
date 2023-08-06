@@ -43,7 +43,6 @@ module.exports = async (client) => {
         name: `${config.host}:${config.port}`,
         online: true
       }) 
-      client.logger.online(`Server: ${url}`)
     }).catch(err => {
       client.lavalink_list.push({
         host: config.host,
@@ -53,7 +52,6 @@ module.exports = async (client) => {
         name: `${config.host}:${config.port}`,
         online: false
       }) 
-      client.logger.offline(`Server: ${url}`)
     });
 
   }
