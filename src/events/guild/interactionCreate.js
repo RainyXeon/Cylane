@@ -54,16 +54,17 @@ module.exports = async(client, interaction) => {
       if (match == true) {
         choice.push({ name: url, value: url })
         await interaction.respond(choice).catch(() => { });
-      } else if (match == false) {
+      } else {
+        if (client.lavalink_using.length == 0) {
+          choice.push({ name: `${client.i18n.get(language, "music", "no_node")}`, value: `${client.i18n.get(language, "music", "no_node")}` })
+          return
+        }
         await client.manager.search(url || Random).then(result => {
           for (let i = 0; i < 10; i++) {
             const x = result.tracks[i];
             choice.push({ name: x.title, value: x.uri }) 
           }
         })
-        await interaction.respond(choice).catch(() => { });
-      } else {
-        choice.push({ name: url, value: url })
         await interaction.respond(choice).catch(() => { });
       }
     }
