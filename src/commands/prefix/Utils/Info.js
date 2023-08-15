@@ -62,7 +62,7 @@ run: async (client, message, args, language, prefix) => {
 
         if (!interval_info) {
             const interval_online = setInterval(async () => {
-                const SetupChannel = await Status.find({ enable: true });
+                const SetupChannel = await client.db.get(`setup.guild_${message.guild.id}`)
                 if (!SetupChannel) return
 
                 const fetched_info = new EmbedBuilder()
