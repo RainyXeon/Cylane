@@ -45,7 +45,7 @@ module.exports = {
             await client.db.set(`premium.guild_${new_data.id}`, new_data)
             await message.channel.send({ embeds: [embed] });
             await client.db.delete(`code.pmc_${input.toUpperCase()}`)
-            return client.premiums.set(message.user.id, new_data)
+            return client.premiums.set(message.author.id, new_data)
         } else {
             const embed = new EmbedBuilder()
                 .setColor(client.color)
