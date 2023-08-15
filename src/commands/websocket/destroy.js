@@ -1,11 +1,14 @@
 module.exports = {
   name: "destroy",
   run: async (client, json, ws) => {
-    const player = client.manager.players.get(json.guild)
-    if (!player) return ws.send(JSON.stringify({ error: "0x100", message: "No player on this guild" }))
-    
-    player.destroy()
+    const player = client.manager.players.get(json.guild);
+    if (!player)
+      return ws.send(
+        JSON.stringify({ error: "0x100", message: "No player on this guild" }),
+      );
 
-    ws.send(JSON.stringify({ guild: player.guildId, op: "player_destroy" }))
-  }
-}
+    player.destroy();
+
+    ws.send(JSON.stringify({ guild: player.guildId, op: "player_destroy" }));
+  },
+};

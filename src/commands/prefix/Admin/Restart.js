@@ -1,5 +1,5 @@
-const { EmbedBuilder } = require('discord.js');
-module.exports = { 
+const { EmbedBuilder } = require("discord.js");
+module.exports = {
   name: "restart",
   description: "Shuts down the client!",
   category: "Admin",
@@ -10,13 +10,17 @@ module.exports = {
 
   run: async (client, message, args, language, prefix) => {
     const restart = new EmbedBuilder()
-      .setDescription(`${client.i18n.get(language, "utilities", "restart_msg")}`)
+      .setDescription(
+        `${client.i18n.get(language, "utilities", "restart_msg")}`,
+      )
       .setColor(client.color)
-      .setFooter({ text: `© ${message.guild.members.me.displayName}`, iconURL: client.user.displayAvatarURL({ dynamic: true })})
-        
-    await message.channel.send({ embeds: [restart] });
-                    
-    process.exit();
+      .setFooter({
+        text: `© ${message.guild.members.me.displayName}`,
+        iconURL: client.user.displayAvatarURL({ dynamic: true }),
+      });
 
-    }
+    await message.channel.send({ embeds: [restart] });
+
+    process.exit();
+  },
 };

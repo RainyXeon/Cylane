@@ -1,8 +1,14 @@
 module.exports = {
   name: "join",
   run: async (client, json, ws) => {
-    if (!json.user) return ws.send(JSON.stringify({ error: "0x115", message: "No user's id provided" }))
-    if (!json.guild) return ws.send(JSON.stringify({ error: "0x120", message: "No guild's id provided" }))
+    if (!json.user)
+      return ws.send(
+        JSON.stringify({ error: "0x115", message: "No user's id provided" }),
+      );
+    if (!json.guild)
+      return ws.send(
+        JSON.stringify({ error: "0x120", message: "No guild's id provided" }),
+      );
 
     const Guild = client.guilds.cache.get(json.guild);
     const Member = Guild.members.cache.get(json.user);
@@ -13,6 +19,6 @@ module.exports = {
       deaf: true,
     });
 
-    ws.send(JSON.stringify({ guild: json.guild, op: "player_create" }))
-  }
-}
+    ws.send(JSON.stringify({ guild: json.guild, op: "player_create" }));
+  },
+};

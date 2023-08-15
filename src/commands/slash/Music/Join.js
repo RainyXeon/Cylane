@@ -1,32 +1,36 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require("discord.js");
 
 // Main code
-module.exports = { 
-    name: ["join"],
-    description: "Make the bot join the voice channel.",
-    category: "Music",
-    lavalink: true,
-    run: async (interaction, client, language) => {
-        await interaction.deferReply({ ephemeral: false });
-        
-        const msg = await interaction.editReply(`${client.i18n.get(language, "music", "join_loading")}`);
-        const { channel } = interaction.member.voice;
-        if(!channel) return msg.edit(`${client.i18n.get(language, "music", "join_voice")}`);
+module.exports = {
+  name: ["join"],
+  description: "Make the bot join the voice channel.",
+  category: "Music",
+  lavalink: true,
+  run: async (interaction, client, language) => {
+    await interaction.deferReply({ ephemeral: false });
 
-        await client.manager.createPlayer({
-          guildId: interaction.guild.id,
-          voiceId: interaction.member.voice.channel.id,
-          textId: interaction.channel.id,
-          deaf: true,
-        });
+    const msg = await interaction.editReply(
+      `${client.i18n.get(language, "music", "join_loading")}`,
+    );
+    const { channel } = interaction.member.voice;
+    if (!channel)
+      return msg.edit(`${client.i18n.get(language, "music", "join_voice")}`);
 
-        const embed = new EmbedBuilder()
-            .setDescription(`${client.i18n.get(language, "music", "join_msg", {
-                channel: channel.name
-            })}`)
-            .setColor(client.color)
+    await client.manager.createPlayer({
+      guildId: interaction.guild.id,
+      voiceId: interaction.member.voice.channel.id,
+      textId: interaction.channel.id,
+      deaf: true,
+    });
 
-        msg.edit({ content: " ", embeds: [embed] })
-    
-    }
+    const embed = new EmbedBuilder()
+      .setDescription(
+        `${client.i18n.get(language, "music", "join_msg", {
+          channel: channel.name,
+        })}`,
+      )
+      .setColor(client.color);
+
+    msg.edit({ content: " ", embeds: [embed] });
+  },
 };

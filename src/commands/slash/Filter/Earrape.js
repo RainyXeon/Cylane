@@ -1,37 +1,46 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require("discord.js");
 const delay = require("delay");
 
 module.exports = {
-    name: ["filter", "earrape"],
-    description: "Destroy your ear!",
-    category: "Filter",
-    run: async (interaction, client, language) => {
-        await interaction.deferReply({ ephemeral: false });
-        
-        const msg = await interaction.editReply(`${client.i18n.get(language, "filters", "filter_loading", {
-            name: "earrape"
-            })}`);
+  name: ["filter", "earrape"],
+  description: "Destroy your ear!",
+  category: "Filter",
+  run: async (interaction, client, language) => {
+    await interaction.deferReply({ ephemeral: false });
 
-            const player = client.manager.players.get(interaction.guild.id);
-            if(!player) return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
-            const { channel } = interaction.member.voice;
-            if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
-    
-        await player.setVolume(500);
-        const data = {
-            op: 'filters',
-            guildId: interaction.guild.id,
-        }
-        await player.send(data);
+    const msg = await interaction.editReply(
+      `${client.i18n.get(language, "filters", "filter_loading", {
+        name: "earrape",
+      })}`,
+    );
 
-        const earrapped = new EmbedBuilder()
-            .setDescription(`${client.i18n.get(language, "filters", "filter_on", {
-                name: "earrape"
-            })}`)
-            .setColor(client.color);
+    const player = client.manager.players.get(interaction.guild.id);
+    if (!player)
+      return msg.edit(`${client.i18n.get(language, "noplayer", "no_player")}`);
+    const { channel } = interaction.member.voice;
+    if (
+      !channel ||
+      interaction.member.voice.channel !==
+        interaction.guild.members.me.voice.channel
+    )
+      return msg.edit(`${client.i18n.get(language, "noplayer", "no_voice")}`);
 
-        await delay(2000);
-        msg.edit({ content: " ", embeds: [earrapped] });
-        
-    }
-}
+    await player.setVolume(500);
+    const data = {
+      op: "filters",
+      guildId: interaction.guild.id,
+    };
+    await player.send(data);
+
+    const earrapped = new EmbedBuilder()
+      .setDescription(
+        `${client.i18n.get(language, "filters", "filter_on", {
+          name: "earrape",
+        })}`,
+      )
+      .setColor(client.color);
+
+    await delay(2000);
+    msg.edit({ content: " ", embeds: [earrapped] });
+  },
+};

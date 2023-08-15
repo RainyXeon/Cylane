@@ -1,3 +1,3 @@
 module.exports = async (client, ws) => {
-  client.logger.info("Closed connection to client")
-}
+  client.logger.info("Closed connection to client");
+};

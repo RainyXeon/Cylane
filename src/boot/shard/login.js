@@ -1,12 +1,12 @@
 const Manager = require("./manager.js");
 const client = new Manager();
 
-client.connect()
+client.connect();
 client.on("error", (err) => {
-    client.logger.log({
-      level: 'error',
-      message: err
-    })
+  client.logger.log({
+    level: "error",
+    message: err,
+  });
 });
 
 // client.manager.on("debug", (deb) => {

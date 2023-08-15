@@ -1,15 +1,15 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, } = require("discord.js");
-const formatduration = require('../../structures/FormatDuration.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
+const formatduration = require("../../structures/FormatDuration.js");
 const { QueueDuration } = require("../../structures/QueueDuration.js");
 
 module.exports = async (client, player, track) => {
-  const guild = await client.guilds.cache.get(player.guildId)
+  const guild = await client.guilds.cache.get(player.guildId);
   client.logger.info(`Player Started in @ ${guild.name} / ${player.guildId}`);
 
-  let Control = await client.db.get(`control.guild_${player.guildId}`)
+  let Control = await client.db.get(`control.guild_${player.guildId}`);
   if (!Control) {
-    await client.db.set(`control.guild_${player.guildId}`, "disable")
-    Control = client.db.get(`control.guild_${player.guildId}`)
+    await client.db.set(`control.guild_${player.guildId}`, "disable");
+    Control = client.db.get(`control.guild_${player.guildId}`);
   }
 
   if (!player) return;
@@ -23,36 +23,37 @@ module.exports = async (client, player, track) => {
   const channel = client.channels.cache.get(player.textId);
   if (!channel) return;
 
-  let data = await client.db.get(`setup.guild_${channel.guild.id}`)
+  let data = await client.db.get(`setup.guild_${channel.guild.id}`);
   if (player.textChannel === data.channel) return;
 
-  let guildModel = await client.db.get(`language.guild_${channel.guild.id}`)
+  let guildModel = await client.db.get(`language.guild_${channel.guild.id}`);
   if (!guildModel) {
-      guildModel = await client.db.set(`language.guild_${channel.guild.id}`, "en")
+    guildModel = await client.db.set(
+      `language.guild_${channel.guild.id}`,
+      "en",
+    );
   }
 
   const language = guildModel;
 
   const song = player.queue.current;
-  const position = player.shoukaku.position
+  const position = player.shoukaku.position;
 
-  const TotalDuration = QueueDuration(player)
+  const TotalDuration = QueueDuration(player);
 
   if (client.websocket && client.config.features.WEBSOCKET.enable) {
-    let webqueue = []
+    let webqueue = [];
 
-    player.queue.forEach(track => {
-      webqueue.push(
-        {
-          title: track.title,
-          uri: track.uri,
-          length: track.length,
-          thumbnail: track.thumbnail,
-          author: track.author,
-          requester: track.requester // Just case can push
-        }
-      )
-    })
+    player.queue.forEach((track) => {
+      webqueue.push({
+        title: track.title,
+        uri: track.uri,
+        length: track.length,
+        thumbnail: track.thumbnail,
+        author: track.author,
+        requester: track.requester, // Just case can push
+      });
+    });
 
     await webqueue.unshift({
       title: song.title,
@@ -60,12 +61,12 @@ module.exports = async (client, player, track) => {
       length: song.length,
       thumbnail: song.thumbnail,
       author: song.author,
-      requester: song.requester
-    })
+      requester: song.requester,
+    });
 
-    if (client.websocket && client.config.features.WEBSOCKET.enable) await client.websocket.send(
-      JSON.stringify(
-        {
+    if (client.websocket && client.config.features.WEBSOCKET.enable)
+      await client.websocket.send(
+        JSON.stringify({
           op: "player_start",
           guild: player.guildId,
           current: {
@@ -74,136 +75,162 @@ module.exports = async (client, player, track) => {
             length: song.length,
             thumbnail: song.thumbnail,
             author: song.author,
-            requester: song.requester
+            requester: song.requester,
           },
-        }
-      )
-    )
+        }),
+      );
 
     if (!client.sent_queue.get(player.guildId)) {
       client.websocket.send(
         JSON.stringify({
           op: "player_queue",
           guild: player.guildId,
-          queue: webqueue || []
-        })
-      )
-      client.sent_queue.set(player.guildId, true)
+          queue: webqueue || [],
+        }),
+      );
+      client.sent_queue.set(player.guildId, true);
     }
-
   }
 
-  if (Control === 'disable') return
+  if (Control === "disable") return;
 
   const embeded = new EmbedBuilder()
-    .setAuthor({ name: `${client.i18n.get(language, "player", "track_title")}`, iconURL: `${client.i18n.get(language, "player", "track_icon")}` })
+    .setAuthor({
+      name: `${client.i18n.get(language, "player", "track_title")}`,
+      iconURL: `${client.i18n.get(language, "player", "track_icon")}`,
+    })
     .setDescription(`**[${track.title}](${track.uri})**`)
     .setColor(client.color)
-    .setThumbnail(`https://img.youtube.com/vi/${track.identifier}/hqdefault.jpg`)
+    .setThumbnail(
+      `https://img.youtube.com/vi/${track.identifier}/hqdefault.jpg`,
+    )
     .addFields([
-      { name: `${client.i18n.get(language, "player", "author_title")}`, value: `${song.author}`, inline: true },
-      { name: `${client.i18n.get(language, "player", "request_title")}`, value: `${song.requester}`, inline: true },
-      { name: `${client.i18n.get(language, "player", "volume_title")}`, value: `${player.volume * 100}%`, inline: true },
-      { name: `${client.i18n.get(language, "player", "queue_title")}`, value: `${player.queue.length}`, inline: true },
-      { name: `${client.i18n.get(language, "player", "duration_title")}`, value: `${formatduration(song.length, true)}`, inline: true },
-      { name: `${client.i18n.get(language, "player", "total_duration_title")}`, value: `${formatduration(TotalDuration)}`, inline: true },
-      { name: `${client.i18n.get(language, "player", "download_title")}`, value: `**[${song.title} - y2mate.com](https://www.y2mate.com/youtube/${song.identifier})**`, inline: false },
+      {
+        name: `${client.i18n.get(language, "player", "author_title")}`,
+        value: `${song.author}`,
+        inline: true,
+      },
+      {
+        name: `${client.i18n.get(language, "player", "request_title")}`,
+        value: `${song.requester}`,
+        inline: true,
+      },
+      {
+        name: `${client.i18n.get(language, "player", "volume_title")}`,
+        value: `${player.volume * 100}%`,
+        inline: true,
+      },
+      {
+        name: `${client.i18n.get(language, "player", "queue_title")}`,
+        value: `${player.queue.length}`,
+        inline: true,
+      },
+      {
+        name: `${client.i18n.get(language, "player", "duration_title")}`,
+        value: `${formatduration(song.length, true)}`,
+        inline: true,
+      },
+      {
+        name: `${client.i18n.get(language, "player", "total_duration_title")}`,
+        value: `${formatduration(TotalDuration)}`,
+        inline: true,
+      },
+      {
+        name: `${client.i18n.get(language, "player", "download_title")}`,
+        value: `**[${song.title} - y2mate.com](https://www.y2mate.com/youtube/${song.identifier})**`,
+        inline: false,
+      },
       {
         name: `${client.i18n.get(language, "player", "current_duration_title", {
           current_duration: formatduration(song.length, true),
-        })}`, value: `\`\`\`🔴 | 🎶──────────────────────────────\`\`\``, inline: false
+        })}`,
+        value: `\`\`\`🔴 | 🎶──────────────────────────────\`\`\``,
+        inline: false,
       },
     ])
     .setTimestamp();
 
-  const row = new ActionRowBuilder()
-    .addComponents([
-      new ButtonBuilder()
-        .setCustomId("pause")
-        .setEmoji("⏯")
-        .setStyle("Success"),
+  const row = new ActionRowBuilder().addComponents([
+    new ButtonBuilder().setCustomId("pause").setEmoji("⏯").setStyle("Success"),
 
-      new ButtonBuilder()
-        .setCustomId("replay")
-        .setEmoji("⬅")
-        .setStyle("Primary"),
+    new ButtonBuilder()
+      .setCustomId("replay")
+      .setEmoji("⬅")
+      .setStyle("Primary"),
 
-      new ButtonBuilder()
-        .setCustomId("stop")
-        .setEmoji("✖")
-        .setStyle("Danger"),
+    new ButtonBuilder().setCustomId("stop").setEmoji("✖").setStyle("Danger"),
 
-      new ButtonBuilder()
-        .setCustomId("skip")
-        .setEmoji("➡")
-        .setStyle("Primary"),
+    new ButtonBuilder().setCustomId("skip").setEmoji("➡").setStyle("Primary"),
 
-      new ButtonBuilder()
-        .setCustomId("loop")
-        .setEmoji("🔄")
-        .setStyle("Success")
-    ])
+    new ButtonBuilder().setCustomId("loop").setEmoji("🔄").setStyle("Success"),
+  ]);
 
-  const row2 = new ActionRowBuilder()
-    .addComponents([
-      new ButtonBuilder()
-        .setCustomId("shuffle")
-        .setEmoji("🔀")
-        .setStyle("Success"),
+  const row2 = new ActionRowBuilder().addComponents([
+    new ButtonBuilder()
+      .setCustomId("shuffle")
+      .setEmoji("🔀")
+      .setStyle("Success"),
 
-      new ButtonBuilder()
-        .setCustomId("voldown")
-        .setEmoji("🔉")
-        .setStyle("Primary"),
+    new ButtonBuilder()
+      .setCustomId("voldown")
+      .setEmoji("🔉")
+      .setStyle("Primary"),
 
-      new ButtonBuilder()
-        .setCustomId("clear")
-        .setEmoji("🗑")
-        .setStyle("Danger"),
+    new ButtonBuilder().setCustomId("clear").setEmoji("🗑").setStyle("Danger"),
 
-      new ButtonBuilder()
-        .setCustomId("volup")
-        .setEmoji("🔊")
-        .setStyle("Primary"),
+    new ButtonBuilder().setCustomId("volup").setEmoji("🔊").setStyle("Primary"),
 
-      new ButtonBuilder()
-        .setCustomId("queue")
-        .setEmoji("📋")
-        .setStyle("Success")
-    ])
+    new ButtonBuilder().setCustomId("queue").setEmoji("📋").setStyle("Success"),
+  ]);
 
-  const nplaying = await client.channels.cache.get(player.textId).send({ embeds: [embeded], components: [row, row2] });
+  const nplaying = await client.channels.cache
+    .get(player.textId)
+    .send({ embeds: [embeded], components: [row, row2] });
 
   const filter = (message) => {
-    if (message.guild.members.me.voice.channel && message.guild.members.me.voice.channelId === message.member.voice.channelId) return true;
+    if (
+      message.guild.members.me.voice.channel &&
+      message.guild.members.me.voice.channelId ===
+        message.member.voice.channelId
+    )
+      return true;
     else {
-      message.reply({ content: `${client.i18n.get(language, "player", "join_voice")}`, ephemeral: true });
+      message.reply({
+        content: `${client.i18n.get(language, "player", "join_voice")}`,
+        ephemeral: true,
+      });
     }
   };
-  const collector = nplaying.createMessageComponentCollector({ filter, time: song.length });
+  const collector = nplaying.createMessageComponentCollector({
+    filter,
+    time: song.length,
+  });
 
-  collector.on('collect', async (message) => {
+  collector.on("collect", async (message) => {
     const id = message.customId;
     if (id === "pause") {
       if (!player) {
         collector.stop();
       }
       await player.pause(!player.paused);
-      const uni = player.paused ? `${client.i18n.get(language, "player", "switch_pause")}` : `${client.i18n.get(language, "player", "switch_resume")}`;
+      const uni = player.paused
+        ? `${client.i18n.get(language, "player", "switch_pause")}`
+        : `${client.i18n.get(language, "player", "switch_resume")}`;
 
-      if (client.websocket && client.config.features.WEBSOCKET.enable) await client.websocket.send(
-        JSON.stringify(
-          {
+      if (client.websocket && client.config.features.WEBSOCKET.enable)
+        await client.websocket.send(
+          JSON.stringify({
             op: player.paused ? 3 : 4,
-            guild: player.guildId
-          }
-        )
-      )
+            guild: player.guildId,
+          }),
+        );
 
       const embed = new EmbedBuilder()
-        .setDescription(`${client.i18n.get(language, "player", "pause_msg", {
-          pause: uni,
-        })}`)
+        .setDescription(
+          `${client.i18n.get(language, "player", "pause_msg", {
+            pause: uni,
+          })}`,
+        )
         .setColor(client.color);
 
       message.reply({ embeds: [embed], ephemeral: true });
@@ -213,14 +240,13 @@ module.exports = async (client, player, track) => {
       }
       await player.skip();
 
-      if (client.websocket && client.config.features.WEBSOCKET.enable)  await client.websocket.send(
-        JSON.stringify(
-          {
+      if (client.websocket && client.config.features.WEBSOCKET.enable)
+        await client.websocket.send(
+          JSON.stringify({
             op: "skip_track",
-            guild: player.guildId
-          }
-        )
-      )
+            guild: player.guildId,
+          }),
+        );
 
       const embed = new EmbedBuilder()
         .setDescription(`${client.i18n.get(language, "player", "skip_msg")}`)
@@ -233,14 +259,13 @@ module.exports = async (client, player, track) => {
         collector.stop();
       }
 
-      if (client.websocket && client.config.features.WEBSOCKET.enable) await client.websocket.send(
-        JSON.stringify(
-          {
+      if (client.websocket && client.config.features.WEBSOCKET.enable)
+        await client.websocket.send(
+          JSON.stringify({
             op: "player_destroy",
-            guild: player.guildId
-          }
-        )
-      )
+            guild: player.guildId,
+          }),
+        );
 
       await player.destroy();
 
@@ -268,22 +293,22 @@ module.exports = async (client, player, track) => {
       const loop_mode = {
         none: "none",
         track: "track",
-        queue: "queue"
-      }
+        queue: "queue",
+      };
 
       if (player.loop === "queue") {
-        await player.setLoop(loop_mode.none)
+        await player.setLoop(loop_mode.none);
 
         const unloopall = new EmbedBuilder()
           .setDescription(`${client.i18n.get(language, "music", "unloopall")}`)
           .setColor(client.color);
-        return await message.reply({ content: ' ', embeds: [unloopall] });
+        return await message.reply({ content: " ", embeds: [unloopall] });
       } else if (player.loop === "none") {
-        await player.setLoop(loop_mode.queue)
+        await player.setLoop(loop_mode.queue);
         const loopall = new EmbedBuilder()
           .setDescription(`${client.i18n.get(language, "music", "loopall")}`)
           .setColor(client.color);
-        return await message.reply({ content: ' ', embeds: [loopall] });
+        return await message.reply({ content: " ", embeds: [loopall] });
       }
     } else if (id === "volup") {
       if (!player) {
@@ -291,34 +316,38 @@ module.exports = async (client, player, track) => {
       }
 
       const embed = new EmbedBuilder()
-        .setDescription(`${client.i18n.get(language, "player", "volup_msg", {
-          volume: (player.volume * 100) + 10
-        })}`)
+        .setDescription(
+          `${client.i18n.get(language, "player", "volup_msg", {
+            volume: player.volume * 100 + 10,
+          })}`,
+        )
         .setColor(client.color);
 
-      if (player.volume * 100 == 100) return message.reply({ embeds: [embed], ephemeral: true });
+      if (player.volume * 100 == 100)
+        return message.reply({ embeds: [embed], ephemeral: true });
 
-      await player.setVolume((player.volume * 100) + 10);
+      await player.setVolume(player.volume * 100 + 10);
       message.reply({ embeds: [embed], ephemeral: true });
-    }
-    else if (id === "voldown") {
+    } else if (id === "voldown") {
       if (!player) {
         collector.stop();
       }
 
       const embed = new EmbedBuilder()
-        .setDescription(`${client.i18n.get(language, "player", "voldown_msg", {
-          volume: (player.volume * 100) - 10,
-        })}`)
+        .setDescription(
+          `${client.i18n.get(language, "player", "voldown_msg", {
+            volume: player.volume * 100 - 10,
+          })}`,
+        )
         .setColor(client.color);
 
-      if (player.volume * 100 == 0) return message.reply({ embeds: [embed], ephemeral: true });
+      if (player.volume * 100 == 0)
+        return message.reply({ embeds: [embed], ephemeral: true });
 
-      await player.setVolume((player.volume * 100) - 10);
+      await player.setVolume(player.volume * 100 - 10);
 
       message.reply({ embeds: [embed], ephemeral: true });
-    }
-    else if (id === "replay") {
+    } else if (id === "replay") {
       if (!player) {
         collector.stop();
       }
@@ -329,8 +358,7 @@ module.exports = async (client, player, track) => {
         .setColor(client.color);
 
       message.reply({ embeds: [embed], ephemeral: true });
-    }
-    else if (id === "queue") {
+    } else if (id === "queue") {
       if (!player) {
         collector.stop();
       }
@@ -345,43 +373,48 @@ module.exports = async (client, player, track) => {
       for (let i = 0; i < player.queue.length; i++) {
         const song = player.queue[i];
         songStrings.push(
-          `**${i + 1}.** [${song.title}](${song.uri}) \`[${formatduration(song.length)}]\`
-            `);
+          `**${i + 1}.** [${song.title}](${song.uri}) \`[${formatduration(
+            song.length,
+          )}]\`
+            `,
+        );
       }
 
       const pages = [];
       for (let i = 0; i < pagesNum; i++) {
-        const str = songStrings.slice(i * 10, i * 10 + 10).join('');
+        const str = songStrings.slice(i * 10, i * 10 + 10).join("");
 
         const embed = new EmbedBuilder()
           .setAuthor({
             name: `${client.i18n.get(language, "player", "queue_author", {
               guild: message.guild.name,
-            })}`, iconURL: message.guild.iconURL({ dynamic: true })
+            })}`,
+            iconURL: message.guild.iconURL({ dynamic: true }),
           })
           .setThumbnail(thumbnail)
           .setColor(client.color)
-          .setDescription(`${client.i18n.get(language, "player", "queue_description", {
-            track: song.title,
-            track_url: song.uri,
-            duration: formatduration(position),
-            requester: song.requester,
-            list_song: str == '' ? '  Nothing' : '\n' + str,
-          })}`)
+          .setDescription(
+            `${client.i18n.get(language, "player", "queue_description", {
+              track: song.title,
+              track_url: song.uri,
+              duration: formatduration(position),
+              requester: song.requester,
+              list_song: str == "" ? "  Nothing" : "\n" + str,
+            })}`,
+          )
           .setFooter({
             text: `${client.i18n.get(language, "player", "queue_footer", {
               page: i + 1,
               pages: pagesNum,
               queue_lang: player.queue.length,
               total_duration: qduration,
-            })}`
+            })}`,
           });
 
         pages.push(embed);
       }
       message.reply({ embeds: [pages[0]], ephemeral: true });
-    }
-    else if (id === "clear") {
+    } else if (id === "clear") {
       if (!player) {
         collector.stop();
       }
@@ -394,9 +427,9 @@ module.exports = async (client, player, track) => {
       message.reply({ embeds: [embed], ephemeral: true });
     }
   });
-  collector.on('end', async (collected, reason) => {
+  collector.on("end", async (collected, reason) => {
     if (reason === "time") {
-      nplaying.edit({ embeds: [embeded], components: [] })
+      nplaying.edit({ embeds: [embeded], components: [] });
     }
   });
-}
+};

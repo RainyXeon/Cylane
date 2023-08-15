@@ -1,34 +1,40 @@
 const { EmbedBuilder, Client } = require("discord.js");
 
- module.exports = async (client, player) => {
-	const guild = await client.guilds.cache.get(player.guildId)
-	client.logger.info(`Player Destroy in @ ${guild.name} / ${player.guildId}`);
-	if (client.websocket) client.websocket.send(JSON.stringify({ op: "player_destroy", guild: player.guildId }))
-	const channel = client.channels.cache.get(player.textId);
-	client.sent_queue.set(player.guildId, false)
-	let data = await client.db.get(`autoreconnect.guild_${player.guildId}`)
+module.exports = async (client, player) => {
+  const guild = await client.guilds.cache.get(player.guildId);
+  client.logger.info(`Player Destroy in @ ${guild.name} / ${player.guildId}`);
+  if (client.websocket)
+    client.websocket.send(
+      JSON.stringify({ op: "player_destroy", guild: player.guildId }),
+    );
+  const channel = client.channels.cache.get(player.textId);
+  client.sent_queue.set(player.guildId, false);
+  let data = await client.db.get(`autoreconnect.guild_${player.guildId}`);
 
-	if (!channel) return;
+  if (!channel) return;
 
-	if (player.state == 5 && data) {
-		await client.manager.createPlayer({
-			guildId: data.guild,
-			voiceId: data.voice,
-			textId: data.text,
-			deaf: true,
-		});
-	}
+  if (player.state == 5 && data) {
+    await client.manager.createPlayer({
+      guildId: data.guild,
+      voiceId: data.voice,
+      textId: data.text,
+      deaf: true,
+    });
+  }
 
-	let guildModel = await client.db.get(`language.guild_${channel.guild.id}`)
-	if (!guildModel) {
-			guildModel = await client.db.set(`language.guild_${channel.guild.id}`, "en")
-	}
+  let guildModel = await client.db.get(`language.guild_${channel.guild.id}`);
+  if (!guildModel) {
+    guildModel = await client.db.set(
+      `language.guild_${channel.guild.id}`,
+      "en",
+    );
+  }
 
-	const language = guildModel;
+  const language = guildModel;
 
-		/////////// Update Music Setup ///////////
+  /////////// Update Music Setup ///////////
 
-	await client.UpdateMusic(player);
+  await client.UpdateMusic(player);
 
-		/////////// Update Music Setup ///////////
-}
+  /////////// Update Music Setup ///////////
+};

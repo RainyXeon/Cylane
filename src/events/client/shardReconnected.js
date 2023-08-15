@@ -1,3 +1,3 @@
 module.exports = async (client, id) => {
-    client.logger.info(`Shard ${id} Reconnected!`);
-}
+  client.logger.info(`Shard ${id} Reconnected!`);
+};

@@ -1,45 +1,68 @@
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType } = require("discord.js");
 
 module.exports = {
-    name: "playlist-view",
-    description: "Public or private a playlist",
-    category: "Playlist",
-    usage: "<playlist_name>",
-    aliases: ["pl-view"],
+  name: "playlist-view",
+  description: "Public or private a playlist",
+  category: "Playlist",
+  usage: "<playlist_name>",
+  aliases: ["pl-view"],
 
-    run: async (client, message, args, language, prefix) => {
-        const value = args[0] ? args[0] : null;
-        const PName = value.replace(/_/g, ' ');
+  run: async (client, message, args, language, prefix) => {
+    const value = args[0] ? args[0] : null;
+    const PName = value.replace(/_/g, " ");
 
-        const fullList = await client.db.get("playlist")
+    const fullList = await client.db.get("playlist");
 
-        const pid = Object.keys(fullList).filter(function(key) {
-            return fullList[key].owner == message.author.id && fullList[key].name == PName;
-          })
+    const pid = Object.keys(fullList).filter(function (key) {
+      return (
+        fullList[key].owner == message.author.id && fullList[key].name == PName
+      );
+    });
 
-        const playlist = fullList[pid[0]]
+    const playlist = fullList[pid[0]];
 
-        if(!playlist) return message.channel.send(`${client.i18n.get(language, "playlist", "public_notfound")}`);
-        if(playlist.owner !== message.author.id) return message.channel.send(`${client.i18n.get(language, "playlist", "public_owner")}`);
+    if (!playlist)
+      return message.channel.send(
+        `${client.i18n.get(language, "playlist", "public_notfound")}`,
+      );
+    if (playlist.owner !== message.author.id)
+      return message.channel.send(
+        `${client.i18n.get(language, "playlist", "public_owner")}`,
+      );
 
-        const Public = Object.keys(fullList).filter(function(key) {
-            return fullList[key].private == false && fullList[key].name == PName;
-          // to cast back from an array of keys to the object, with just the passing ones
-          }).forEach(async key => { return fullList[key] })
-        if(Public) return message.channel.send(`${client.i18n.get(language, "playlist", "public_already")}`);
+    const Public = Object.keys(fullList)
+      .filter(function (key) {
+        return fullList[key].private == false && fullList[key].name == PName;
+        // to cast back from an array of keys to the object, with just the passing ones
+      })
+      .forEach(async (key) => {
+        return fullList[key];
+      });
+    if (Public)
+      return message.channel.send(
+        `${client.i18n.get(language, "playlist", "public_already")}`,
+      );
 
-        const msg = await message.channel.send(`${client.i18n.get(language, "playlist", "public_loading")}`);
+    const msg = await message.channel.send(
+      `${client.i18n.get(language, "playlist", "public_loading")}`,
+    );
 
-        client.db.set(`playlist.pid_${playlist.id}.private`, playlist.private == true ? false : true)
+    client.db.set(
+      `playlist.pid_${playlist.id}.private`,
+      playlist.private == true ? false : true,
+    );
 
-        const playlist_now = await client.db.get(`playlist.pid_${playlist.id}.private`)
+    const playlist_now = await client.db.get(
+      `playlist.pid_${playlist.id}.private`,
+    );
 
-        const embed = new EmbedBuilder()
-            .setDescription(`${client.i18n.get(language, "playlist", "public_success", {
-                view: playlist_now == true ? "Private" : "Public"
-            })}`)
-            .setColor(client.color)
-        msg.edit({ content: " ", embeds: [embed] });
-        
-    }
-}
+    const embed = new EmbedBuilder()
+      .setDescription(
+        `${client.i18n.get(language, "playlist", "public_success", {
+          view: playlist_now == true ? "Private" : "Public",
+        })}`,
+      )
+      .setColor(client.color);
+    msg.edit({ content: " ", embeds: [embed] });
+  },
+};

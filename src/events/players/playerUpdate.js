@@ -1,3 +1,3 @@
 module.exports = async (client, player) => {
-    // client.logger.info(`Player Has Been Updated`);
+  // client.logger.info(`Player Has Been Updated`);
 };

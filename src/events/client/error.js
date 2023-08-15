@@ -1,3 +1,3 @@
 module.exports = async (client) => {
-    client.logger.error(`Errored ${client.user.tag} (${client.user.id})`);
+  client.logger.error(`Errored ${client.user.tag} (${client.user.id})`);
 };
