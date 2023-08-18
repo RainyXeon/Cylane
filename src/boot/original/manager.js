@@ -66,7 +66,7 @@ class Manager extends Client {
       this.logger.log({ level: "error", message: error }),
     );
 
-    require(`../../connection/database`)(this);
+    require(`../../database/index`)(this);
 
     if (
       this.config.lavalink.NODES.length > 1 &&
@@ -127,6 +127,31 @@ class Manager extends Client {
       loadCollection.splice(loadCollection.indexOf("commands"), 1);
 
     loadCollection.forEach((x) => (this[x] = new Collection()));
+
+    const loadFile = [
+      "loadCheck",
+      "loadNodeEvents",
+      "loadPlayer",
+      "loadEvent",
+      "loadWebSocket",
+      "loadWsMessage",
+      "loadCommand",
+      "loadPrefixCommand",
+    ];
+
+    if (!this.config.features.WEBSOCKET.enable) {
+      loadFile.splice(loadFile.indexOf("loadWebSocket"), 1);
+      loadFile.splice(loadFile.indexOf("loadWsMessage"), 1);
+    }
+
+    if (!this.config.features.MESSAGE_CONTENT.enable)
+      loadFile.splice(loadFile.indexOf("loadPrefixCommand"), 1);
+
+    if (!this.config.features.AUTOFIX_LAVALINK) {
+      loadFile.splice(loadFile.indexOf("loadCheck"), 1);
+    }
+
+    loadFile.forEach((x) => require(`../../handlers/${x}`)(this));
   }
   connect() {
     return super.login(this.token);

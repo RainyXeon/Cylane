@@ -27,6 +27,10 @@ module.exports = async (client, interaction) => {
     interaction.isChatInputCommand
   ) {
     if (!interaction.guild || interaction.user.bot) return;
+    if (!client.is_db_connected)
+      return client.logger.warn(
+        "The database is not yet connected so this event will temporarily not execute. Please try again later!",
+      );
 
     let LANGUAGE = client.i18n;
     let guildModel = await client.db.get(

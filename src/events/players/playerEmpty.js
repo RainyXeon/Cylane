@@ -1,4 +1,8 @@
 module.exports = async (client, player, track, playload) => {
+  if (!client.is_db_connected)
+    return client.logger.warn(
+      "The database is not yet connected so this event will temporarily not execute. Please try again later!",
+    );
   const guild = await client.guilds.cache.get(player.guildId);
   let data = await client.db.get(`autoreconnect.guild_${player.guildId}`);
 

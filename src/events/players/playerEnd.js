@@ -1,6 +1,10 @@
 const { EmbedBuilder, Client } = require("discord.js");
 
 module.exports = async (client, player) => {
+  if (!client.is_db_connected)
+    return client.logger.warn(
+      "The database is not yet connected so this event will temporarily not execute. Please try again later!",
+    );
   const guild = await client.guilds.cache.get(player.guildId);
   client.logger.info(`Player End in @ ${guild.name} / ${player.guildId}`);
 

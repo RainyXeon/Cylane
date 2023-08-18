@@ -3,6 +3,10 @@ const { stripIndents } = require("common-tags");
 
 module.exports = async (client, message) => {
   if (message.author.bot || message.channel.type === "dm") return;
+  if (!client.is_db_connected)
+    return client.logger.warn(
+      "The database is not yet connected so this event will temporarily not execute. Please try again later!",
+    );
 
   let LANGUAGE = client.i18n;
   let guildModel = await client.db.get(`language.guild_${message.guild.id}`);

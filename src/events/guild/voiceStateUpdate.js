@@ -2,6 +2,10 @@ const delay = require("delay");
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
 
 module.exports = async (client, oldState, newState) => {
+  if (!client.is_db_connected)
+    return client.logger.warn(
+      "The database is not yet connected so this event will temporarily not execute. Please try again later!",
+    );
   let data = await client.db.get(`autoreconnect.guild_${newState.guild.id}`);
 
   if (oldState.channel === null && oldState.id !== client.user.id) {

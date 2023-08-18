@@ -71,7 +71,7 @@ class Manager extends Client {
       this.logger.log({ level: "error", message: error }),
     );
 
-    require(`../../connection/database`)(this);
+    require(`../../database/index`)(this);
 
     if (
       this.config.lavalink.NODES.length > 1 &&
@@ -132,6 +132,23 @@ class Manager extends Client {
     loadCollection.forEach((x) => (this[x] = new Collection()));
 
     this.cluster = new Cluster.Client(this);
+
+    const shardLoadFile = [
+      "loadCheck",
+      "loadCommand",
+      "loadPrefixCommand",
+      "loadEvent",
+      "loadNodeEvents",
+      "loadPlayer",
+    ];
+
+    if (!this.config.features.AUTOFIX_LAVALINK) {
+      shardLoadFile.splice(shardLoadFile.indexOf("loadCheck"), 1);
+    }
+    if (!this.config.features.MESSAGE_CONTENT.enable)
+      shardLoadFile.splice(shardLoadFile.indexOf("loadPrefixCommand"), 1);
+
+    shardLoadFile.forEach((x) => require(`../../handlers/${x}`)(this));
 
     const client = this;
   }

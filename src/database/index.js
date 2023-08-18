@@ -1,12 +1,14 @@
-const mongoose = require("mongoose");
-const database = require("../driver/index");
+const MongoDriver = require("./driver/MongoDriver");
+const JSONDriver = require("./driver/JSONDriver");
+const SQLDriver = require("./driver/SQLDriver");
 
 module.exports = async (client) => {
   try {
     const db_config = client.config.features.DATABASE;
 
     function load_file() {
-      require("./loader")(client);
+      client.is_db_connected = true;
+      require("./handler")(client);
     }
 
     if (
@@ -14,8 +16,8 @@ module.exports = async (client) => {
       !db_config.MYSQL.enable &&
       !db_config.MONGO_DB.enable
     ) {
-      await database.JSONDriver(client, db_config).then(async () => {
-        await load_file();
+      await JSONDriver(client, db_config).then(() => {
+        load_file();
       });
       return;
     }
@@ -25,8 +27,8 @@ module.exports = async (client) => {
       !db_config.JSON.enable &&
       !db_config.MYSQL.enable
     ) {
-      await database.MongoDriver(client, db_config).then(async () => {
-        await load_file();
+      await MongoDriver(client, db_config).then(() => {
+        load_file();
       });
       return;
     }
@@ -36,13 +38,13 @@ module.exports = async (client) => {
       !db_config.JSON.enable &&
       !db_config.MONGO_DB.enable
     ) {
-      await database.SQLDriver(client, db_config).then(async () => {
-        await load_file();
+      await SQLDriver(client, db_config).then(() => {
+        load_file();
       });
       return;
     } else {
-      await database.JSONDriver(client, db_config).then(async () => {
-        await load_file();
+      await JSONDriver(client, db_config).then(() => {
+        load_file();
       });
       return;
     }
