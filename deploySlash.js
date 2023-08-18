@@ -4,7 +4,7 @@ const chillout = require("chillout");
 const { makeSureFolderExists } = require("stuffs");
 const path = require("path");
 const readdirRecursive = require("recursive-readdir");
-const { TOKEN } = require("./src/plugins/config.js");
+const config = require("./src/plugins/config.js");
 const {
   ApplicationCommandOptionType,
   REST,
@@ -176,7 +176,7 @@ const {
 
   console.log(command.length);
 
-  const rest = new REST({ version: "9" }).setToken(TOKEN);
+  const rest = new REST({ version: "9" }).setToken(config.bot.TOKEN);
   const client = await rest.get(Routes.user());
   console.info(
     `Account information received! ${client.username}#${client.discriminator} (${client.id})`,
