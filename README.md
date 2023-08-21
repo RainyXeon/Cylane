@@ -1,3 +1,7 @@
+### 📢📢📢 Cylane is moving!!! ✨✨✨
+- To go to the main source, [click here!](https://github.com/RainyXeon/ByteBlaze)
+- For more info, [click here!](https://github.com/RainyXeon/ByteBlaze/releases/tag/1.0.0)
+
 ## 📑 Short Feature
 
 - [x] Music System
