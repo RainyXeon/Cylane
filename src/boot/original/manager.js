@@ -111,6 +111,13 @@ class Manager extends Client {
         : this.config.lavalink.SHOUKAKU_OPTIONS,
     );
 
+    if (this.config.features.AUTOFIX_LAVALINK) {
+      require("../../lava_scrap/check_lavalink_server")(this);
+      setInterval(async () => {
+        require("../../lava_scrap/check_lavalink_server")(this);
+      }, 1800000);
+    }
+
     const loadCollection = [
       "slash",
       "commands",
@@ -129,7 +136,6 @@ class Manager extends Client {
     loadCollection.forEach((x) => (this[x] = new Collection()));
 
     const loadFile = [
-      "loadCheck",
       "loadNodeEvents",
       "loadPlayer",
       "loadEvent",

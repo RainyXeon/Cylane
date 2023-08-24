@@ -116,6 +116,13 @@ class Manager extends Client {
         : this.config.lavalink.SHOUKAKU_OPTIONS,
     );
 
+    if (this.config.features.AUTOFIX_LAVALINK) {
+      require("../../lava_scrap/check_lavalink_server")(this);
+      setInterval(async () => {
+        require("../../lava_scrap/check_lavalink_server")(this);
+      }, 1800000);
+    }
+
     const loadCollection = [
       "slash",
       "commands",
@@ -134,7 +141,6 @@ class Manager extends Client {
     this.cluster = new Cluster.Client(this);
 
     const shardLoadFile = [
-      "loadCheck",
       "loadCommand",
       "loadPrefixCommand",
       "loadEvent",
