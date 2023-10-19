@@ -21,10 +21,11 @@ const REGEX = [
 
 module.exports = async (client, interaction) => {
   if (
-    interaction.isCommand ||
-    interaction.isContextMenuCommand ||
-    interaction.isModalSubmit ||
-    interaction.isChatInputCommand
+     interaction.isCommand() || 
+     interaction.isContextMenuCommand() || 
+     interaction.isModalSubmit() || 
+     interaction.isChatInputCommand() || 
+     interaction.isAutocomplete()
   ) {
     if (!interaction.guild || interaction.user.bot) return;
     if (!client.is_db_connected)
