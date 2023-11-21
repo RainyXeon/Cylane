@@ -9,18 +9,23 @@ process.on("uncaughtException", (error) =>
   logger.log({ level: "error", message: error }),
 );
 
+// Log Discord token for debugging
+logger.info(`Discord Token: ${config.bot.TOKEN}`);
+
 async function run() {
   const manager = new Cluster.Manager(`${__dirname}/login.js`, {
-    totalShards: config.features.SHARD_SYSTEM.totalShards, // you can set to every number you want but for save mode, use 'auto' option
-    totalClusters: config.features.SHARD_SYSTEM.totalClusters, // you can set to every number you want but for save mode, use 'auto' option
+    totalShards: config.features.SHARD_SYSTEM.totalShards,
+    totalClusters: config.features.SHARD_SYSTEM.totalClusters,
     shardsPerClusters: config.features.SHARD_SYSTEM.shardsPerClusters,
-    mode: config.features.SHARD_SYSTEM.mode, // you can also choose "worker"
-    token: config.TOKEN,
+    mode: config.features.SHARD_SYSTEM.mode,
+    token: config.bot.TOKEN, // Fix: Use config.bot.TOKEN
   });
 
-  await manager.on("clusterCreate", (cluster) =>
-    logger.info(`Launched Cluster ${cluster.id}`),
-  );
+  manager.on("clusterCreate", (cluster) => {
+    logger.info(`Launched Cluster ${cluster.id}`);
+  });
+
   await manager.spawn({ timeout: -1 });
 }
+
 run();
