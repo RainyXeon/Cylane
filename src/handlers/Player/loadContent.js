@@ -296,11 +296,11 @@ module.exports = async (client) => {
 
     if (!result.tracks.length)
       return msg.edit({
-        content: `${client.i18n.get(language, "setup", "setup_content")}\n${
-          Str == ""
-            ? `${client.i18n.get(language, "setup", "setup_content_empty")}`
-            : "\n" + Str
-        }`,
+        content: `${client.i18n.get(
+          language,
+          "setup",
+          "setup_content",
+        )}\n${`${client.i18n.get(language, "setup", "setup_content_empty")}`}`,
       });
     if (result.type === "PLAYLIST")
       for (let track of tracks) player.queue.add(track);

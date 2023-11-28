@@ -21,11 +21,11 @@ const REGEX = [
 
 module.exports = async (client, interaction) => {
   if (
-     interaction.isCommand() || 
-     interaction.isContextMenuCommand() || 
-     interaction.isModalSubmit() || 
-     interaction.isChatInputCommand() || 
-     interaction.isAutocomplete()
+    interaction.isCommand() ||
+    interaction.isContextMenuCommand() ||
+    interaction.isModalSubmit() ||
+    interaction.isChatInputCommand() ||
+    interaction.isAutocomplete()
   ) {
     if (!interaction.guild || interaction.user.bot) return;
     if (!client.is_db_connected)
@@ -177,7 +177,9 @@ module.exports = async (client, interaction) => {
       )
     )
       return interaction.user.dmChannel.send(
-        `${client.i18n.get(language, "interaction", "no_perms")}`,
+        `${client.i18n.get(language, "interaction", "no_perms", {
+          perm: "SendMessages",
+        })}`,
       );
     if (
       !interaction.guild.members.me.permissions.has(
@@ -190,8 +192,10 @@ module.exports = async (client, interaction) => {
         PermissionsBitField.Flags.EmbedLinks,
       )
     )
-      return interaction.reply(
-        `${client.i18n.get(language, "interaction", "no_perms")}`,
+      return interaction.user.dmChannel.send(
+        `${client.i18n.get(language, "interaction", "no_perms", {
+          perm: "EmbedLinks",
+        })}`,
       );
     if (!interaction.commandName == "help") {
       if (
@@ -199,32 +203,40 @@ module.exports = async (client, interaction) => {
           PermissionsBitField.Flags.Speak,
         )
       )
-        return interaction.reply(
-          `${client.i18n.get(language, "interaction", "no_perms")}`,
+        return interaction.user.dmChannel.send(
+          `${client.i18n.get(language, "interaction", "no_perms", {
+            perm: "Speak",
+          })}`,
         );
       if (
         !interaction.guild.members.me.permissions.has(
           PermissionsBitField.Flags.Connect,
         )
       )
-        return interaction.reply(
-          `${client.i18n.get(language, "interaction", "no_perms")}`,
+        return interaction.user.dmChannel.send(
+          `${client.i18n.get(language, "interaction", "no_perms", {
+            perm: "Connect",
+          })}`,
         );
       if (
         !interaction.guild.members.me.permissions.has(
           PermissionsBitField.Flags.ManageMessages,
         )
       )
-        return interaction.reply(
-          `${client.i18n.get(language, "interaction", "no_perms")}`,
+        return interaction.user.dmChannel.send(
+          `${client.i18n.get(language, "interaction", "no_perms", {
+            perm: "ManageMessages",
+          })}`,
         );
       if (
         !interaction.guild.members.me.permissions.has(
           PermissionsBitField.Flags.ManageChannels,
         )
       )
-        return await interaction.reply(
-          `${client.i18n.get(language, "interaction", "no_perms")}`,
+        return await interaction.user.dmChannel.send(
+          `${client.i18n.get(language, "interaction", "no_perms", {
+            perm: "ManageChannels",
+          })}`,
         );
     }
 
